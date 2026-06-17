@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Meridian · Book Your Journey</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0b0a;
+      color: #e8e0d8;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+      font-size: 15px;
+    }
+    h1, h2, h3, h4, .serif {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    /* ----- BUTTONS ----- */
+    .btn-gold {
+      background: #D4AF37;
+      color: #0d0b0a;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 60px;
+      border: 1px solid #D4AF37;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 16px -6px rgba(212, 175, 55, 0.15);
+      display: inline-block;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-gold:hover {
+      background: #c4a032;
+      border-color: #c4a032;
+      transform: scale(1.02);
+      box-shadow: 0 8px 24px -8px rgba(212, 175, 55, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      color: #D4AF37;
+      font-weight: 500;
+      padding: 8px 24px;
+      border-radius: 60px;
+      transition: all 0.25s ease;
+      display: inline-block;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: #D4AF37;
+      color: #0d0b0a;
+      border-color: #D4AF37;
+      transform: scale(1.02);
+    }
+
+    /* ----- STICKY NAV with hamburger ----- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 11, 10, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+      padding: 12px 0;
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #e8e0d8;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: #D4AF37; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: transparent;
+      border: none;
+    }
+    .hamburger span {
+      width: 26px;
+      height: 2px;
+      background: #e8e0d8;
+      transition: all 0.3s ease;
+      display: block;
+      border-radius: 2px;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(232, 224, 216, 0.7);
+      font-size: 0.82rem;
+      font-weight: 500;
+      transition: 0.2s;
+      border-bottom: 1.5px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      color: #D4AF37;
+      border-bottom-color: #D4AF37;
+    }
+    .nav-cta {
+      background: #D4AF37;
+      color: #0d0b0a !important;
+      padding: 6px 18px !important;
+      border-radius: 40px;
+      font-weight: 600 !important;
+      border-bottom: none !important;
+      font-size: 0.8rem !important;
+    }
+    .nav-cta:hover {
+      background: #c4a032;
+      color: #0d0b0a !important;
+      border-bottom: none !important;
+    }
+
+    /* ----- FLOATING WHATSAPP ----- */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background: #25D366;
+      color: #0d0b0a;
+      width: 52px;
+      height: 52px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2);
+      transition: 0.25s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 32px rgba(37, 211, 102, 0.3);
+    }
+
+    /* ----- PAGE HERO ----- */
+    .page-hero {
+      padding: 60px 0 40px;
+      background: linear-gradient(145deg, #0d0b0a 0%, #1a1614 100%);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+    }
+    .page-hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .page-hero p {
+      font-size: 1rem;
+      opacity: 0.6;
+      max-width: 480px;
+    }
+
+    /* ----- FORM (refined) ----- */
+    .form-luxury input,
+    .form-luxury select,
+    .form-luxury textarea {
+      width: 100%;
+      padding: 10px 16px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 12px;
+      background: rgba(26, 22, 20, 0.6);
+      color: #e8e0d8;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      transition: 0.25s;
+      margin-bottom: 14px;
+    }
+    .form-luxury input:focus,
+    .form-luxury select:focus,
+    .form-luxury textarea:focus {
+      border-color: #D4AF37;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.06);
+      background: rgba(26, 22, 20, 0.8);
+    }
+    .form-luxury textarea {
+      border-radius: 12px;
+      min-height: 80px;
+      resize: vertical;
+    }
+    .form-luxury select {
+      appearance: none;
+      cursor: pointer;
+    }
+    .form-luxury select option {
+      background: #1a1614;
+      color: #e8e0d8;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* ----- BOOKING SUMMARY CARD ----- */
+    .summary-card {
+      background: rgba(26, 22, 20, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 20px;
+      padding: 28px 26px;
+      position: sticky;
+      top: 100px;
+    }
+    .summary-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 16px;
+      color: #e8e0d8;
+    }
+    .summary-card .summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
+    }
+    .summary-card .summary-item:last-child {
+      border-bottom: none;
+    }
+    .summary-card .summary-item i {
+      color: #D4AF37;
+      width: 20px;
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+    .summary-card .summary-item .label {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .summary-card .summary-item .value {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .summary-card .summary-item .value.placeholder {
+      opacity: 0.3;
+      font-weight: 400;
+    }
+
+    /* ----- TRUST BADGES ----- */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(212, 175, 55, 0.06);
+    }
+    .trust-badge {
+      text-align: center;
+      padding: 12px;
+      background: rgba(26, 22, 20, 0.4);
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.04);
+      transition: 0.3s;
+    }
+    .trust-badge:hover {
+      border-color: rgba(212, 175, 55, 0.15);
+    }
+    .trust-badge i {
+      font-size: 1.4rem;
+      color: #D4AF37;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .trust-badge span {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      font-weight: 500;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ----- SECTION TITLES ----- */
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .gold-accent { color: #D4AF37; }
+    .py-5 { padding: 60px 0; }
+    .text-center { text-align: center; }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      background: #0d0b0a;
+      border-top: 1px solid rgba(212, 175, 55, 0.06);
+      color: rgba(232, 224, 216, 0.6);
+      padding: 40px 0 20px;
+      margin-top: 40px;
+    }
+    .footer a {
+      color: rgba(232, 224, 216, 0.5);
+      transition: 0.2s;
+      font-size: 0.85rem;
+    }
+    .footer a:hover { color: #D4AF37; }
+    .footer .social a {
+      font-size: 1.1rem;
+      margin-right: 14px;
+    }
+    .footer h4 {
+      font-size: 1rem;
+      color: #e8e0d8;
+      margin-bottom: 8px;
+    }
+    .footer p {
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+    .grid-3-footer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 28px;
+    }
+    hr {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,175,55,0.12), transparent);
+      margin: 24px 0;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px 0 8px;
+        border-top: 1px solid rgba(212, 175, 55, 0.08);
+        margin-top: 12px;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+        padding: 4px 0;
+      }
+      .page-hero h1 { font-size: 2.2rem; }
+      .section-title { font-size: 1.8rem; }
+      .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .summary-card {
+        position: static;
+      }
+      .trust-badges {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      .page-hero h1 { font-size: 1.8rem; }
+      .trust-badges {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-logo">Royal<span>Meridian</span></div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a href="#" class="whatsapp-float" aria-label="WhatsApp booking"><i class="fab fa-whatsapp"></i></a>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+  <div class="container">
+    <h1 data-aos="fade-up">Book <span class="gold-accent">Your Journey</span></h1>
+    <p data-aos="fade-up" data-aos-delay="100">Secure your luxury transport experience with Royal Meridian.</p>
+  </div>
+</section>
+
+<!-- ===== BOOKING SECTION ===== -->
+<section class="py-5" style="background:#0d0b0a;">
+  <div class="container">
+
+    <div class="grid-2" data-aos="fade-up" data-aos-delay="100">
+
+      <!-- Booking Form -->
+      <div>
+        <h3 style="font-size:1.3rem; margin-bottom:16px;">Your <span class="gold-accent">Details</span></h3>
+        <form class="form-luxury" id="bookingForm">
+          <input type="text" placeholder="Full Name" id="fullName" required />
+          <input type="tel" placeholder="Contact Number" id="contactNumber" required />
+          <input type="email" placeholder="Email" id="email" required />
+          <input type="text" placeholder="Pickup Location" id="pickupLocation" />
+          <input type="text" placeholder="Destination" id="destination" />
+          <div class="form-row">
+            <input type="date" id="bookingDate" />
+            <input type="time" id="bookingTime" />
+          </div>
+          <select id="vehicleSelect">
+            <option value="">Select Vehicle</option>
+            <option value="Mercedes V-Class">Mercedes V-Class (7 seats)</option>
+            <option value="Mercedes E-Class">Mercedes E-Class (4 seats)</option>
+            <option value="BMW 5 Series">BMW 5 Series (4 seats)</option>
+            <option value="Toyota Prado">Toyota Prado (5 seats)</option>
+            <option value="Range Rover Sport">Range Rover Sport (5 seats)</option>
+            <option value="Mercedes S-Class">Mercedes S-Class (4 seats)</option>
+            <option value="BMW X5">BMW X5 (5 seats)</option>
+            <option value="Mercedes GLE">Mercedes GLE (5 seats)</option>
+          </select>
+          <input type="number" placeholder="Passenger Count" id="passengerCount" min="1" />
+          <textarea placeholder="Special Requests (dietary, accessibility, etc.)" id="specialRequests"></textarea>
+          <button type="submit" class="btn-gold"><i class="fas fa-calendar-check"></i> Submit Booking Request</button>
+        </form>
+      </div>
+
+      <!-- Booking Summary -->
+      <div>
+        <div class="summary-card" id="summaryCard">
+          <h3>Booking <span class="gold-accent">Summary</span></h3>
+
+          <div class="summary-item">
+            <i class="fas fa-user"></i>
+            <div>
+              <div class="label">Passenger</div>
+              <div class="value placeholder" id="summaryName">Not provided</div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <i class="fas fa-car"></i>
+            <div>
+              <div class="label">Vehicle</div>
+              <div class="value placeholder" id="summaryVehicle">Select a vehicle</div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <i class="fas fa-map-pin"></i>
+            <div>
+              <div class="label">Pickup</div>
+              <div class="value placeholder" id="summaryPickup">Not set</div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <i class="fas fa-flag-checkered"></i>
+            <div>
+              <div class="label">Destination</div>
+              <div class="value placeholder" id="summaryDestination">Not set</div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <i class="fas fa-calendar-day"></i>
+            <div>
+              <div class="label">Date &amp; Time</div>
+              <div class="value placeholder" id="summaryDateTime">Not set</div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <i class="fas fa-users"></i>
+            <div>
+              <div class="label">Passengers</div>
+              <div class="value placeholder" id="summaryPassengers">0</div>
+            </div>
+          </div>
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <i class="fas fa-car"></i>
+              <span>Luxury Fleet</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-user-tie"></i>
+              <span>Professional Chauffeurs</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-clock"></i>
+              <span>Reliable Service</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-shield-alt"></i>
+              <span>Safety First</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="py-5" style="background: #1a1614; border-top:1px solid rgba(212,175,55,0.05); border-bottom:1px solid rgba(212,175,55,0.05);">
+  <div class="container text-center" data-aos="zoom-in">
+    <h2 style="font-size:2.4rem; font-family:'Playfair Display',serif;">Experience <span class="gold-accent">Luxury</span> Travel</h2>
+    <p style="opacity:0.6; max-width:450px; margin:12px auto; font-size:0.95rem;">Join our distinguished clientele and elevate every journey.</p>
+    <a href="contact.html" class="btn-gold" style="width:auto; padding:10px 32px; display:inline-block;"><i class="fas fa-paper-plane"></i> Get a Quote</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="grid-3-footer" style="align-items:start;">
+      <div>
+        <h3 style="color:#e8e0d8; font-family:'Playfair Display',serif; font-size:1.2rem;">Royal Meridian Shuttles</h3>
+        <p style="font-style:italic; opacity:0.5; font-size:0.85rem;">Every Journey. Elevated.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a><br/>
+        <a href="fleet.html">Fleet</a><br/>
+        <a href="services.html">Services</a><br/>
+        <a href="contact.html">Contact</a><br/>
+        <a href="book.html">Book Now</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><i class="fas fa-phone" style="width:20px;"></i> +27 12 345 6789</p>
+        <p><i class="fab fa-whatsapp" style="width:20px;"></i> +27 82 123 4567</p>
+        <p><i class="fas fa-envelope" style="width:20px;"></i> concierge@royalmeridian.co.za</p>
+        <p><i class="fas fa-map-pin" style="width:20px;"></i> Pretoria, South Africa</p>
+        <div class="social" style="margin-top:10px;">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <p style="text-align:center;font-size:0.75rem;opacity:0.4;">&copy; Royal Meridian Group. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS
+  AOS.init({
+    once: false,
+    offset: 30,
+    duration: 600,
+    easing: 'ease-out-cubic'
+  });
+
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', function() {
+    this.classList.toggle('active');
+    navLinks.classList.toggle('open');
+  });
+
+  // Close menu when a link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // Real-time booking summary update
+  const form = document.getElementById('bookingForm');
+  const summaryName = document.getElementById('summaryName');
+  const summaryVehicle = document.getElementById('summaryVehicle');
+  const summaryPickup = document.getElementById('summaryPickup');
+  const summaryDestination = document.getElementById('summaryDestination');
+  const summaryDateTime = document.getElementById('summaryDateTime');
+  const summaryPassengers = document.getElementById('summaryPassengers');
+
+  function updateSummary() {
+    const name = document.getElementById('fullName').value || 'Not provided';
+    const vehicle = document.getElementById('vehicleSelect').value || 'Select a vehicle';
+    const pickup = document.getElementById('pickupLocation').value || 'Not set';
+    const destination = document.getElementById('destination').value || 'Not set';
+    const date = document.getElementById('bookingDate').value;
+    const time = document.getElementById('bookingTime').value;
+    const passengers = document.getElementById('passengerCount').value || '0';
+
+    summaryName.textContent = name;
+    summaryName.className = 'value';
+
+    summaryVehicle.textContent = vehicle;
+    summaryVehicle.className = 'value';
+
+    summaryPickup.textContent = pickup || 'Not set';
+    summaryPickup.className = 'value';
+
+    summaryDestination.textContent = destination || 'Not set';
+    summaryDestination.className = 'value';
+
+    if (date && time) {
+      const dateObj = new Date(date + 'T' + time);
+      summaryDateTime.textContent = dateObj.toLocaleString('en-ZA', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      summaryDateTime.className = 'value';
+    } else if (date) {
+      const dateObj = new Date(date);
+      summaryDateTime.textContent = dateObj.toLocaleDateString('en-ZA', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }) + ' (time not set)';
+      summaryDateTime.className = 'value';
+    } else {
+      summaryDateTime.textContent = 'Not set';
+      summaryDateTime.className = 'value placeholder';
+    }
+
+    summaryPassengers.textContent = passengers + ' passenger' + (passengers > 1 ? 's' : '');
+    summaryPassengers.className = 'value';
+  }
+
+  form.addEventListener('input', updateSummary);
+  form.addEventListener('change', updateSummary);
+
+  // Form submission
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Validate required fields
+    const name = document.getElementById('fullName').value.trim();
+    const phone = document.getElementById('contactNumber').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!name || !phone || !email) {
+      alert('Please fill in your name, phone number, and email to complete your booking.');
+      return;
+    }
+
+    alert('Thank you! Your booking request has been submitted. A Royal Meridian concierge will confirm your journey shortly.');
+    form.reset();
+
+    // Reset summary
+    setTimeout(updateSummary, 100);
+  });
+
+  // Initial summary state
+  updateSummary();
+
+  console.log('Royal Meridian Shuttles · Book Your Journey');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Meridian · Every Journey. Elevated.</title>
+  <!-- Google Fonts: refined serif + sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0b0a;
+      color: #e8e0d8;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3, h4, .serif {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    /* ----- GLASS & CARDS (deep luxury) ----- */
+    .glass-card {
+      background: rgba(20, 17, 15, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 175, 55, 0.12);
+      border-radius: 32px;
+      box-shadow: 0 24px 48px -16px rgba(0,0,0,0.6);
+      transition: all 0.35s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 32px 64px -20px rgba(212, 175, 55, 0.12);
+    }
+
+    /* ----- BUTTONS ----- */
+    .btn-gold {
+      background: #D4AF37;
+      color: #0d0b0a;
+      font-weight: 600;
+      padding: 14px 36px;
+      border-radius: 60px;
+      border: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px -6px rgba(212, 175, 55, 0.2);
+      display: inline-block;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+    .btn-gold:hover {
+      background: #c4a032;
+      transform: scale(1.02);
+      box-shadow: 0 14px 32px -8px rgba(212, 175, 55, 0.35);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #D4AF37;
+      color: #D4AF37;
+      font-weight: 500;
+      padding: 12px 32px;
+      border-radius: 60px;
+      transition: all 0.25s ease;
+      display: inline-block;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .btn-outline:hover {
+      background: #D4AF37;
+      color: #0d0b0a;
+      transform: scale(1.02);
+    }
+    .btn-charcoal {
+      background: #2a2521;
+      color: #e8e0d8;
+      font-weight: 500;
+      padding: 14px 36px;
+      border-radius: 60px;
+      border: none;
+      transition: all 0.25s ease;
+      display: inline-block;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .btn-charcoal:hover {
+      background: #3d3834;
+      transform: scale(1.02);
+    }
+
+    /* ----- STICKY NAV ----- */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 11, 10, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+      padding: 14px 0;
+    }
+    .navbar .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #e8e0d8;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: #D4AF37; }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: rgba(232, 224, 216, 0.7);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: 0.2s;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 4px;
+    }
+    .nav-links a:hover {
+      color: #D4AF37;
+      border-bottom-color: #D4AF37;
+    }
+    .nav-cta {
+      background: #D4AF37;
+      color: #0d0b0a !important;
+      padding: 8px 22px !important;
+      border-radius: 40px;
+      font-weight: 600 !important;
+      border-bottom: none !important;
+    }
+    .nav-cta:hover {
+      background: #c4a032;
+      color: #0d0b0a !important;
+    }
+
+    /* ----- FLOATING WHATSAPP ----- */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 1000;
+      background: #25D366;
+      color: #0d0b0a;
+      width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.25);
+      transition: 0.25s;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 18px 40px rgba(37, 211, 102, 0.35);
+    }
+
+    /* ----- HERO (dark elegance) ----- */
+    .hero {
+      min-height: 92vh;
+      background: linear-gradient(145deg, #0d0b0a 0%, #1a1614 100%);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 60px 0;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(212,175,55,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+    .hero-content h1 {
+      font-size: 4.6rem;
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .hero-content h1 em {
+      color: #D4AF37;
+      font-style: italic;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      opacity: 0.7;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    /* ----- SECTION TITLES ----- */
+    .section-title {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      color: #a0988e;
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+      display: block;
+      font-weight: 300;
+    }
+    .gold-accent { color: #D4AF37; }
+    .bg-deep { background: #12100e; }
+
+    /* ----- GRIDS ----- */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 28px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 36px;
+    }
+    .icon-big {
+      font-size: 2.6rem;
+      color: #D4AF37;
+      margin-bottom: 14px;
+      opacity: 0.9;
+    }
+
+    /* ----- FLEET HERO CARDS (preview) ----- */
+    .fleet-hero-card {
+      background: #1a1614;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.08);
+      transition: 0.35s;
+      box-shadow: 0 12px 30px -12px rgba(0,0,0,0.5);
+    }
+    .fleet-hero-card:hover {
+      transform: translateY(-8px);
+      border-color: #D4AF37;
+      box-shadow: 0 24px 48px -16px rgba(212, 175, 55, 0.12);
+    }
+    .fleet-hero-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #2a2521;
+    }
+    .fleet-hero-body {
+      padding: 24px 24px 28px;
+    }
+    .fleet-hero-body h4 {
+      font-size: 1.3rem;
+      color: #e8e0d8;
+    }
+    .fleet-hero-body .meta {
+      font-size: 0.9rem;
+      color: #a0988e;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin: 8px 0 14px;
+    }
+    .fleet-hero-body .meta i {
+      color: #D4AF37;
+      width: 20px;
+    }
+    .fleet-hero-body .btn-outline {
+      padding: 8px 24px;
+      font-size: 0.85rem;
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      background: #0d0b0a;
+      border-top: 1px solid rgba(212, 175, 55, 0.06);
+      color: rgba(232, 224, 216, 0.6);
+      padding: 48px 0 24px;
+    }
+    .footer a {
+      color: rgba(232, 224, 216, 0.5);
+      transition: 0.2s;
+    }
+    .footer a:hover { color: #D4AF37; }
+    .footer .social a {
+      font-size: 1.3rem;
+      margin-right: 18px;
+    }
+    .py-5 { padding: 80px 0; }
+    .py-4 { padding: 60px 0; }
+    .mb-3 { margin-bottom: 20px; }
+    .mb-4 { margin-bottom: 32px; }
+    .text-center { text-align: center; }
+    .text-gold { color: #D4AF37; }
+    .gap-2 { gap: 16px; }
+    hr {
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(212,175,55,0.15), transparent);
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.8rem; }
+      .nav-links { gap: 16px; }
+      .nav-links a { font-size: 0.8rem; }
+      .section-title { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-logo">Royal<span>Meridian</span></div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="book.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== FLOATING WHATSAPP ===== -->
+<a href="#" class="whatsapp-float" aria-label="WhatsApp booking"><i class="fab fa-whatsapp"></i></a>
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <h1>Every Journey. <em>Elevated.</em></h1>
+      <p>Premium shuttle, chauffeur and executive transport across South Africa.</p>
+      <div class="hero-buttons">
+        <a href="contact.html" class="btn-gold"><i class="fas fa-paper-plane"></i> Get a Quote</a>
+        <a href="book.html" class="btn-outline"><i class="fas fa-car"></i> Book Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES PREVIEW ===== -->
+<section class="py-5 bg-deep">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Our <span class="gold-accent">Services</span></h2>
+    <span class="section-sub" data-aos="fade-up" data-aos-delay="100">Luxury transport for every occasion</span>
+    <div class="grid-3" data-aos="fade-up" data-aos-delay="150">
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-plane-departure icon-big"></i>
+        <h4>Airport Transfers</h4>
+        <p style="opacity:0.6;">OR Tambo, Lanseria, private airports</p>
+      </div>
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-briefcase icon-big"></i>
+        <h4>Corporate Travel</h4>
+        <p style="opacity:0.6;">Executive & staff transport</p>
+      </div>
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-user-tie icon-big"></i>
+        <h4>Chauffeur Services</h4>
+        <p style="opacity:0.6;">Private drivers, VIP luxury</p>
+      </div>
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-calendar-check icon-big"></i>
+        <h4>Event Transport</h4>
+        <p style="opacity:0.6;">Weddings, Durban July, conferences</p>
+      </div>
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-route icon-big"></i>
+        <h4>Long Distance</h4>
+        <p style="opacity:0.6;">Pretoria to Durban, Cape Town, Sun City</p>
+      </div>
+      <div class="glass-card" style="padding:32px 28px;">
+        <i class="fas fa-users icon-big"></i>
+        <h4>Group Transport</h4>
+        <p style="opacity:0.6;">Corporate, family & event groups</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY CHOOSE ===== -->
+<section class="py-5" style="background:#0d0b0a;">
+  <div class="container">
+    <h2 class="section-title text-center" data-aos="fade-up">Why <span class="gold-accent">Royal Meridian</span></h2>
+    <div class="grid-4" style="margin-top:36px;" data-aos="fade-up" data-aos-delay="100">
+      <div><i class="fas fa-user-shield icon-big"></i><h4>Professional Drivers</h4></div>
+      <div><i class="fas fa-car icon-big"></i><h4>Luxury Vehicles</h4></div>
+      <div><i class="fas fa-shield-alt icon-big"></i><h4>Safety First</h4></div>
+      <div><i class="fas fa-clock icon-big"></i><h4>Reliable Service</h4></div>
+      <div><i class="fas fa-map-marked-alt icon-big"></i><h4>Nationwide Travel</h4></div>
+      <div><i class="fas fa-headset icon-big"></i><h4>24/7 Support</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FLEET PREVIEW (3 hero cars) ===== -->
+<section class="py-5 bg-deep">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Our <span class="gold-accent">Fleet</span></h2>
+    <span class="section-sub" data-aos="fade-up" data-aos-delay="100">A premium vehicle for every journey</span>
+    <div class="grid-3" data-aos="fade-up" data-aos-delay="150">
+      <!-- V250d -->
+      <div class="fleet-hero-card">
+        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+V250d" alt="Mercedes V250d" />
+        <div class="fleet-hero-body">
+          <h4>Mercedes V250d</h4>
+          <div class="meta"><span><i class="fas fa-user"></i> 7</span><span><i class="fas fa-suitcase"></i> 4</span></div>
+          <a href="fleet.html" class="btn-outline">View Fleet</a>
+        </div>
+      </div>
+      <!-- BMW X5 -->
+      <div class="fleet-hero-card">
+        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=BMW+X5" alt="BMW X5" />
+        <div class="fleet-hero-body">
+          <h4>BMW X5</h4>
+          <div class="meta"><span><i class="fas fa-user"></i> 5</span><span><i class="fas fa-suitcase"></i> 3</span></div>
+          <a href="fleet.html" class="btn-outline">View Fleet</a>
+        </div>
+      </div>
+      <!-- S-Class -->
+      <div class="fleet-hero-card">
+        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+S-Class" alt="Mercedes S-Class" />
+        <div class="fleet-hero-body">
+          <h4>Mercedes S-Class</h4>
+          <div class="meta"><span><i class="fas fa-user"></i> 4</span><span><i class="fas fa-suitcase"></i> 2</span></div>
+          <a href="fleet.html" class="btn-outline">View Fleet</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="fleet.html" class="btn-gold"><i class="fas fa-car"></i> Explore Full Fleet</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA READY TO TRAVEL ===== -->
+<section class="py-5" style="background: #1a1614; border-top:1px solid rgba(212,175,55,0.05);">
+  <div class="container text-center" data-aos="zoom-in">
+    <h2 style="font-size:3.2rem; font-family:'Playfair Display',serif;">Ready To Travel?</h2>
+    <p style="opacity:0.6; max-width:500px; margin:16px auto;">Experience the pinnacle of luxury transport.</p>
+    <a href="contact.html" class="btn-gold" style="margin-top:12px;"><i class="fas fa-paper-plane"></i> Request a Quote</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="grid-3" style="align-items:start;">
+      <div>
+        <h3 style="color:#e8e0d8; font-family:'Playfair Display',serif;">Royal Meridian Shuttles</h3>
+        <p style="font-style:italic; opacity:0.5;">Every Journey. Elevated.</p>
+      </div>
+      <div>
+        <h4 style="color:#e8e0d8;">Quick Links</h4>
+        <a href="index.html">Home</a><br/>
+        <a href="fleet.html">Fleet</a><br/>
+        <a href="services.html">Services</a><br/>
+        <a href="contact.html">Contact</a><br/>
+        <a href="book.html">Book Now</a>
+      </div>
+      <div>
+        <h4 style="color:#e8e0d8;">Contact</h4>
+        <p><i class="fas fa-phone"></i> +27 12 345 6789</p>
+        <p><i class="fab fa-whatsapp"></i> +27 82 123 4567</p>
+        <p><i class="fas fa-envelope"></i> concierge@royalmeridian.co.za</p>
+        <p><i class="fas fa-map-pin"></i> Pretoria, South Africa</p>
+        <div class="social" style="margin-top:12px;">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:28px 0;" />
+    <p style="text-align:center;font-size:0.85rem;opacity:0.4;">© Royal Meridian Group. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS animations
+  AOS.init({
+    once: false,
+    offset: 40,
+    duration: 700,
+    easing: 'ease-out-cubic'
+  });
+
+  // Smooth scroll for nav links (optional)
+  document.querySelectorAll('.nav-links a, .hero-buttons a, .footer a[href^="#"]').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target && this.getAttribute('href').startsWith('#')) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Simple console greeting
+  console.log('Royal Meridian Shuttles · Every Journey. Elevated.');
+</script>
+
+</body>
+</html>
