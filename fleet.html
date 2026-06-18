@@ -1,781 +1,1145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Royal Meridian · Our Fleet</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <style>
-    /* ----- RESET & BASE (refined, smaller fonts) ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0d0b0a;
-      color: #e8e0d8;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-      font-size: 15px;
-    }
-    h1, h2, h3, h4, .serif {
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    a {
-      text-decoration: none;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Fleet · Royal Meridian Shuttles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ----- BUTTONS (smaller, refined) ----- */
-    .btn-gold {
-      background: #D4AF37;
-      color: #0d0b0a;
-      font-weight: 600;
-      padding: 10px 28px;
-      border-radius: 60px;
-      border: 1px solid #D4AF37;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 16px -6px rgba(212, 175, 55, 0.15);
-      display: inline-block;
-      font-size: 0.85rem;
-      letter-spacing: 0.3px;
-      cursor: pointer;
-    }
-    .btn-gold:hover {
-      background: #c4a032;
-      border-color: #c4a032;
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px -8px rgba(212, 175, 55, 0.3);
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      color: #D4AF37;
-      font-weight: 500;
-      padding: 6px 20px;
-      border-radius: 60px;
-      transition: all 0.25s ease;
-      display: inline-block;
-      font-size: 0.78rem;
-      cursor: pointer;
-    }
-    .btn-outline:hover {
-      background: #D4AF37;
-      color: #0d0b0a;
-      border-color: #D4AF37;
-      transform: scale(1.02);
-    }
-    .btn-outline.active {
-      background: #D4AF37;
-      color: #0d0b0a;
-      border-color: #D4AF37;
-    }
+        body {
+            background: #0a0a0a;
+            color: #ece8e2;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    /* ----- STICKY NAV with hamburger ----- */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: rgba(13, 11, 10, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-      padding: 12px 0;
-    }
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #e8e0d8;
-      letter-spacing: -0.5px;
-    }
-    .nav-logo span { color: #D4AF37; }
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #E8C94A;
+            --gold-dark: #B8962A;
+            --taupe: #A79686;
+            --white: #ffffff;
+            --charcoal: #121212;
+            --border-gold: rgba(212, 175, 55, 0.12);
+            --border-gold-strong: rgba(212, 175, 55, 0.25);
+        }
 
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: transparent;
-      border: none;
-    }
-    .hamburger span {
-      width: 26px;
-      height: 2px;
-      background: #e8e0d8;
-      transition: all 0.3s ease;
-      display: block;
-      border-radius: 2px;
-    }
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
+        /* ----- SHINY LINE ----- */
+        .shiny-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+        .shiny-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      color: rgba(232, 224, 216, 0.7);
-      font-size: 0.82rem;
-      font-weight: 500;
-      transition: 0.2s;
-      border-bottom: 1.5px solid transparent;
-      padding-bottom: 4px;
-    }
-    .nav-links a:hover {
-      color: #D4AF37;
-      border-bottom-color: #D4AF37;
-    }
-    .nav-cta {
-      background: #D4AF37;
-      color: #0d0b0a !important;
-      padding: 6px 18px !important;
-      border-radius: 40px;
-      font-weight: 600 !important;
-      border-bottom: none !important;
-      font-size: 0.8rem !important;
-    }
-    .nav-cta:hover {
-      background: #c4a032;
-      color: #0d0b0a !important;
-      border-bottom: none !important;
-    }
+        /* ----- REVEAL ----- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+                transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    /* ----- FLOATING WHATSAPP ----- */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-      background: #25D366;
-      color: #0d0b0a;
-      width: 52px;
-      height: 52px;
-      border-radius: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2);
-      transition: 0.25s;
-    }
-    .whatsapp-float:hover {
-      transform: scale(1.06);
-      box-shadow: 0 12px 32px rgba(37, 211, 102, 0.3);
-    }
+        /* ----- NAV ----- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 0.7rem 5rem;
+            border-bottom: 1px solid var(--border-gold);
+        }
 
-    /* ----- PAGE HERO ----- */
-    .page-hero {
-      padding: 60px 0 40px;
-      background: linear-gradient(145deg, #0d0b0a 0%, #1a1614 100%);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
-    }
-    .page-hero h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .page-hero p {
-      font-size: 1rem;
-      opacity: 0.6;
-      max-width: 480px;
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+        .logo-container .logo-wrapper {
+            background: #000000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-gold-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 46px;
+        }
+        .logo-container img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+        .logo-text {
+            font-size: 1.1rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            color: var(--white);
+            border-left: 2px solid var(--gold);
+            padding-left: 16px;
+            font-family: 'Playfair Display', serif;
+        }
+        .logo-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
 
-    /* ----- FILTER TAGS ----- */
-    .filter-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 32px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.06);
-    }
-    .filter-tag {
-      background: transparent;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      padding: 5px 18px;
-      border-radius: 40px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.25s;
-      color: rgba(232, 224, 216, 0.7);
-    }
-    .filter-tag:hover {
-      border-color: #D4AF37;
-      color: #e8e0d8;
-    }
-    .filter-tag.active {
-      background: #D4AF37;
-      color: #0d0b0a;
-      border-color: #D4AF37;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover {
+            color: var(--white);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--gold);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
 
-    /* ----- FLEET CARDS (refined) ----- */
-    .fleet-card {
-      background: rgba(26, 22, 20, 0.8);
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(212, 175, 55, 0.06);
-      transition: all 0.35s ease;
-      box-shadow: 0 8px 24px -12px rgba(0,0,0,0.5);
-    }
-    .fleet-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 175, 55, 0.2);
-      box-shadow: 0 16px 40px -16px rgba(212, 175, 55, 0.08);
-    }
-    .fleet-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      background: #2a2521;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
-    }
-    .fleet-body {
-      padding: 20px 22px 24px;
-    }
-    .fleet-body .category-badge {
-      display: inline-block;
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: #D4AF37;
-      border: 1px solid rgba(212, 175, 55, 0.15);
-      padding: 2px 12px;
-      border-radius: 40px;
-      margin-bottom: 8px;
-      font-weight: 500;
-    }
-    .fleet-body h4 {
-      font-size: 1.15rem;
-      margin-bottom: 4px;
-    }
-    .fleet-body .meta {
-      font-size: 0.8rem;
-      color: #a0988e;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin: 6px 0 14px;
-    }
-    .fleet-body .meta i {
-      color: #D4AF37;
-      width: 16px;
-      font-size: 0.75rem;
-    }
+        .hamburger {
+            display: none;
+            font-size: 1.4rem;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s, transform 0.3s;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+        }
+        .hamburger:hover {
+            color: var(--gold);
+        }
+        .hamburger i {
+            transition: transform 0.4s ease;
+        }
+        .hamburger.open i {
+            transform: rotate(90deg);
+        }
 
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 28px;
-    }
+        /* ----- PAGE HERO ----- */
+        .page-hero {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            min-height: 350px;
+            background: url('meridian-hero.jpg') center center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: brightness(0.7) saturate(0.5);
+            z-index: 1;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+            z-index: 2;
+            animation: shimmer 3s infinite;
+        }
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 1.2s ease forwards;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .page-hero-content .tag {
+            font-size: 0.6rem;
+            letter-spacing: 8px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        .page-hero-content .tag i {
+            margin-right: 10px;
+        }
+        .page-hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 300;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+        .page-hero-content h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .page-hero-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0.8rem auto 0;
+            letter-spacing: 0.5px;
+        }
 
-    /* ----- SECTION TITLES ----- */
-    .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
-    .gold-accent { color: #D4AF37; }
-    .py-5 { padding: 60px 0; }
+        /* ----- FLEET GRID ----- */
+        .fleet-grid-section {
+            background: #0d0d0d;
+            padding: 5rem 4rem;
+            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .fleet-grid-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.2;
+            animation: shimmer 3s infinite;
+        }
 
-    /* ----- FOOTER ----- */
-    .footer {
-      background: #0d0b0a;
-      border-top: 1px solid rgba(212, 175, 55, 0.06);
-      color: rgba(232, 224, 216, 0.6);
-      padding: 40px 0 20px;
-      margin-top: 40px;
-    }
-    .footer a {
-      color: rgba(232, 224, 216, 0.5);
-      transition: 0.2s;
-      font-size: 0.85rem;
-    }
-    .footer a:hover { color: #D4AF37; }
-    .footer .social a {
-      font-size: 1.1rem;
-      margin-right: 14px;
-    }
-    .footer h4 {
-      font-size: 1rem;
-      color: #e8e0d8;
-      margin-bottom: 8px;
-    }
-    .footer p {
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-    .grid-3-footer {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 28px;
-    }
-    .text-center { text-align: center; }
-    hr {
-      border: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(212,175,55,0.12), transparent);
-      margin: 24px 0;
-    }
+        .fleet-grid-section .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .fleet-grid-section .section-header .overline {
+            font-size: 0.55rem;
+            letter-spacing: 7px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            border: 1px solid var(--border-gold);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+        }
+        .fleet-grid-section .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-top: 0.8rem;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        .fleet-grid-section .section-header h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
 
-    /* ----- RESPONSIVE ----- */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 16px 0 8px;
-        border-top: 1px solid rgba(212, 175, 55, 0.08);
-        margin-top: 12px;
-      }
-      .nav-links.open {
-        display: flex;
-      }
-      .nav-links a {
-        font-size: 0.9rem;
-        padding: 4px 0;
-      }
-      .page-hero h1 { font-size: 2.2rem; }
-      .section-title { font-size: 1.8rem; }
-      .grid-3 { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      .page-hero h1 { font-size: 1.8rem; }
-      .grid-3 { grid-template-columns: 1fr; }
-      .fleet-card img { height: 150px; }
-    }
-  </style>
+        .fleet-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .fleet-item {
+            background: rgba(20, 20, 20, 0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-gold);
+            padding: 1.8rem 1.8rem 2.2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        .fleet-item::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .fleet-item:hover::before {
+            opacity: 0.4;
+        }
+        .fleet-item:hover {
+            transform: translateY(-8px);
+            border-bottom-color: var(--gold);
+            border-color: var(--border-gold-strong);
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8);
+            background: rgba(25, 25, 25, 0.7);
+        }
+
+        .fleet-item .car-image {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            margin-bottom: 1.2rem;
+            border-radius: 2px;
+            border: 1px solid var(--border-gold);
+            transition: border 0.3s;
+            background: #151515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .fleet-item .car-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .fleet-item:hover .car-image img {
+            transform: scale(1.04);
+        }
+        .fleet-item:hover .car-image {
+            border-color: var(--gold);
+        }
+
+        .fleet-item .badge {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.45rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--border-gold);
+            padding: 0.15rem 1rem;
+            margin-bottom: 0.6rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .fleet-item h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 0.1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .fleet-item .model {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+        .fleet-item .desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 0.6rem;
+            line-height: 1.6;
+            letter-spacing: 0.3px;
+        }
+
+        .fleet-item .specs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-gold);
+        }
+        .fleet-item .specs span {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .fleet-item .specs span i {
+            color: var(--gold);
+            font-size: 0.6rem;
+            opacity: 0.6;
+        }
+
+        .fleet-item .btn-fleet {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.5rem 2rem;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .fleet-item .btn-fleet:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        /* ----- REQUEST A VEHICLE SECTION (with roof rack note) ----- */
+        .request-section {
+            background: #0a0a0a;
+            padding: 4rem 3rem;
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            text-align: center;
+            position: relative;
+        }
+        .request-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.15;
+            animation: shimmer 3s infinite;
+        }
+        .request-section .icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            opacity: 0.6;
+            margin-bottom: 1rem;
+        }
+        .request-section h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+        .request-section h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .request-section p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 700px;
+            margin: 0.8rem auto 1.8rem;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+        }
+        .request-section .note {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            border: 1px solid var(--border-gold);
+            padding: 1rem 1.5rem;
+            background: rgba(20, 20, 20, 0.3);
+        }
+        .request-section .note i {
+            color: var(--gold);
+            margin-right: 8px;
+        }
+        .request-section .note .highlight {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .request-section .btn-request {
+            display: inline-block;
+            padding: 0.8rem 3rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .request-section .btn-request:hover {
+            background: rgba(212, 175, 55, 0.08);
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.1);
+        }
+        .request-section .btn-request i {
+            margin-right: 10px;
+        }
+
+        /* ----- BOOKING RIBBON ----- */
+        .booking-ribbon {
+            background: linear-gradient(135deg, #1a1410, #0a0a0a);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .booking-ribbon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            pointer-events: none;
+        }
+        .booking-ribbon .booking-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+        .booking-ribbon .booking-text i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+        .booking-ribbon .booking-text .highlight {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .btn-book {
+            padding: 0.7rem 2.8rem;
+            background: var(--gold);
+            border: none;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn-book:hover {
+            background: #c49f2e;
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            background: #060606;
+            padding: 3rem 3rem 2rem;
+            border-top: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.15;
+            animation: shimmer 3s infinite;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+
+        .footer-brand {
+            flex: 1 1 250px;
+        }
+        .footer-brand .logo-small {
+            font-size: 1.1rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            color: var(--white);
+            border-left: 2px solid var(--gold);
+            padding-left: 16px;
+            font-family: 'Playfair Display', serif;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .footer-brand .logo-small span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .footer-brand p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+            line-height: 1.8;
+            margin-top: 0.3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .footer-links-column h5 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.8rem;
+        }
+        .footer-links-column a {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+        }
+        .footer-links-column a:hover {
+            color: var(--gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .footer-social a {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .footer-social a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.06);
+        }
+
+        /* ----- WHATSAPP ----- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25D366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.25);
+            z-index: 999;
+            text-decoration: none;
+            transition: 0.25s;
+            border: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #1fa855;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            nav { padding: 1.2rem 3rem; }
+            .page-hero { min-height: 300px; }
+            .page-hero-content h1 { font-size: 3rem; }
+            .fleet-grid-section { padding: 4rem 2rem; }
+            .fleet-container { gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.8rem; }
+            nav.scrolled { padding: 0.7rem 1.8rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(16px);
+                position: absolute;
+                top: 68px;
+                right: 0;
+                width: 240px;
+                padding: 2.5rem 2rem;
+                gap: 2rem;
+                border-left: 1px solid var(--border-gold);
+                border-bottom: 1px solid var(--border-gold);
+                border-radius: 0 0 4px 4px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a {
+                font-size: 0.85rem;
+                letter-spacing: 5px;
+                color: rgba(255, 255, 255, 0.6);
+                padding: 6px 0;
+            }
+            .nav-links a:hover { color: var(--gold); }
+            .hamburger { display: flex; }
+
+            .page-hero { min-height: 280px; }
+            .page-hero-content h1 { font-size: 2.4rem; }
+            .page-hero-content p { font-size: 0.8rem; }
+
+            .fleet-grid-section { padding: 3rem 1.5rem; }
+            .fleet-grid-section .section-header h2 { font-size: 2.2rem; }
+            .fleet-container { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+            .fleet-item .car-image { height: 150px; }
+
+            .request-section { padding: 3rem 1.5rem; }
+            .request-section h2 { font-size: 1.8rem; }
+            .request-section p { font-size: 0.75rem; }
+            .request-section .note { font-size: 0.6rem; padding: 0.8rem 1rem; }
+
+            .booking-ribbon {
+                padding: 1rem 1.5rem;
+                gap: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .booking-ribbon .booking-text { font-size: 0.65rem; }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2rem;
+            }
+            .footer-links { justify-content: center; gap: 2rem; }
+            .footer-social { justify-content: center; }
+            .whatsapp-float {
+                width: 46px;
+                height: 46px;
+                font-size: 1.6rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+            .logo-container .logo-wrapper { height: 38px; padding: 3px 8px; }
+            .logo-container img { height: 30px; }
+            .logo-text { font-size: 0.9rem; letter-spacing: 4px; padding-left: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero-content h1 { font-size: 1.8rem; }
+            .page-hero-content .tag { font-size: 0.5rem; letter-spacing: 5px; }
+            .fleet-grid-section .section-header h2 { font-size: 1.8rem; }
+            .fleet-item .car-image { height: 130px; }
+            .fleet-item h3 { font-size: 0.95rem; }
+            .logo-container .logo-wrapper { height: 34px; padding: 2px 6px; }
+            .logo-container img { height: 26px; }
+            .logo-text { font-size: 0.75rem; letter-spacing: 3px; padding-left: 10px; }
+            .footer { padding: 2rem 1.2rem; }
+            .footer-links { flex-direction: column; gap: 1.2rem; }
+            .nav-links { width: 200px; padding: 2rem 1.5rem; gap: 1.5rem; }
+            .nav-links a { font-size: 0.75rem; }
+            .booking-ribbon .booking-text { font-size: 0.55rem; }
+            .btn-book { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .fleet-item .specs { gap: 0.8rem; }
+            .fleet-item .specs span { font-size: 0.45rem; }
+            .fleet-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .fleet-item { padding: 1.2rem 1rem 1.5rem; }
+            .fleet-item .desc { font-size: 0.5rem; }
+            .request-section h2 { font-size: 1.4rem; }
+            .request-section .btn-request { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .request-section .note { font-size: 0.5rem; padding: 0.6rem 0.8rem; }
+        }
+
+        @media (max-width: 380px) {
+            .fleet-container { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ===== STICKY NAV ===== -->
-<nav class="navbar">
-  <div class="container">
-    <div class="nav-logo">Royal<span>Meridian</span></div>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="fleet.html">Fleet</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html">Contact</a>
-      <a href="book.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a>
-    </div>
-  </div>
-</nav>
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="index.html" class="logo-container">
+            <span class="logo-wrapper">
+                <img src="logo.jpg" alt="Royal Meridian Logo" />
+            </span>
+            <span class="logo-text">ROYAL <span>MERIDIAN</span></span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="fleet.html" class="active">Fleet</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
 
-<!-- ===== FLOATING WHATSAPP ===== -->
-<a href="#" class="whatsapp-float" aria-label="WhatsApp booking"><i class="fab fa-whatsapp"></i></a>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <div class="tag"><i class="fas fa-car"></i> executive fleet</div>
+            <h1>Our <span>Vehicles</span></h1>
+            <p>Premium vehicles meticulously maintained for your comfort, safety, and style.</p>
+        </div>
+    </section>
 
-<!-- ===== PAGE HERO ===== -->
-<section class="page-hero">
-  <div class="container">
-    <h1 data-aos="fade-up">Our <span class="gold-accent">Fleet</span></h1>
-    <p data-aos="fade-up" data-aos-delay="100">A premium vehicle for every journey.</p>
-  </div>
-</section>
-
-<!-- ===== FLEET SECTION ===== -->
-<section class="py-5" style="background:#0d0b0a;">
-  <div class="container">
-
-    <!-- Filter Tags -->
-    <div class="filter-tags" data-aos="fade-up">
-      <button class="filter-tag active" data-filter="all">All</button>
-      <button class="filter-tag" data-filter="sedan">Sedans</button>
-      <button class="filter-tag" data-filter="suv">SUVs</button>
-      <button class="filter-tag" data-filter="van">Vans</button>
-      <button class="filter-tag" data-filter="vip">VIP</button>
-      <button class="filter-tag" data-filter="lifestyle">Lifestyle</button>
+    <!-- BOOKING RIBBON -->
+    <div class="booking-ribbon">
+        <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
+        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
+        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <span class="highlight">+27 82 455 6789</span></span>
     </div>
 
-    <!-- Fleet Grid -->
-    <div class="grid-3" id="fleetGrid" data-aos="fade-up" data-aos-delay="100">
-
-      <!-- ===== SEDANS ===== -->
-      <div class="fleet-card" data-category="sedan">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+C-Class" alt="Mercedes C-Class" />
-        <div class="fleet-body">
-          <span class="category-badge">Sedan</span>
-          <h4>Mercedes C-Class</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
+    <!-- FLEET GRID -->
+    <section class="fleet-grid-section reveal">
+        <div class="section-header">
+            <div class="overline"><i class="fas fa-star" style="margin-right: 8px;"></i> premium selection</div>
+            <h2>Our <span>Fleet</span></h2>
         </div>
-      </div>
+        <div class="fleet-container">
 
-      <div class="fleet-card" data-category="sedan">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+E-Class" alt="Mercedes E-Class" />
-        <div class="fleet-body">
-          <span class="category-badge">Sedan</span>
-          <h4>Mercedes E-Class</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
+            <!-- Mercedes-Benz C-Class -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="c-class.jpg" alt="Mercedes-Benz C-Class" />
+                </div>
+                <div class="badge">executive sedan</div>
+                <h3>Mercedes‑Benz</h3>
+                <div class="model">C‑Class</div>
+                <div class="desc">Refined executive sedan with premium leather, climate control, and privacy glass.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 4 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 2 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
+            <!-- Mercedes-Benz V-Class -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="v-class.jpg" alt="Mercedes-Benz V-Class" />
+                </div>
+                <div class="badge">luxury mpv</div>
+                <h3>Mercedes‑Benz</h3>
+                <div class="model">V‑Class</div>
+                <div class="desc">Spacious luxury MPV with premium leather seating, panoramic roof, and privacy partition.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 7 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 4 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
+            <!-- BMW X5 -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="bmw-x5.jpg" alt="BMW X5" />
+                </div>
+                <div class="badge">sport activity</div>
+                <h3>BMW</h3>
+                <div class="model">X5</div>
+                <div class="desc">Powerful all-wheel drive SUV combining sporty performance with executive luxury.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 5 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 3 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
+            <!-- Hyundai H2 -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="hyundai-h2.jpg" alt="Hyundai H2" />
+                </div>
+                <div class="badge">executive mpv</div>
+                <h3>Hyundai</h3>
+                <div class="model">H2</div>
+                <div class="desc">Comfortable and spacious MPV ideal for group travel with premium amenities.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 8 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 5 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
+            <!-- Golf 8 GTI -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="golf-8-gti.jpg" alt="Volkswagen Golf 8 GTI" />
+                </div>
+                <div class="badge">sporty hatch</div>
+                <h3>Volkswagen</h3>
+                <div class="model">Golf 8 GTI</div>
+                <div class="desc">Iconic sporty hatchback with premium interior, advanced tech, and thrilling performance.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 4 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 2 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
+            <!-- Suzuki Ertiga -->
+            <div class="fleet-item">
+                <div class="car-image">
+                    <img src="suzuki-ertiga.jpg" alt="Suzuki Ertiga" />
+                </div>
+                <div class="badge">family mpv</div>
+                <h3>Suzuki</h3>
+                <div class="model">Ertiga</div>
+                <div class="desc">Versatile and fuel-efficient MPV perfect for family travel and group outings.</div>
+                <div class="specs">
+                    <span><i class="fas fa-users"></i> 7 pax</span>
+                    <span><i class="fas fa-suitcase"></i> 3 bags</span>
+                    <span><i class="fas fa-wifi"></i> Wi-Fi</span>
+                </div>
+                <a href="contact.html" class="btn-fleet">Book Now</a>
+            </div>
+
         </div>
-      </div>
+    </section>
 
-      <div class="fleet-card" data-category="sedan">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=BMW+3+Series" alt="BMW 3 Series" />
-        <div class="fleet-body">
-          <span class="category-badge">Sedan</span>
-          <h4>BMW 3 Series</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
+    <!-- REQUEST A VEHICLE SECTION -->
+    <section class="request-section reveal">
+        <div class="icon"><i class="fas fa-search-plus"></i></div>
+        <h2>Don't see your <span>preferred vehicle?</span></h2>
+        <p>We understand that every journey is unique. If you require a specific vehicle that isn't listed in our fleet, simply let us know and our concierge team will do their utmost to source it for you.</p>
+        <div class="note">
+            <i class="fas fa-car"></i> <span class="highlight">Need extra luggage space?</span> We can arrange vehicles with <span class="highlight">roof racks</span> or <span class="highlight">additional cargo capacity</span> upon request. Just let us know your requirements.
         </div>
-      </div>
+        <a href="contact.html" class="btn-request"><i class="fas fa-arrow-right"></i> Request a Vehicle</a>
+    </section>
 
-      <div class="fleet-card" data-category="sedan">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=BMW+5+Series" alt="BMW 5 Series" />
-        <div class="fleet-body">
-          <span class="category-badge">Sedan</span>
-          <h4>BMW 5 Series</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
+                <p>Executive shuttle &amp; chauffeur services<br />Cape Town · Johannesburg · Durban</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-column">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="fleet.html">Fleet</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-links-column">
+                    <h5>Contact</h5>
+                    <a href="#"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
+                    <a href="#"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> concierge@royalmeridian.co.za</a>
+                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> Cape Town, SA</a>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="fleet-card" data-category="sedan">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Audi+A4" alt="Audi A4" />
-        <div class="fleet-body">
-          <span class="category-badge">Sedan</span>
-          <h4>Audi A4</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
+        <div class="footer-bottom">
+            © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
         </div>
-      </div>
+    </footer>
 
-      <!-- ===== SUVs ===== -->
-      <div class="fleet-card" data-category="suv">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Toyota+Prado" alt="Toyota Prado" />
-        <div class="fleet-body">
-          <span class="category-badge">SUV</span>
-          <h4>Toyota Prado</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 5</span>
-            <span><i class="fas fa-suitcase"></i> 3</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+    <!-- WHATSAPP -->
+    <a href="#" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-      <div class="fleet-card" data-category="suv">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=BMW+X5" alt="BMW X5" />
-        <div class="fleet-body">
-          <span class="category-badge">SUV</span>
-          <h4>BMW X5</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 5</span>
-            <span><i class="fas fa-suitcase"></i> 3</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+    <script>
+        // Nav scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 30);
+        });
 
-      <div class="fleet-card" data-category="suv">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+GLE" alt="Mercedes GLE" />
-        <div class="fleet-body">
-          <span class="category-badge">SUV</span>
-          <h4>Mercedes GLE</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 5</span>
-            <span><i class="fas fa-suitcase"></i> 3</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const icon = hamburger.querySelector('i');
 
-      <div class="fleet-card" data-category="suv">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Range+Rover+Sport" alt="Range Rover Sport" />
-        <div class="fleet-body">
-          <span class="category-badge">SUV</span>
-          <h4>Range Rover Sport</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 5</span>
-            <span><i class="fas fa-suitcase"></i> 3</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('open');
+            hamburger.classList.toggle('open');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
 
-      <!-- ===== VANS ===== -->
-      <div class="fleet-card" data-category="van">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+V-Class" alt="Mercedes V-Class" />
-        <div class="fleet-body">
-          <span class="category-badge">Van</span>
-          <h4>Mercedes V-Class</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 7</span>
-            <span><i class="fas fa-suitcase"></i> 4</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('open');
+                icon.className = 'fas fa-bars';
+            });
+        });
 
-      <div class="fleet-card" data-category="van">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+Vito" alt="Mercedes Vito Tourer" />
-        <div class="fleet-body">
-          <span class="category-badge">Van</span>
-          <h4>Mercedes Vito Tourer</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 8</span>
-            <span><i class="fas fa-suitcase"></i> 4</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('open');
+                icon.className = 'fas fa-bars';
+            }
+        });
 
-      <div class="fleet-card" data-category="van">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Hyundai+Staria" alt="Hyundai Staria" />
-        <div class="fleet-body">
-          <span class="category-badge">Van</span>
-          <h4>Hyundai Staria</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 7</span>
-            <span><i class="fas fa-suitcase"></i> 4</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+        reveals.forEach(el => observer.observe(el));
 
-      <div class="fleet-card" data-category="van">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Toyota+Quantum" alt="Toyota Quantum VX" />
-        <div class="fleet-body">
-          <span class="category-badge">Van</span>
-          <h4>Toyota Quantum VX</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 10</span>
-            <span><i class="fas fa-suitcase"></i> 6</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        window.addEventListener('load', () => {
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+    </script>
 
-      <!-- ===== VIP COLLECTION ===== -->
-      <div class="fleet-card" data-category="vip">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Mercedes+S-Class" alt="Mercedes S-Class" />
-        <div class="fleet-body">
-          <span class="category-badge">VIP</span>
-          <h4>Mercedes S-Class</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+    <!--
+        ===== IMAGE NAMING =====
+        Place these images in the same folder as index.html:
 
-      <div class="fleet-card" data-category="vip">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=BMW+7+Series" alt="BMW 7 Series" />
-        <div class="fleet-body">
-          <span class="category-badge">VIP</span>
-          <h4>BMW 7 Series</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        LOGO:
+        1. Logo: "logo.jpg" (black background recommended)
 
-      <div class="fleet-card" data-category="vip">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Range+Rover+Vogue" alt="Range Rover Vogue" />
-        <div class="fleet-body">
-          <span class="category-badge">VIP</span>
-          <h4>Range Rover Vogue</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 3</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        HERO:
+        2. Hero background: "meridian-hero.jpg"
 
-      <div class="fleet-card" data-category="vip">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Lexus+ES" alt="Lexus ES" />
-        <div class="fleet-body">
-          <span class="category-badge">VIP</span>
-          <h4>Lexus ES</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
+        VEHICLES (6 vehicles):
+        3. Mercedes-Benz C-Class: "c-class.jpg"
+        4. Mercedes-Benz V-Class: "v-class.jpg"
+        5. BMW X5: "bmw-x5.jpg"
+        6. Hyundai H2: "hyundai-h2.jpg"
+        7. Volkswagen Golf 8 GTI: "golf-8-gti.jpg"
+        8. Suzuki Ertiga: "suzuki-ertiga.jpg"
 
-      <!-- ===== LIFESTYLE ===== -->
-      <div class="fleet-card" data-category="lifestyle">
-        <img src="https://placehold.co/600x400/1a1614/D4AF37?text=Golf+8+GTI" alt="Golf 8 GTI" />
-        <div class="fleet-body">
-          <span class="category-badge">Lifestyle</span>
-          <h4>Volkswagen Golf 8 GTI</h4>
-          <div class="meta">
-            <span><i class="fas fa-user"></i> 4</span>
-            <span><i class="fas fa-suitcase"></i> 2</span>
-          </div>
-          <a href="book.html" class="btn-outline">Request Quote</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA SECTION ===== -->
-<section class="py-5" style="background: #1a1614; border-top:1px solid rgba(212,175,55,0.05); border-bottom:1px solid rgba(212,175,55,0.05);">
-  <div class="container text-center" data-aos="zoom-in">
-    <h2 style="font-size:2.4rem; font-family:'Playfair Display',serif;">Find Your <span class="gold-accent">Perfect Ride</span></h2>
-    <p style="opacity:0.6; max-width:450px; margin:12px auto; font-size:0.95rem;">Experience luxury with our premium fleet of vehicles.</p>
-    <a href="contact.html" class="btn-gold" style="margin-top:8px;"><i class="fas fa-paper-plane"></i> Get a Quote</a>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="container">
-    <div class="grid-3-footer" style="align-items:start;">
-      <div>
-        <h3 style="color:#e8e0d8; font-family:'Playfair Display',serif; font-size:1.2rem;">Royal Meridian Shuttles</h3>
-        <p style="font-style:italic; opacity:0.5; font-size:0.85rem;">Every Journey. Elevated.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <a href="index.html">Home</a><br/>
-        <a href="fleet.html">Fleet</a><br/>
-        <a href="services.html">Services</a><br/>
-        <a href="contact.html">Contact</a><br/>
-        <a href="book.html">Book Now</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <p><i class="fas fa-phone" style="width:20px;"></i> +27 12 345 6789</p>
-        <p><i class="fab fa-whatsapp" style="width:20px;"></i> +27 82 123 4567</p>
-        <p><i class="fas fa-envelope" style="width:20px;"></i> concierge@royalmeridian.co.za</p>
-        <p><i class="fas fa-map-pin" style="width:20px;"></i> Pretoria, South Africa</p>
-        <div class="social" style="margin-top:10px;">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
-      </div>
-    </div>
-    <hr />
-    <p style="text-align:center;font-size:0.75rem;opacity:0.4;">&copy; Royal Meridian Group. All Rights Reserved.</p>
-  </div>
-</footer>
-
-<!-- ===== JAVASCRIPT ===== -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Initialize AOS
-  AOS.init({
-    once: false,
-    offset: 30,
-    duration: 600,
-    easing: 'ease-out-cubic'
-  });
-
-  // Hamburger menu toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-
-  hamburger.addEventListener('click', function() {
-    this.classList.toggle('active');
-    navLinks.classList.toggle('open');
-  });
-
-  // Close menu when a link is clicked
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
-    });
-  });
-
-  // Filter functionality
-  const filterButtons = document.querySelectorAll('.filter-tag');
-  const fleetCards = document.querySelectorAll('.fleet-card');
-
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Remove active class from all filter buttons
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-
-      const filterValue = this.getAttribute('data-filter');
-
-      fleetCards.forEach(card => {
-        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-          card.style.display = 'block';
-          // Add a small animation
-          card.style.opacity = '0';
-          setTimeout(() => {
-            card.style.opacity = '1';
-            card.style.transition = 'opacity 0.3s ease';
-          }, 50);
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-
-  console.log('Royal Meridian Shuttles · Our Fleet');
-</script>
-
+        ===== OTHER PAGES =====
+        Create these files in the same folder:
+        - index.html
+        - services.html
+        - contact.html
+    -->
 </body>
 </html>
