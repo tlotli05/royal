@@ -1,551 +1,1111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Royal Meridian · Our Services</title>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <style>
-    /* ----- RESET & BASE (refined, smaller fonts) ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0d0b0a;
-      color: #e8e0d8;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-      font-size: 15px;
-    }
-    h1, h2, h3, h4, .serif {
-      font-family: 'Playfair Display', serif;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    a {
-      text-decoration: none;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services · Royal Meridian Shuttles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ----- BUTTONS (smaller, refined) ----- */
-    .btn-gold {
-      background: #D4AF37;
-      color: #0d0b0a;
-      font-weight: 600;
-      padding: 10px 28px;
-      border-radius: 60px;
-      border: 1px solid #D4AF37;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 16px -6px rgba(212, 175, 55, 0.15);
-      display: inline-block;
-      font-size: 0.85rem;
-      letter-spacing: 0.3px;
-      cursor: pointer;
-    }
-    .btn-gold:hover {
-      background: #c4a032;
-      border-color: #c4a032;
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px -8px rgba(212, 175, 55, 0.3);
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      color: #D4AF37;
-      font-weight: 500;
-      padding: 8px 24px;
-      border-radius: 60px;
-      transition: all 0.25s ease;
-      display: inline-block;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    .btn-outline:hover {
-      background: #D4AF37;
-      color: #0d0b0a;
-      border-color: #D4AF37;
-      transform: scale(1.02);
-    }
+        body {
+            background: #0a0a0a;
+            color: #ece8e2;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    /* ----- STICKY NAV with hamburger ----- */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 999;
-      background: rgba(13, 11, 10, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.08);
-      padding: 12px 0;
-    }
-    .navbar .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #e8e0d8;
-      letter-spacing: -0.5px;
-    }
-    .nav-logo span { color: #D4AF37; }
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #E8C94A;
+            --gold-dark: #B8962A;
+            --taupe: #A79686;
+            --white: #ffffff;
+            --charcoal: #121212;
+            --border-gold: rgba(212, 175, 55, 0.12);
+            --border-gold-strong: rgba(212, 175, 55, 0.25);
+        }
 
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: transparent;
-      border: none;
-    }
-    .hamburger span {
-      width: 26px;
-      height: 2px;
-      background: #e8e0d8;
-      transition: all 0.3s ease;
-      display: block;
-      border-radius: 2px;
-    }
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
+        /* ----- SHINY LINE ----- */
+        .shiny-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            width: 80%;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+        .shiny-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      color: rgba(232, 224, 216, 0.7);
-      font-size: 0.82rem;
-      font-weight: 500;
-      transition: 0.2s;
-      border-bottom: 1.5px solid transparent;
-      padding-bottom: 4px;
-    }
-    .nav-links a:hover {
-      color: #D4AF37;
-      border-bottom-color: #D4AF37;
-    }
-    .nav-cta {
-      background: #D4AF37;
-      color: #0d0b0a !important;
-      padding: 6px 18px !important;
-      border-radius: 40px;
-      font-weight: 600 !important;
-      border-bottom: none !important;
-      font-size: 0.8rem !important;
-    }
-    .nav-cta:hover {
-      background: #c4a032;
-      color: #0d0b0a !important;
-      border-bottom: none !important;
-    }
+        /* ----- REVEAL ----- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
+                transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    /* ----- FLOATING WHATSAPP ----- */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-      background: #25D366;
-      color: #0d0b0a;
-      width: 52px;
-      height: 52px;
-      border-radius: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.2);
-      transition: 0.25s;
-    }
-    .whatsapp-float:hover {
-      transform: scale(1.06);
-      box-shadow: 0 12px 32px rgba(37, 211, 102, 0.3);
-    }
+        /* ----- NAV ----- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 0.7rem 5rem;
+            border-bottom: 1px solid var(--border-gold);
+        }
 
-    /* ----- PAGE HERO (smaller) ----- */
-    .page-hero {
-      padding: 60px 0 40px;
-      background: linear-gradient(145deg, #0d0b0a 0%, #1a1614 100%);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.05);
-    }
-    .page-hero h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .page-hero p {
-      font-size: 1rem;
-      opacity: 0.6;
-      max-width: 480px;
-    }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+        .logo-container .logo-wrapper {
+            background: #000000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-gold-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 46px;
+        }
+        .logo-container img {
+            height: 36px;
+            width: auto;
+            display: block;
+        }
+        .logo-text {
+            font-size: 1.1rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            color: var(--white);
+            border-left: 2px solid var(--gold);
+            padding-left: 16px;
+            font-family: 'Playfair Display', serif;
+        }
+        .logo-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
 
-    /* ----- SERVICE CARDS (refined, smaller) ----- */
-    .service-card {
-      background: rgba(26, 22, 20, 0.8);
-      border-radius: 24px;
-      padding: 28px 26px;
-      border: 1px solid rgba(212, 175, 55, 0.06);
-      transition: all 0.35s ease;
-      box-shadow: 0 8px 24px -12px rgba(0,0,0,0.5);
-    }
-    .service-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 175, 55, 0.2);
-      box-shadow: 0 16px 40px -16px rgba(212, 175, 55, 0.08);
-    }
-    .service-card .icon-big {
-      font-size: 2rem;
-      color: #D4AF37;
-      margin-bottom: 12px;
-      opacity: 0.9;
-    }
-    .service-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 6px;
-    }
-    .service-card p {
-      opacity: 0.6;
-      margin-bottom: 12px;
-      font-size: 0.85rem;
-    }
-    .service-card .service-features {
-      list-style: none;
-      margin: 12px 0 16px;
-      padding: 0;
-    }
-    .service-card .service-features li {
-      opacity: 0.7;
-      font-size: 0.8rem;
-      padding: 3px 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .service-card .service-features li i {
-      color: #D4AF37;
-      width: 16px;
-      font-size: 0.7rem;
-    }
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover {
+            color: var(--white);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--gold);
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-    }
+        .hamburger {
+            display: none;
+            font-size: 1.4rem;
+            color: var(--white);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s, transform 0.3s;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+        }
+        .hamburger:hover {
+            color: var(--gold);
+        }
+        .hamburger.i {
+            transition: transform 0.4s ease;
+        }
+        .hamburger.open i {
+            transform: rotate(90deg);
+        }
 
-    /* ----- SECTION TITLES (smaller) ----- */
-    .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 6px;
-      letter-spacing: -0.02em;
-    }
-    .section-sub {
-      color: #a0988e;
-      font-size: 0.95rem;
-      margin-bottom: 32px;
-      display: block;
-      font-weight: 300;
-    }
-    .gold-accent { color: #D4AF37; }
+        /* ----- PAGE HERO ----- */
+        .page-hero {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            min-height: 350px;
+            background: url('meridian-hero.jpg') center center / cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: brightness(0.7) saturate(0.5);
+            z-index: 1;
+        }
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.3;
+            z-index: 2;
+            animation: shimmer 3s infinite;
+        }
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeUp 1.2s ease forwards;
+        }
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .page-hero-content .tag {
+            font-size: 0.6rem;
+            letter-spacing: 8px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        .page-hero-content .tag i {
+            margin-right: 10px;
+        }
+        .page-hero-content h1 {
+            font-size: 3.8rem;
+            font-weight: 300;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+        .page-hero-content h1 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .page-hero-content p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            margin: 0.8rem auto 0;
+            letter-spacing: 0.5px;
+        }
 
-    /* ----- FOOTER (smaller) ----- */
-    .footer {
-      background: #0d0b0a;
-      border-top: 1px solid rgba(212, 175, 55, 0.06);
-      color: rgba(232, 224, 216, 0.6);
-      padding: 40px 0 20px;
-      margin-top: 40px;
-    }
-    .footer a {
-      color: rgba(232, 224, 216, 0.5);
-      transition: 0.2s;
-      font-size: 0.85rem;
-    }
-    .footer a:hover { color: #D4AF37; }
-    .footer .social a {
-      font-size: 1.1rem;
-      margin-right: 14px;
-    }
-    .footer h4 {
-      font-size: 1rem;
-      color: #e8e0d8;
-      margin-bottom: 8px;
-    }
-    .footer p {
-      font-size: 0.85rem;
-      opacity: 0.7;
-    }
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 28px;
-    }
-    .py-5 { padding: 60px 0; }
-    .py-4 { padding: 40px 0; }
-    .text-center { text-align: center; }
-    hr {
-      border: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(212,175,55,0.12), transparent);
-      margin: 24px 0;
-    }
+        /* ----- SERVICES GRID ----- */
+        .services-grid-section {
+            background: #0d0d0d;
+            padding: 5rem 4rem;
+            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .services-grid-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.2;
+            animation: shimmer 3s infinite;
+        }
 
-    /* ----- RESPONSIVE (hamburger) ----- */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-      .nav-links {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 16px 0 8px;
-        border-top: 1px solid rgba(212, 175, 55, 0.08);
-        margin-top: 12px;
-      }
-      .nav-links.open {
-        display: flex;
-      }
-      .nav-links a {
-        font-size: 0.9rem;
-        padding: 4px 0;
-      }
-      .nav-cta {
-        padding: 6px 18px !important;
-      }
-      .page-hero h1 { font-size: 2.2rem; }
-      .section-title { font-size: 1.8rem; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .service-card { padding: 24px 20px; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 16px; }
-      .page-hero h1 { font-size: 1.8rem; }
-    }
-  </style>
+        .services-grid-section .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .services-grid-section .section-header .overline {
+            font-size: 0.55rem;
+            letter-spacing: 7px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            border: 1px solid var(--border-gold);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+        }
+        .services-grid-section .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-top: 0.8rem;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        .services-grid-section .section-header h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(20, 20, 20, 0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-gold);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .service-card:hover::before {
+            opacity: 0.4;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-bottom-color: var(--gold);
+            border-color: var(--border-gold-strong);
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8);
+            background: rgba(25, 25, 25, 0.7);
+        }
+
+        .service-card .icon {
+            font-size: 2.8rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            opacity: 0.8;
+            display: inline-block;
+        }
+        .service-card h3 {
+            font-size: 1.1rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+        .service-card p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.8;
+            letter-spacing: 0.3px;
+        }
+        .service-card .price-hint {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: var(--gold);
+            margin-top: 1rem;
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+        .service-card .btn-service {
+            display: inline-block;
+            margin-top: 1.2rem;
+            padding: 0.5rem 2rem;
+            border: 1px solid var(--border-gold);
+            color: var(--gold);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .service-card .btn-service:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        /* ----- WHAT WE OFFER (badges) ----- */
+        .offer-section {
+            background: #0a0a0a;
+            padding: 4rem 3rem;
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            text-align: center;
+            position: relative;
+        }
+        .offer-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.15;
+            animation: shimmer 3s infinite;
+        }
+        .offer-section .overline {
+            font-size: 0.55rem;
+            letter-spacing: 7px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            border: 1px solid var(--border-gold);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+        }
+        .offer-section h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-top: 0.8rem;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        .offer-section h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .offer-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .offer-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border-gold);
+            padding: 0.6rem 1.6rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(20, 20, 20, 0.3);
+        }
+        .offer-badge i {
+            color: var(--gold);
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+        .offer-badge:hover {
+            color: var(--white);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* ----- CTA SECTION ----- */
+        .cta-section {
+            background: #0e0e0e;
+            padding: 4.5rem 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.2;
+            animation: shimmer 3s infinite;
+        }
+        .cta-section h2 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+        }
+        .cta-section h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+        .cta-section .sub {
+            font-family: 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 0.6rem;
+            letter-spacing: 6px;
+            margin-top: 0.8rem;
+            text-transform: uppercase;
+        }
+        .cta-section .btn-cta {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 3rem;
+            background: var(--gold);
+            border: none;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .cta-section .btn-cta:hover {
+            background: #c49f2e;
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        /* ----- BOOKING RIBBON ----- */
+        .booking-ribbon {
+            background: linear-gradient(135deg, #1a1410, #0a0a0a);
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .booking-ribbon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            pointer-events: none;
+        }
+        .booking-ribbon .booking-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+        .booking-ribbon .booking-text i {
+            color: var(--gold);
+            margin-right: 10px;
+        }
+        .booking-ribbon .booking-text .highlight {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .btn-book {
+            padding: 0.7rem 2.8rem;
+            background: var(--gold);
+            border: none;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn-book:hover {
+            background: #c49f2e;
+            transform: scale(1.03);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+        }
+
+        /* ----- FOOTER ----- */
+        .footer {
+            background: #060606;
+            padding: 3rem 3rem 2rem;
+            border-top: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.15;
+            animation: shimmer 3s infinite;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+        }
+
+        .footer-brand {
+            flex: 1 1 250px;
+        }
+        .footer-brand .logo-small {
+            font-size: 1.1rem;
+            letter-spacing: 5px;
+            font-weight: 300;
+            color: var(--white);
+            border-left: 2px solid var(--gold);
+            padding-left: 16px;
+            font-family: 'Playfair Display', serif;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+        .footer-brand .logo-small span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+        .footer-brand p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.2);
+            letter-spacing: 1px;
+            line-height: 1.8;
+            margin-top: 0.3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .footer-links-column h5 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.2);
+            margin-bottom: 0.8rem;
+        }
+        .footer-links-column a {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.15);
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+        }
+        .footer-links-column a:hover {
+            color: var(--gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 0.5rem;
+        }
+        .footer-social a {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .footer-social a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.06);
+        }
+
+        /* ----- WHATSAPP ----- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #25D366;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.25);
+            z-index: 999;
+            text-decoration: none;
+            transition: 0.25s;
+            border: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+            background: #1fa855;
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            nav { padding: 1.2rem 3rem; }
+            .page-hero { min-height: 300px; }
+            .page-hero-content h1 { font-size: 3rem; }
+            .services-grid-section { padding: 4rem 2rem; }
+            .services-container { gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.8rem; }
+            nav.scrolled { padding: 0.7rem 1.8rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(16px);
+                position: absolute;
+                top: 68px;
+                right: 0;
+                width: 240px;
+                padding: 2.5rem 2rem;
+                gap: 2rem;
+                border-left: 1px solid var(--border-gold);
+                border-bottom: 1px solid var(--border-gold);
+                border-radius: 0 0 4px 4px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            }
+            .nav-links.open { display: flex; }
+            .nav-links.a {
+                font-size: 0.85rem;
+                letter-spacing: 5px;
+                color: rgba(255, 255, 255, 0.6);
+                padding: 6px 0;
+            }
+            .nav-links a:hover { color: var(--gold); }
+            .hamburger { display: flex; }
+
+            .page-hero { min-height: 280px; }
+            .page-hero-content h1 { font-size: 2.4rem; }
+            .page-hero-content p { font-size: 0.8rem; }
+
+            .services-grid-section { padding: 3rem 1.5rem; }
+            .services-grid-section .section-header h2 { font-size: 2.2rem; }
+            .services-container { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .service-card { padding: 1.8rem 1.2rem; }
+            .service-card .icon { font-size: 2.2rem; }
+            .service-card h3 { font-size: 0.95rem; }
+
+            .offer-section { padding: 3rem 1.5rem; }
+            .offer-section h2 { font-size: 1.8rem; }
+            .offer-badges { gap: 0.8rem; }
+            .offer-badge { font-size: 0.55rem; padding: 0.4rem 1rem; }
+
+            .cta-section h2 { font-size: 2rem; }
+
+            .booking-ribbon {
+                padding: 1rem 1.5rem;
+                gap: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+            .booking-ribbon .booking-text { font-size: 0.65rem; }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 2rem;
+            }
+            .footer-links { justify-content: center; gap: 2rem; }
+            .footer-social { justify-content: center; }
+            .whatsapp-float {
+                width: 46px;
+                height: 46px;
+                font-size: 1.6rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+            .logo-container .logo-wrapper { height: 38px; padding: 3px 8px; }
+            .logo-container img { height: 30px; }
+            .logo-text { font-size: 0.9rem; letter-spacing: 4px; padding-left: 12px; }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero-content h1 { font-size: 1.8rem; }
+            .page-hero-content .tag { font-size: 0.5rem; letter-spacing: 5px; }
+            .services-grid-section .section-header h2 { font-size: 1.8rem; }
+            .services-container { grid-template-columns: 1fr; gap: 1rem; }
+            .service-card { padding: 1.5rem 1rem; }
+            .service-card .icon { font-size: 2rem; }
+            .service-card h3 { font-size: 0.85rem; }
+            .service-card p { font-size: 0.6rem; }
+            .offer-section h2 { font-size: 1.4rem; }
+            .cta-section h2 { font-size: 1.6rem; }
+            .logo-container .logo-wrapper { height: 34px; padding: 2px 6px; }
+            .logo-container img { height: 26px; }
+            .logo-text { font-size: 0.75rem; letter-spacing: 3px; padding-left: 10px; }
+            .footer { padding: 2rem 1.2rem; }
+            .footer-links { flex-direction: column; gap: 1.2rem; }
+            .nav-links { width: 200px; padding: 2rem 1.5rem; gap: 1.5rem; }
+            .nav-links a { font-size: 0.75rem; }
+            .booking-ribbon .booking-text { font-size: 0.55rem; }
+            .btn-book { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .offer-badge { font-size: 0.5rem; padding: 0.3rem 0.8rem; }
+            .cta-section .btn-cta { padding: 0.6rem 2rem; font-size: 0.55rem; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ===== STICKY NAV ===== -->
-<nav class="navbar">
-  <div class="container">
-    <div class="nav-logo">Royal<span>Meridian</span></div>
-    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="fleet.html">Fleet</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html">Contact</a>
-      <a href="book.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a>
-    </div>
-  </div>
-</nav>
-
-<!-- ===== FLOATING WHATSAPP ===== -->
-<a href="#" class="whatsapp-float" aria-label="WhatsApp booking"><i class="fab fa-whatsapp"></i></a>
-
-<!-- ===== PAGE HERO ===== -->
-<section class="page-hero">
-  <div class="container">
-    <h1 data-aos="fade-up">Our <span class="gold-accent">Services</span></h1>
-    <p data-aos="fade-up" data-aos-delay="100">Premium transport solutions for the discerning traveler.</p>
-  </div>
-</section>
-
-<!-- ===== SERVICES GRID ===== -->
-<section class="py-5" style="background:#0d0b0a;">
-  <div class="container">
-    <div class="grid-2" data-aos="fade-up" data-aos-delay="50">
-
-      <!-- Airport Transfers -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-        <i class="fas fa-plane-departure icon-big"></i>
-        <h3>Airport Transfers</h3>
-        <p>Seamless luxury transfers to and from major airports.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> OR Tambo International</li>
-          <li><i class="fas fa-check-circle"></i> Lanseria Airport</li>
-          <li><i class="fas fa-check-circle"></i> Private Airports</li>
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="index.html" class="logo-container">
+            <span class="logo-wrapper">
+                <img src="logo.jpg" alt="Royal Meridian Logo" />
+            </span>
+            <span class="logo-text">ROYAL <span>MERIDIAN</span></span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="fleet.html">Fleet</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
+        <button class="hamburger" id="hamburger" aria-label="menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
 
-      <!-- Corporate Travel -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="150">
-        <i class="fas fa-briefcase icon-big"></i>
-        <h3>Corporate Travel</h3>
-        <p>Executive transport that reflects your company's prestige.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> Executive Transport</li>
-          <li><i class="fas fa-check-circle"></i> Staff Transport</li>
-          <li><i class="fas fa-check-circle"></i> Business Meetings</li>
-        </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
-
-      <!-- Chauffeur Services -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-        <i class="fas fa-user-tie icon-big"></i>
-        <h3>Chauffeur Services</h3>
-        <p>Professional, discreet drivers for the VIP experience.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> Private Drivers</li>
-          <li><i class="fas fa-check-circle"></i> VIP Transport</li>
-          <li><i class="fas fa-check-circle"></i> Luxury Travel</li>
-        </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
-
-      <!-- Event Transport -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="250">
-        <i class="fas fa-calendar-alt icon-big"></i>
-        <h3>Event Transport</h3>
-        <p>Make a grand entrance at any event with our premium fleet.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> Weddings</li>
-          <li><i class="fas fa-check-circle"></i> Durban July</li>
-          <li><i class="fas fa-check-circle"></i> Conferences &amp; Private Events</li>
-        </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
-
-      <!-- Long Distance Travel -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-        <i class="fas fa-road icon-big"></i>
-        <h3>Long Distance Travel</h3>
-        <p>Comfortable, luxurious intercity travel with chauffeurs.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> Pretoria to Durban</li>
-          <li><i class="fas fa-check-circle"></i> Pretoria to Cape Town</li>
-          <li><i class="fas fa-check-circle"></i> Pretoria to Sun City</li>
-          <li><i class="fas fa-check-circle"></i> Custom Routes</li>
-        </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
-
-      <!-- Group Transport -->
-      <div class="service-card" data-aos="fade-up" data-aos-delay="350">
-        <i class="fas fa-users icon-big"></i>
-        <h3>Group Transport</h3>
-        <p>Premium group travel for corporate and social events.</p>
-        <ul class="service-features">
-          <li><i class="fas fa-check-circle"></i> Corporate Groups</li>
-          <li><i class="fas fa-check-circle"></i> Family Groups</li>
-          <li><i class="fas fa-check-circle"></i> Event Groups</li>
-        </ul>
-        <a href="book.html" class="btn-outline">Learn More</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== CTA SECTION ===== -->
-<section class="py-5" style="background: #1a1614; border-top:1px solid rgba(212,175,55,0.05); border-bottom:1px solid rgba(212,175,55,0.05);">
-  <div class="container text-center" data-aos="zoom-in">
-    <h2 style="font-size:2.4rem; font-family:'Playfair Display',serif;">Experience <span class="gold-accent">Luxury</span> Today</h2>
-    <p style="opacity:0.6; max-width:450px; margin:12px auto; font-size:0.95rem;">Let us elevate your journey with our premium transport services.</p>
-    <a href="contact.html" class="btn-gold" style="margin-top:8px;"><i class="fas fa-paper-plane"></i> Get a Quote</a>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  <div class="container">
-    <div class="grid-3" style="align-items:start;">
-      <div>
-        <h3 style="color:#e8e0d8; font-family:'Playfair Display',serif; font-size:1.2rem;">Royal Meridian Shuttles</h3>
-        <p style="font-style:italic; opacity:0.5; font-size:0.85rem;">Every Journey. Elevated.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <a href="index.html">Home</a><br/>
-        <a href="fleet.html">Fleet</a><br/>
-        <a href="services.html">Services</a><br/>
-        <a href="contact.html">Contact</a><br/>
-        <a href="book.html">Book Now</a>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <p><i class="fas fa-phone" style="width:20px;"></i> +27 12 345 6789</p>
-        <p><i class="fab fa-whatsapp" style="width:20px;"></i> +27 82 123 4567</p>
-        <p><i class="fas fa-envelope" style="width:20px;"></i> concierge@royalmeridian.co.za</p>
-        <p><i class="fas fa-map-pin" style="width:20px;"></i> Pretoria, South Africa</p>
-        <div class="social" style="margin-top:10px;">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <div class="tag"><i class="fas fa-concierge-bell"></i> premium services</div>
+            <h1>Executive <span>Transport</span></h1>
+            <p>Tailored chauffeur services for every occasion. Experience luxury, reliability, and discretion.</p>
         </div>
-      </div>
+    </section>
+
+    <!-- BOOKING RIBBON -->
+    <div class="booking-ribbon">
+        <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
+        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
+        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <span class="highlight">+27 82 455 6789</span></span>
     </div>
-    <hr />
-    <p style="text-align:center;font-size:0.75rem;opacity:0.4;">&copy; Royal Meridian Group. All Rights Reserved.</p>
-  </div>
-</footer>
 
-<!-- ===== JAVASCRIPT ===== -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  // Initialize AOS
-  AOS.init({
-    once: false,
-    offset: 30,
-    duration: 600,
-    easing: 'ease-out-cubic'
-  });
+    <!-- SERVICES GRID -->
+    <section class="services-grid-section reveal">
+        <div class="section-header">
+            <div class="overline"><i class="fas fa-star" style="margin-right: 8px;"></i> what we offer</div>
+            <h2>Our <span>Services</span></h2>
+        </div>
+        <div class="services-container">
 
-  // Hamburger menu toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
+            <!-- Airport Transfers -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-plane-departure"></i></div>
+                <h3>Airport Transfers</h3>
+                <p>Seamless pickup and drop-off at all major South African airports. Flight tracking &amp; meet-and-greet included.</p>
+                <div class="price-hint">From R850</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
 
-  hamburger.addEventListener('click', function() {
-    this.classList.toggle('active');
-    navLinks.classList.toggle('open');
-  });
+            <!-- Event Transport -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-calendar-check"></i></div>
+                <h3>Event Transport</h3>
+                <p>Weddings, galas, concerts, and private events. Arrive in style with our premium fleet and professional chauffeurs.</p>
+                <div class="price-hint">From R1,200</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
 
-  // Close menu when a link is clicked (for better UX)
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      navLinks.classList.remove('open');
-    });
-  });
+            <!-- Corporate Travel -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-briefcase"></i></div>
+                <h3>Corporate Travel</h3>
+                <p>Executive transport for business meetings, conferences, and VIP clients. Discretion and punctuality guaranteed.</p>
+                <div class="price-hint">From R950</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
 
-  console.log('Royal Meridian Shuttles · Our Services');
-</script>
+            <!-- VIP Chauffeur -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-gem"></i></div>
+                <h3>VIP Chauffeur</h3>
+                <p>Personalised luxury service with dedicated chauffeurs. Privacy, premium vehicles, and white‑glove treatment.</p>
+                <div class="price-hint">From R1,500</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
 
+            <!-- Door-to-Door -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-map-pin"></i></div>
+                <h3>Door‑to‑Door</h3>
+                <p>Point‑to‑point service across the city. We pick you up from your doorstep and deliver you safely to your destination.</p>
+                <div class="price-hint">From R650</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
+
+            <!-- Custom Tours -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-route"></i></div>
+                <h3>Custom Tours</h3>
+                <p>Tailored sightseeing and wine tours. Explore Cape Town, Stellenbosch, and beyond in luxury and comfort.</p>
+                <div class="price-hint">From R2,500</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
+
+            <!-- Matric Dance Transport -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-music"></i></div>
+                <h3>Matric Dance</h3>
+                <p>Arrive in style for your matric dance. Premium vehicles, professional chauffeurs, and a <strong style="color: var(--gold);">20% discount</strong> when booked before September 1.</p>
+                <div class="price-hint">From R1,800</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
+
+            <!-- Group Transport -->
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-users"></i></div>
+                <h3>Group Transport</h3>
+                <p>Spacious vehicles for groups of up to 8 passengers. Perfect for family outings, team events, and group tours.</p>
+                <div class="price-hint">From R1,200</div>
+                <a href="contact.html" class="btn-service">Book Now</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHAT WE OFFER (badges) -->
+    <section class="offer-section reveal">
+        <div class="overline"><i class="fas fa-star" style="margin-right: 8px;"></i> premium standards</div>
+        <h2>What We <span>Offer</span></h2>
+        <div class="offer-badges">
+            <span class="offer-badge"><i class="fas fa-clock"></i> punctuality</span>
+            <span class="offer-badge"><i class="fas fa-shield-alt"></i> safety</span>
+            <span class="offer-badge"><i class="fas fa-user-tie"></i> professionalism</span>
+            <span class="offer-badge"><i class="fas fa-wifi"></i> in‑car wifi</span>
+            <span class="offer-badge"><i class="fas fa-water"></i> bottled water</span>
+            <span class="offer-badge"><i class="fas fa-star"></i> 5‑star service</span>
+            <span class="offer-badge"><i class="fas fa-headphones"></i> concierge support</span>
+            <span class="offer-badge"><i class="fas fa-credit-card"></i> easy booking</span>
+            <span class="offer-badge"><i class="fas fa-phone-alt"></i> 24/7 availability</span>
+            <span class="offer-badge"><i class="fas fa-car"></i> premium fleet</span>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section reveal">
+        <h2>Travel in comfort. <span>Arrive with confidence.</span></h2>
+        <div class="sub">Royal Meridian · since 2026</div>
+        <a href="contact.html" class="btn-cta"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Your Ride</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
+                <p>Executive shuttle &amp; chauffeur services<br />Cape Town · Johannesburg · Durban</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-column">
+                    <h5>Quick Links</h5>
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="fleet.html">Fleet</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-links-column">
+                    <h5>Contact</h5>
+                    <a href="#"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
+                    <a href="#"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> concierge@royalmeridian.co.za</a>
+                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> Cape Town, SA</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
+        </div>
+    </footer>
+
+    <!-- WHATSAPP -->
+    <a href="#" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Nav scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 30);
+        });
+
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const icon = hamburger.querySelector('i');
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinks.classList.toggle('open');
+            hamburger.classList.toggle('open');
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('open');
+                icon.className = 'fas fa-bars';
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
+                navLinks.classList.remove('open');
+                hamburger.classList.remove('open');
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        window.addEventListener('load', () => {
+            reveals.forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+    </script>
+
+    <!--
+        ===== IMAGE NAMING =====
+        Place these images in the same folder as index.html:
+
+        LOGO:
+        1. Logo: "logo.jpg" (black background recommended)
+
+        HERO:
+        2. Hero background: "meridian-hero.jpg"
+
+        ===== OTHER PAGES =====
+        Create these files in the same folder:
+        - index.html
+        - fleet.html
+        - contact.html
+    -->
 </body>
 </html>
