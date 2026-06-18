@@ -31,7 +31,8 @@
             --taupe: #A79686;
             --white: #ffffff;
             --charcoal: #121212;
-            --border-gold: rgba(212, 175, 55, 0.12);
+            --border-gold: rgba(212, 175, 55, 0.15);
+            --border-gold-strong: rgba(212, 175, 55, 0.3);
             --shadow-gold: rgba(212, 175, 55, 0.05);
         }
 
@@ -104,7 +105,7 @@
             background: #000000;
             padding: 4px 10px;
             border-radius: 4px;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border: 1px solid var(--border-gold-strong);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -160,6 +161,12 @@
             color: var(--white);
         }
         .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--gold);
+        }
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -321,7 +328,7 @@
             transform: scale(1.03);
         }
 
-        /* ----- BOOKING CTA (easy booking) ----- */
+        /* ----- BOOKING RIBBON ----- */
         .booking-ribbon {
             background: linear-gradient(135deg, #1a1410, #0a0a0a);
             border-top: 1px solid var(--border-gold);
@@ -426,10 +433,11 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* ----- FLEET ----- */
+        /* ----- FLEET SECTION ----- */
         .fleet-section {
             background: #0d0d0d;
             padding: 5rem 4rem 5.5rem;
+            border-top: 1px solid var(--border-gold);
             border-bottom: 1px solid var(--border-gold);
             position: relative;
         }
@@ -485,7 +493,7 @@
         .fleet-card {
             background: rgba(20, 20, 20, 0.5);
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-gold);
             padding: 1.8rem 1.8rem 2.2rem;
             flex: 1 1 240px;
             max-width: 290px;
@@ -511,6 +519,7 @@
         .fleet-card:hover {
             transform: translateY(-8px);
             border-bottom-color: var(--gold);
+            border-color: var(--border-gold-strong);
             box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8);
             background: rgba(25, 25, 25, 0.7);
         }
@@ -521,7 +530,7 @@
             object-fit: cover;
             margin-bottom: 1.2rem;
             border-radius: 2px;
-            border: 1px solid rgba(212, 175, 55, 0.06);
+            border: 1px solid var(--border-gold);
             transition: border 0.3s;
             background: #151515;
             display: flex;
@@ -592,10 +601,11 @@
             transform: scale(1.02);
         }
 
-        /* ----- SERVICES (clearly visible) ----- */
+        /* ----- SERVICES SECTION (HIGHLIGHTED WITH BORDERS) ----- */
         .services-section {
             background: #0a0a0a;
             padding: 4rem 3rem 3.5rem;
+            border-top: 1px solid var(--border-gold);
             border-bottom: 1px solid var(--border-gold);
             text-align: center;
             position: relative;
@@ -630,80 +640,133 @@
             text-transform: uppercase;
             margin: 1.8rem 0 0.8rem;
         }
+
         .services-grid {
             display: flex;
             justify-content: center;
-            gap: 2.5rem;
+            gap: 2rem;
             flex-wrap: wrap;
+            max-width: 1100px;
+            margin: 0 auto;
         }
-        .service-item {
+        .service-card {
+            background: rgba(20, 20, 20, 0.4);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-gold);
+            padding: 1.5rem 1.8rem;
+            flex: 1 1 160px;
+            max-width: 200px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-bottom-color: var(--gold);
+            border-color: var(--border-gold-strong);
+            background: rgba(25, 25, 25, 0.6);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+        }
+        .service-card i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+            display: inline-block;
+            opacity: 0.8;
+        }
+        .service-card h4 {
             font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.6);
-            border-right: 1px solid var(--border-gold);
-            padding-right: 2.5rem;
-            padding-left: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+        .service-card:hover h4 {
+            color: var(--white);
+        }
+        .service-card:hover i {
+            opacity: 1;
+        }
+
+        /* ----- WHAT WE OFFER (badges with borders) ----- */
+        .offer-section {
+            background: #0d0d0d;
+            padding: 3.5rem 3rem;
+            text-align: center;
+            border-top: 1px solid var(--border-gold);
+            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+        }
+        .offer-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0.15;
+            animation: shimmer 3s infinite;
+        }
+        .offer-section .overline {
+            font-size: 0.55rem;
+            letter-spacing: 7px;
+            color: var(--gold);
+            text-transform: uppercase;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            border: 1px solid var(--border-gold);
+            display: inline-block;
+            padding: 0.3rem 1.8rem;
+        }
+        .offer-section h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--white);
+            margin-top: 0.8rem;
+            letter-spacing: 2px;
+            font-family: 'Playfair Display', serif;
+        }
+        .offer-section h2 span {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        .offer-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .offer-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border-gold);
+            padding: 0.6rem 1.6rem;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 10px;
+            background: rgba(20, 20, 20, 0.3);
         }
-        .service-item:last-child {
-            border-right: none;
-        }
-        .service-item i {
+        .offer-badge i {
             color: var(--gold);
-            font-size: 0.85rem;
-            opacity: 0.8;
-            width: 20px;
-            text-align: center;
+            font-size: 0.75rem;
+            opacity: 0.7;
         }
-        .service-item:hover {
+        .offer-badge:hover {
             color: var(--white);
-        }
-        .service-item:hover i {
-            opacity: 1;
-        }
-
-        /* ----- WHAT WE OFFER (second row) ----- */
-        .offer-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-        .offer-item {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.4);
-            border-right: 1px solid var(--border-gold);
-            padding-right: 2.5rem;
-            padding-left: 0.5rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .offer-item:last-child {
-            border-right: none;
-        }
-        .offer-item i {
-            color: var(--gold);
-            font-size: 0.7rem;
-            opacity: 0.6;
-            width: 18px;
-            text-align: center;
-        }
-        .offer-item:hover {
-            color: var(--white);
-        }
-        .offer-item:hover i {
-            opacity: 1;
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-2px);
         }
 
         /* ----- CTA ----- */
@@ -948,25 +1011,16 @@
             .fleet-card .car-image { height: 140px; }
             .fleet-header h2 { font-size: 2.2rem; }
 
-            .services-grid { gap: 1.5rem; }
-            .service-item {
-                padding-right: 1.2rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border-gold);
-                padding-bottom: 0.7rem;
-                font-size: 0.65rem;
-            }
-            .service-item:last-child { border-bottom: none; }
+            .services-section { padding: 3rem 1.5rem; }
+            .services-grid { gap: 1rem; }
+            .service-card { flex: 1 1 130px; max-width: 160px; padding: 1rem 1.2rem; }
+            .service-card i { font-size: 1.4rem; }
+            .service-card h4 { font-size: 0.55rem; }
 
-            .offer-grid { gap: 1.5rem; }
-            .offer-item {
-                padding-right: 1.2rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border-gold);
-                padding-bottom: 0.7rem;
-                font-size: 0.6rem;
-            }
-            .offer-item:last-child { border-bottom: none; }
+            .offer-section { padding: 2.5rem 1.5rem; }
+            .offer-section h2 { font-size: 1.8rem; }
+            .offer-badges { gap: 0.8rem; }
+            .offer-badge { font-size: 0.55rem; padding: 0.4rem 1rem; }
 
             .cta-section h2 { font-size: 2rem; }
 
@@ -1012,6 +1066,10 @@
             .nav-links a { font-size: 0.75rem; }
             .booking-ribbon .booking-text { font-size: 0.55rem; }
             .btn-book { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .service-card { flex: 1 1 100px; max-width: 140px; padding: 0.8rem 1rem; }
+            .service-card i { font-size: 1.2rem; }
+            .service-card h4 { font-size: 0.5rem; letter-spacing: 1px; }
+            .offer-badge { font-size: 0.5rem; padding: 0.3rem 0.8rem; }
         }
     </style>
 </head>
@@ -1019,17 +1077,17 @@
 
     <!-- NAV -->
     <nav id="navbar">
-        <a href="#" class="logo-container">
+        <a href="index.html" class="logo-container">
             <span class="logo-wrapper">
                 <img src="logo.jpg" alt="Royal Meridian Logo" />
             </span>
             <span class="logo-text">ROYAL <span>MERIDIAN</span></span>
         </a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Fleet</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="fleet.html">Fleet</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="menu">
             <i class="fas fa-bars"></i>
@@ -1043,16 +1101,16 @@
             <h1>Every Journey.<br /><span>Elevated.</span></h1>
             <p>Executive shuttle and chauffeur services across South Africa. Discretion, comfort, and precision — since 2026.</p>
             <div class="hero-buttons">
-                <a href="#" class="btn btn-gold">View Fleet</a>
-                <a href="#" class="btn btn-outline">Request A Quote</a>
+                <a href="fleet.html" class="btn btn-gold">View Fleet</a>
+                <a href="contact.html" class="btn btn-outline">Request A Quote</a>
             </div>
         </div>
     </section>
 
-    <!-- BOOKING RIBBON (easy booking) -->
+    <!-- BOOKING RIBBON -->
     <div class="booking-ribbon">
         <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
-        <a href="#" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
+        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
         <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <span class="highlight">+27 82 455 6789</span></span>
     </div>
 
@@ -1068,8 +1126,8 @@
         </div>
     </div>
 
-    <!-- FLEET -->
-    <section class="fleet-section reveal">
+    <!-- FLEET PREVIEW -->
+    <section class="fleet-section reveal" id="fleet">
         <div class="fleet-header">
             <div class="overline"><i class="fas fa-car" style="margin-right: 8px;"></i> our fleet</div>
             <h2>Executive <span>vehicles</span></h2>
@@ -1101,30 +1159,48 @@
             </div>
         </div>
         <div class="fleet-view-link">
-            <a href="#"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> view full fleet</a>
+            <a href="fleet.html"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> view full fleet</a>
         </div>
     </section>
 
-    <!-- SERVICES + WHAT WE OFFER -->
+    <!-- SERVICES (HIGHLIGHTED WITH BORDERS) -->
     <section class="services-section reveal">
         <div class="overline"><i class="fas fa-concierge-bell" style="margin-right: 8px;"></i> our services</div>
         <div class="services-grid">
-            <div class="service-item"><i class="fas fa-plane"></i> airport transfers</div>
-            <div class="service-item"><i class="fas fa-calendar-check"></i> event transport</div>
-            <div class="service-item"><i class="fas fa-briefcase"></i> corporate travel</div>
-            <div class="service-item"><i class="fas fa-gem"></i> VIP chauffeur</div>
-            <div class="service-item"><i class="fas fa-map-pin"></i> door‑to‑door</div>
-            <div class="service-item"><i class="fas fa-route"></i> custom tours</div>
+            <div class="service-card">
+                <i class="fas fa-plane-departure"></i>
+                <h4>Airport Transfers</h4>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-calendar-check"></i>
+                <h4>Event Transport</h4>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-briefcase"></i>
+                <h4>Corporate Travel</h4>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-gem"></i>
+                <h4>VIP Chauffeur</h4>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-map-pin"></i>
+                <h4>Door‑to‑Door</h4>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-route"></i>
+                <h4>Custom Tours</h4>
+            </div>
         </div>
 
         <div class="section-label"><i class="fas fa-star" style="color: var(--gold); margin-right: 8px;"></i> what we offer</div>
-        <div class="offer-grid">
-            <div class="offer-item"><i class="fas fa-clock"></i> punctuality</div>
-            <div class="offer-item"><i class="fas fa-shield-alt"></i> safety</div>
-            <div class="offer-item"><i class="fas fa-user-tie"></i> professionalism</div>
-            <div class="offer-item"><i class="fas fa-wifi"></i> in‑car wifi</div>
-            <div class="offer-item"><i class="fas fa-water"></i> bottled water</div>
-            <div class="offer-item"><i class="fas fa-star"></i> 5‑star service</div>
+        <div class="offer-badges" style="margin-top: 0.5rem;">
+            <span class="offer-badge"><i class="fas fa-clock"></i> punctuality</span>
+            <span class="offer-badge"><i class="fas fa-shield-alt"></i> safety</span>
+            <span class="offer-badge"><i class="fas fa-user-tie"></i> professionalism</span>
+            <span class="offer-badge"><i class="fas fa-wifi"></i> in‑car wifi</span>
+            <span class="offer-badge"><i class="fas fa-water"></i> bottled water</span>
+            <span class="offer-badge"><i class="fas fa-star"></i> 5‑star service</span>
         </div>
     </section>
 
@@ -1152,10 +1228,10 @@
             <div class="footer-links">
                 <div class="footer-links-column">
                     <h5>Quick Links</h5>
-                    <a href="#">Home</a>
-                    <a href="#">Services</a>
-                    <a href="#">Fleet</a>
-                    <a href="#">Contact</a>
+                    <a href="index.html">Home</a>
+                    <a href="services.html">Services</a>
+                    <a href="fleet.html">Fleet</a>
+                    <a href="contact.html">Contact</a>
                 </div>
                 <div class="footer-links-column">
                     <h5>Contact</h5>
@@ -1182,7 +1258,7 @@
             navbar.classList.toggle('scrolled', window.scrollY > 30);
         });
 
-        // Hamburger menu - toggle between bars and X
+        // Hamburger menu
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         const icon = hamburger.querySelector('i');
@@ -1191,15 +1267,9 @@
             e.stopPropagation();
             navLinks.classList.toggle('open');
             hamburger.classList.toggle('open');
-
-            if (navLinks.classList.contains('open')) {
-                icon.className = 'fas fa-times';
-            } else {
-                icon.className = 'fas fa-bars';
-            }
+            icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         });
 
-        // Close menu on link click
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('open');
@@ -1208,7 +1278,6 @@
             });
         });
 
-        // Close menu on outside click
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 navLinks.classList.remove('open');
@@ -1244,6 +1313,12 @@
         3. C-Class: "c-class.jpg"
         4. V-Class: "v-class.jpg"
         5. BMW X5: "bmw-x5.jpg"
+
+        ===== OTHER PAGES =====
+        Create these files in the same folder:
+        - services.html
+        - fleet.html
+        - contact.html
     -->
 </body>
 </html>
