@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -278,13 +278,13 @@
         /* ----- BOOKING RIBBON ----- */
         .booking-ribbon {
             background: linear-gradient(135deg, #1a1410, #0a0a0a);
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
-            padding: 1.2rem 2rem;
+            border-top: 2px solid var(--border-gold-strong);
+            border-bottom: 2px solid var(--border-gold-strong);
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2.5rem;
+            gap: 3rem;
             flex-wrap: wrap;
             position: relative;
         }
@@ -292,7 +292,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.05), transparent);
             pointer-events: none;
         }
         .booking-ribbon .booking-text {
@@ -310,24 +310,60 @@
             color: var(--gold);
             font-weight: 400;
         }
+        .booking-ribbon .booking-text .phone-number {
+            color: #4FC3F7;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .booking-ribbon .booking-text .phone-number:hover {
+            color: #81D4FA;
+        }
         .btn-book {
-            padding: 0.7rem 2.8rem;
-            background: var(--gold);
+            padding: 0.9rem 3.5rem;
+            background: linear-gradient(135deg, #D4AF37, #B8962A);
             border: none;
             color: #0a0a0a;
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            border-radius: 2px;
+        }
+        .btn-book::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .btn-book:hover::before {
+            left: 100%;
         }
         .btn-book:hover {
-            background: #c49f2e;
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+            background: linear-gradient(135deg, #c49f2e, #a07d25);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+        .btn-book:active {
+            transform: scale(0.97);
+        }
+        .btn-book i {
+            margin-right: 12px;
+            font-size: 0.7rem;
         }
 
         /* ----- CONTACT SECTION ----- */
@@ -437,7 +473,7 @@
             color: var(--gold);
         }
 
-        /* ----- SOCIAL (placeholders) ----- */
+        /* ----- SOCIAL (updated) ----- */
         .social-placeholder {
             margin-top: 1.5rem;
             padding-top: 1.5rem;
@@ -589,22 +625,43 @@
         .btn-submit {
             width: 100%;
             padding: 1rem;
-            background: var(--gold);
+            background: linear-gradient(135deg, #D4AF37, #B8962A);
             border: none;
             color: #0a0a0a;
             font-family: 'Inter', sans-serif;
             font-size: 0.7rem;
             letter-spacing: 4px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             margin-top: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            border-radius: 2px;
+        }
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .btn-submit:hover::before {
+            left: 100%;
         }
         .btn-submit:hover {
-            background: #c49f2e;
+            background: linear-gradient(135deg, #c49f2e, #a07d25);
             transform: scale(1.01);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.35);
+        }
+        .btn-submit:active {
+            transform: scale(0.97);
         }
         .btn-submit i {
             margin-right: 10px;
@@ -840,6 +897,21 @@
             color: rgba(255, 255, 255, 0.06);
         }
 
+        .footer-bottom .design-credit {
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 2px;
+            font-size: 0.45rem;
+            margin-top: 0.8rem;
+        }
+        .footer-bottom .design-credit a {
+            color: rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-bottom .design-credit a:hover {
+            color: var(--gold);
+        }
+
         /* ----- WHATSAPP ----- */
         .whatsapp-float {
             position: fixed;
@@ -931,6 +1003,13 @@
                 text-align: center;
             }
             .booking-ribbon .booking-text { font-size: 0.65rem; }
+            .btn-book {
+                padding: 0.8rem 2.5rem;
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+                width: 100%;
+                max-width: 280px;
+            }
 
             .footer-content {
                 flex-direction: column;
@@ -969,8 +1048,16 @@
             .nav-links { width: 200px; padding: 2rem 1.5rem; gap: 1.5rem; }
             .nav-links a { font-size: 0.75rem; }
             .booking-ribbon .booking-text { font-size: 0.55rem; }
-            .btn-book { padding: 0.6rem 2rem; font-size: 0.55rem; }
-            .btn-submit { font-size: 0.55rem; padding: 0.8rem; }
+            .btn-book {
+                padding: 0.7rem 2rem;
+                font-size: 0.6rem;
+                letter-spacing: 3px;
+            }
+            .btn-submit {
+                font-size: 0.6rem;
+                padding: 0.8rem;
+                letter-spacing: 3px;
+            }
             .social-icons-placeholder a { width: 36px; height: 36px; font-size: 1rem; }
         }
     </style>
@@ -1008,8 +1095,8 @@
     <!-- BOOKING RIBBON -->
     <div class="booking-ribbon">
         <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
-        <a href="#booking-form" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
-        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <span class="highlight">+27 82 455 6789</span></span>
+        <a href="#booking-form" class="btn-book"><i class="fas fa-arrow-right"></i> Book Now</a>
+        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <a href="tel:+27824556789" class="phone-number">+27 82 455 6789</a></span>
     </div>
 
     <!-- CONTACT SECTION -->
@@ -1034,7 +1121,7 @@
                         <div class="icon"><i class="fas fa-envelope"></i></div>
                         <div class="info">
                             <h4>Email</h4>
-                            <p><a href="mailto:concierge@royalmeridian.co.za">concierge@royalmeridian.co.za</a></p>
+                            <p><a href="mailto:info@royalmeridiangroup.co.za">info@royalmeridiangroup.co.za</a></p>
                             <p style="font-size: 0.7rem; color: rgba(255,255,255,0.15); margin-top: 2px;">We respond within 2 hours</p>
                         </div>
                     </div>
@@ -1042,7 +1129,8 @@
                         <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                         <div class="info">
                             <h4>Address</h4>
-                            <p>Cape Town International Airport<br />Cape Town, 8001, South Africa</p>
+                            <p>123 Lynnwood Road, Pretoria, 0081</p>
+                            <p style="font-size: 0.7rem; color: rgba(255,255,255,0.15); margin-top: 2px;">Pretoria · Midrand · Johannesburg</p>
                         </div>
                     </div>
                     <div class="contact-detail-item">
@@ -1055,15 +1143,13 @@
                     </div>
                 </div>
 
-                <!-- Social Media Placeholders -->
+                <!-- Social Media (updated) -->
                 <div class="social-placeholder">
                     <h4>Connect With Us</h4>
                     <div class="social-icons-placeholder">
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -1117,7 +1203,7 @@
 
                     <div class="form-group">
                         <label for="destination">Pickup &amp; Drop-off Details <span class="required">*</span></label>
-                        <input type="text" id="destination" placeholder="e.g. Cape Town Airport → V&A Waterfront" required />
+                        <input type="text" id="destination" placeholder="e.g. Pretoria → Sandton" required />
                     </div>
 
                     <div class="form-row">
@@ -1206,7 +1292,7 @@
                     <span class="icon"><i class="fas fa-chevron-down"></i></span>
                 </button>
                 <div class="faq-answer">
-                    <p><i class="fas fa-arrow-right"></i> You can book a ride by filling out the booking form on this page, calling us at <strong style="color: var(--gold);">+27 82 455 6789</strong>, or sending an email to <strong style="color: var(--gold);">concierge@royalmeridian.co.za</strong>. We'll confirm your booking within 2 hours.</p>
+                    <p><i class="fas fa-arrow-right"></i> You can book a ride by filling out the booking form on this page, calling us at <strong style="color: var(--gold);">+27 82 455 6789</strong>, or sending an email to <strong style="color: var(--gold);">info@royalmeridiangroup.co.za</strong>. We'll confirm your booking within 2 hours.</p>
                 </div>
             </div>
 
@@ -1278,13 +1364,11 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
-                <p>Executive shuttle &amp; chauffeur services<br />Cape Town · Johannesburg · Durban</p>
+                <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1297,14 +1381,15 @@
                 </div>
                 <div class="footer-links-column">
                     <h5>Contact</h5>
-                    <a href="#"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
-                    <a href="#"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> concierge@royalmeridian.co.za</a>
-                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> Cape Town, SA</a>
+                    <a href="tel:+27824556789"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
+                    <a href="mailto:info@royalmeridiangroup.co.za"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> info@royalmeridiangroup.co.za</a>
+                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> 123 Lynnwood Road, Pretoria, 0081</a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
+            <div class="design-credit">Website designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank">Monarch Technologies (Pty) Ltd.</a></div>
         </div>
     </footer>
 
