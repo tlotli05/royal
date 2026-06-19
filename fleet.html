@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -200,7 +200,7 @@
             width: 100%;
             height: 45vh;
             min-height: 350px;
-            background: url('meridian-hero.jpg') center center / cover no-repeat;
+            background: url('fleetbg.jpg') center center / cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -541,36 +541,59 @@
         }
         .request-section .btn-request {
             display: inline-block;
-            padding: 0.8rem 3rem;
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
+            padding: 0.9rem 3.5rem;
+            background: linear-gradient(135deg, #D4AF37, #B8962A);
+            border: none;
+            color: #0a0a0a;
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            border-radius: 2px;
+        }
+        .request-section .btn-request::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .request-section .btn-request:hover::before {
+            left: 100%;
         }
         .request-section .btn-request:hover {
-            background: rgba(212, 175, 55, 0.08);
-            transform: scale(1.02);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.1);
+            background: linear-gradient(135deg, #c49f2e, #a07d25);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+        .request-section .btn-request:active {
+            transform: scale(0.97);
         }
         .request-section .btn-request i {
-            margin-right: 10px;
+            margin-right: 12px;
+            font-size: 0.7rem;
         }
 
         /* ----- BOOKING RIBBON ----- */
         .booking-ribbon {
             background: linear-gradient(135deg, #1a1410, #0a0a0a);
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
-            padding: 1.2rem 2rem;
+            border-top: 2px solid var(--border-gold-strong);
+            border-bottom: 2px solid var(--border-gold-strong);
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2.5rem;
+            gap: 3rem;
             flex-wrap: wrap;
             position: relative;
         }
@@ -578,7 +601,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.03), transparent);
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.05), transparent);
             pointer-events: none;
         }
         .booking-ribbon .booking-text {
@@ -596,24 +619,60 @@
             color: var(--gold);
             font-weight: 400;
         }
+        .booking-ribbon .booking-text .phone-number {
+            color: #4FC3F7;
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .booking-ribbon .booking-text .phone-number:hover {
+            color: #81D4FA;
+        }
         .btn-book {
-            padding: 0.7rem 2.8rem;
-            background: var(--gold);
+            padding: 0.9rem 3.5rem;
+            background: linear-gradient(135deg, #D4AF37, #B8962A);
             border: none;
             color: #0a0a0a;
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+            border-radius: 2px;
+        }
+        .btn-book::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+        .btn-book:hover::before {
+            left: 100%;
         }
         .btn-book:hover {
-            background: #c49f2e;
-            transform: scale(1.03);
-            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.25);
+            background: linear-gradient(135deg, #c49f2e, #a07d25);
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+        .btn-book:active {
+            transform: scale(0.97);
+        }
+        .btn-book i {
+            margin-right: 12px;
+            font-size: 0.7rem;
         }
 
         /* ----- FOOTER ----- */
@@ -727,6 +786,21 @@
             color: rgba(255, 255, 255, 0.06);
         }
 
+        .footer-bottom .design-credit {
+            color: rgba(255, 255, 255, 0.08);
+            letter-spacing: 2px;
+            font-size: 0.45rem;
+            margin-top: 0.8rem;
+        }
+        .footer-bottom .design-credit a {
+            color: rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-bottom .design-credit a:hover {
+            color: var(--gold);
+        }
+
         /* ----- WHATSAPP ----- */
         .whatsapp-float {
             position: fixed;
@@ -804,6 +878,13 @@
             .request-section h2 { font-size: 1.8rem; }
             .request-section p { font-size: 0.75rem; }
             .request-section .note { font-size: 0.6rem; padding: 0.8rem 1rem; }
+            .request-section .btn-request {
+                padding: 0.8rem 2.5rem;
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+                width: 100%;
+                max-width: 280px;
+            }
 
             .booking-ribbon {
                 padding: 1rem 1.5rem;
@@ -812,6 +893,13 @@
                 text-align: center;
             }
             .booking-ribbon .booking-text { font-size: 0.65rem; }
+            .btn-book {
+                padding: 0.8rem 2.5rem;
+                font-size: 0.7rem;
+                letter-spacing: 4px;
+                width: 100%;
+                max-width: 280px;
+            }
 
             .footer-content {
                 flex-direction: column;
@@ -847,14 +935,22 @@
             .nav-links { width: 200px; padding: 2rem 1.5rem; gap: 1.5rem; }
             .nav-links a { font-size: 0.75rem; }
             .booking-ribbon .booking-text { font-size: 0.55rem; }
-            .btn-book { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .btn-book {
+                padding: 0.7rem 2rem;
+                font-size: 0.6rem;
+                letter-spacing: 3px;
+            }
             .fleet-item .specs { gap: 0.8rem; }
             .fleet-item .specs span { font-size: 0.45rem; }
             .fleet-container { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .fleet-item { padding: 1.2rem 1rem 1.5rem; }
             .fleet-item .desc { font-size: 0.5rem; }
             .request-section h2 { font-size: 1.4rem; }
-            .request-section .btn-request { padding: 0.6rem 2rem; font-size: 0.55rem; }
+            .request-section .btn-request {
+                padding: 0.7rem 2rem;
+                font-size: 0.6rem;
+                letter-spacing: 3px;
+            }
             .request-section .note { font-size: 0.5rem; padding: 0.6rem 0.8rem; }
         }
 
@@ -896,8 +992,8 @@
     <!-- BOOKING RIBBON -->
     <div class="booking-ribbon">
         <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
-        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right" style="margin-right: 10px;"></i> Book Now</a>
-        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <span class="highlight">+27 82 455 6789</span></span>
+        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right"></i> Book Now</a>
+        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <a href="tel:+27824556789" class="phone-number">+27 82 455 6789</a></span>
     </div>
 
     <!-- FLEET GRID -->
@@ -1029,13 +1125,11 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
-                <p>Executive shuttle &amp; chauffeur services<br />Cape Town · Johannesburg · Durban</p>
+                <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1048,14 +1142,15 @@
                 </div>
                 <div class="footer-links-column">
                     <h5>Contact</h5>
-                    <a href="#"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
-                    <a href="#"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> concierge@royalmeridian.co.za</a>
-                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> Cape Town, SA</a>
+                    <a href="tel:+27824556789"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
+                    <a href="mailto:info@royalmeridiangroup.co.za"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> info@royalmeridiangroup.co.za</a>
+                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> 123 Lynnwood Road, Pretoria, 0081</a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
+            <div class="design-credit">Website designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank">Monarch Technologies (Pty) Ltd.</a></div>
         </div>
     </footer>
 
@@ -1125,7 +1220,7 @@
         1. Logo: "logo.jpg" (black background recommended)
 
         HERO:
-        2. Hero background: "meridian-hero.jpg"
+        2. Hero background: "fleetbg.jpg"
 
         VEHICLES (6 vehicles):
         3. Mercedes-Benz C-Class: "c-class.jpg"
