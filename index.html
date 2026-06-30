@@ -66,40 +66,6 @@
             transform: translateY(0);
         }
 
-        /* ----- ICON MOTION ----- */
-        .icon-motion {
-            display: inline-block;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .icon-motion:hover {
-            transform: scale(1.2) rotate(8deg);
-        }
-        .icon-motion-bounce {
-            display: inline-block;
-            animation: iconBounce 3s ease-in-out infinite;
-        }
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-        .icon-motion-float {
-            display: inline-block;
-            animation: iconFloat 4s ease-in-out infinite;
-        }
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(3deg); }
-        }
-        .service-card:hover .icon-motion {
-            transform: scale(1.3) rotate(10deg);
-        }
-        .fleet-card:hover .icon-motion {
-            transform: scale(1.2) rotate(-5deg);
-        }
-        .offer-badge:hover .icon-motion {
-            transform: scale(1.3) rotate(15deg);
-        }
-
         /* ----- NAVIGATION ----- */
         nav {
             position: fixed;
@@ -220,7 +186,7 @@
             transform: rotate(90deg);
         }
 
-        /* ----- HERO ----- */
+        /* ----- HERO - Content middle-left ----- */
         .hero {
             position: relative;
             width: 100%;
@@ -237,9 +203,16 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: brightness(0.9) saturate(0.95);
+            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%);
             z-index: 1;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(212,175,55,0.04) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         .hero-wrapper {
@@ -247,28 +220,27 @@
             z-index: 2;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            gap: 4rem;
         }
 
         .hero-content {
             flex: 1 1 60%;
-            max-width: 800px;
+            max-width: 750px;
+            padding: 2rem 0;
         }
         .hero-tag {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 10px;
             color: var(--gold);
             text-transform: uppercase;
             font-family: 'Inter', sans-serif;
             font-weight: 300;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             border-left: 2px solid var(--gold);
             padding-left: 20px;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         .hero-tag i {
             margin-right: 10px;
@@ -280,6 +252,7 @@
             color: var(--white);
             font-family: 'Playfair Display', serif;
             letter-spacing: -1px;
+            text-shadow: 0 4px 60px rgba(0,0,0,0.3);
         }
         .hero h1 span {
             color: var(--gold);
@@ -287,14 +260,15 @@
             font-style: italic;
         }
         .hero p {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-family: 'Inter', sans-serif;
             font-weight: 300;
-            color: rgba(255, 255, 255, 0.45);
-            max-width: 500px;
-            margin: 0.8rem 0 2.2rem;
+            color: rgba(255, 255, 255, 0.55);
+            max-width: 520px;
+            margin: 1rem 0 2.5rem;
             line-height: 1.9;
             letter-spacing: 0.5px;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.2);
         }
         .hero-buttons {
             display: flex;
@@ -307,7 +281,7 @@
             background: transparent;
             color: var(--white);
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 5px;
             text-transform: uppercase;
             text-decoration: none;
@@ -353,7 +327,7 @@
         }
         .booking-ribbon .ribbon-item {
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
             color: rgba(255, 255, 255, 0.15);
             text-transform: uppercase;
@@ -383,7 +357,7 @@
             margin-bottom: 4.5rem;
         }
         .fleet-header .overline {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 8px;
             color: var(--gold);
             text-transform: uppercase;
@@ -471,7 +445,7 @@
         }
         .fleet-card .desc {
             font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.2);
             margin-top: 0.6rem;
             line-height: 1.7;
@@ -509,7 +483,7 @@
             border-bottom: 1px solid var(--border-gold);
         }
         .services-section .overline {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 8px;
             color: var(--gold);
             text-transform: uppercase;
@@ -560,7 +534,7 @@
         }
         .service-card h4 {
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.45);
@@ -608,7 +582,7 @@
             border-bottom: 1px solid var(--border-gold);
         }
         .offer-section .overline {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 8px;
             color: var(--gold);
             text-transform: uppercase;
@@ -631,7 +605,7 @@
         }
         .offer-badge {
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.25);
@@ -678,14 +652,14 @@
         .cta-section .sub {
             font-family: 'Inter', sans-serif;
             color: rgba(255, 255, 255, 0.05);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 8px;
             margin-top: 1rem;
             text-transform: uppercase;
         }
         .cta-section .established {
             font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             color: var(--gold);
             letter-spacing: 6px;
             margin-top: 2rem;
@@ -730,7 +704,7 @@
         }
         .footer-brand p {
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.1);
             letter-spacing: 2px;
             line-height: 2;
@@ -742,7 +716,7 @@
         }
         .footer-links-column h5 {
             font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.1);
@@ -751,7 +725,7 @@
         .footer-links-column a {
             display: block;
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.08);
             text-decoration: none;
             transition: color 0.3s;
@@ -783,14 +757,14 @@
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             text-align: center;
             font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
+            font-size: 0.6rem;
             letter-spacing: 4px;
             color: rgba(255, 255, 255, 0.03);
         }
         .footer-bottom .design-credit {
             color: rgba(255, 255, 255, 0.04);
             letter-spacing: 3px;
-            font-size: 0.5rem;
+            font-size: 0.55rem;
             margin-top: 0.8rem;
         }
         .footer-bottom .design-credit a {
@@ -830,9 +804,6 @@
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 1200px) {
-            .hero-wrapper {
-                gap: 3rem;
-            }
             .hero h1 {
                 font-size: 4.5rem;
             }
@@ -850,22 +821,20 @@
                 min-height: 650px;
             }
             .hero-wrapper {
-                flex-direction: column;
-                gap: 2.5rem;
                 justify-content: center;
-                align-items: center;
             }
             .hero-content {
                 flex: 1 1 auto;
                 width: 100%;
-                text-align: center;
                 max-width: 100%;
+                text-align: center;
+                padding: 1rem 0;
             }
             .hero p {
                 max-width: 100%;
                 margin-left: auto;
                 margin-right: auto;
-                font-size: 1rem;
+                font-size: 1.05rem;
             }
             .hero-buttons {
                 justify-content: center;
@@ -944,25 +913,25 @@
             .hero {
                 padding: 0 1.2rem;
                 min-height: 560px;
-                align-items: flex-end;
-                justify-content: flex-start;
+                align-items: center;
+                justify-content: center;
             }
             .hero-wrapper {
-                flex-direction: column;
-                gap: 1.2rem;
-                align-items: flex-start;
+                align-items: center;
+                justify-content: center;
             }
             .hero-content {
                 text-align: left;
                 width: 100%;
                 max-width: 100%;
+                padding: 0.5rem 0;
             }
             .hero h1 {
                 font-size: 3rem;
                 text-align: left;
             }
             .hero p {
-                font-size: 0.95rem;
+                font-size: 1rem;
                 margin: 0.4rem 0 1.2rem;
                 text-align: left;
                 max-width: 100%;
@@ -971,7 +940,7 @@
                 border-left: 2px solid var(--gold);
                 padding-left: 12px;
                 text-align: left;
-                font-size: 0.5rem;
+                font-size: 0.55rem;
                 letter-spacing: 6px;
             }
             .hero-buttons {
@@ -979,7 +948,7 @@
             }
             .hero-buttons .btn {
                 padding: 0.5rem 1.5rem;
-                font-size: 0.5rem;
+                font-size: 0.55rem;
                 letter-spacing: 3px;
             }
 
@@ -990,7 +959,7 @@
                 text-align: center;
             }
             .booking-ribbon .ribbon-item {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
                 letter-spacing: 2px;
                 gap: 6px;
             }
@@ -1015,18 +984,18 @@
                 font-size: 2rem;
             }
             .fleet-header .overline {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
                 padding: 0.3rem 1.2rem;
             }
             .fleet-card h4 {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
                 letter-spacing: 3px;
             }
             .fleet-card .desc {
-                font-size: 0.6rem;
+                font-size: 0.65rem;
             }
             .fleet-view-link a {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
                 padding: 0.4rem 1.8rem;
             }
 
@@ -1047,15 +1016,15 @@
                 margin-bottom: 0.3rem;
             }
             .service-card h4 {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
                 letter-spacing: 2px;
             }
             .services-section .overline {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
                 padding: 0.3rem 1.2rem;
             }
             .view-all-services a {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
                 padding: 0.4rem 1.8rem;
             }
 
@@ -1066,7 +1035,7 @@
                 gap: 0.6rem;
             }
             .offer-badge {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
                 padding: 0.3rem 0.8rem;
                 gap: 6px;
                 border-radius: 20px;
@@ -1075,7 +1044,7 @@
                 font-size: 0.6rem;
             }
             .offer-section .overline {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
                 padding: 0.3rem 1.2rem;
             }
 
@@ -1087,7 +1056,7 @@
                 letter-spacing: 2px;
             }
             .cta-section .sub {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
                 letter-spacing: 4px;
             }
 
@@ -1132,13 +1101,13 @@
                 padding-left: 12px;
             }
             .footer-brand p {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
             }
             .footer-links-column h5 {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
             }
             .footer-links-column a {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
             }
         }
 
@@ -1146,24 +1115,24 @@
             .hero {
                 min-height: 480px;
                 padding: 0 0.8rem;
-                align-items: flex-end;
+                align-items: center;
             }
             .hero h1 {
                 font-size: 2.2rem;
             }
             .hero-tag {
-                font-size: 0.4rem;
+                font-size: 0.45rem;
                 letter-spacing: 4px;
                 padding-left: 8px;
                 margin-bottom: 0.3rem;
             }
             .hero p {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
                 margin: 0.3rem 0 0.8rem;
             }
             .btn {
                 padding: 0.4rem 1.2rem;
-                font-size: 0.4rem;
+                font-size: 0.45rem;
                 letter-spacing: 2px;
             }
 
@@ -1177,14 +1146,14 @@
                 padding: 0.8rem 0.6rem 1rem;
             }
             .fleet-card h4 {
-                font-size: 0.6rem;
+                font-size: 0.65rem;
                 letter-spacing: 2px;
             }
             .fleet-card .model {
-                font-size: 0.55rem;
+                font-size: 0.6rem;
             }
             .fleet-card .desc {
-                font-size: 0.5rem;
+                font-size: 0.55rem;
             }
 
             .service-card {
@@ -1196,12 +1165,12 @@
                 font-size: 1.2rem;
             }
             .service-card h4 {
-                font-size: 0.4rem;
+                font-size: 0.45rem;
                 letter-spacing: 1.5px;
             }
 
             .offer-badge {
-                font-size: 0.35rem;
+                font-size: 0.4rem;
                 padding: 0.2rem 0.5rem;
                 gap: 4px;
             }
@@ -1245,7 +1214,7 @@
                 right: 0.8rem;
             }
             .booking-ribbon .ribbon-item {
-                font-size: 0.45rem;
+                font-size: 0.5rem;
             }
         }
     </style>
@@ -1271,12 +1240,12 @@
         </button>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO - Content middle-left -->
     <section class="hero" id="home">
         <div class="hero-wrapper">
             <div class="hero-content">
                 <div class="hero-tag">
-                    <i class="fas fa-crown icon-motion-bounce"></i> Premium Executive Transport
+                    <i class="fas fa-crown"></i> Premium Executive Transport
                 </div>
                 <h1>Every Journey.<br /><span>Elevated.</span></h1>
                 <p>Executive shuttle and chauffeur services across Pretoria, Midrand, Johannesburg and surrounding areas.</p>
@@ -1291,20 +1260,20 @@
     <!-- BOOKING RIBBON -->
     <div class="booking-ribbon">
         <span class="ribbon-item">
-            <i class="fas fa-calendar-check icon-motion-float"></i> Book in <span class="highlight">60 seconds</span>
+            <i class="fas fa-calendar-check"></i> Book in <span class="highlight">60 seconds</span>
         </span>
         <span class="ribbon-item">
-            <i class="fas fa-gem icon-motion-float"></i> <span class="highlight">Matric Dance</span> · 20% off
+            <i class="fas fa-gem"></i> <span class="highlight">Matric Dance</span> · 20% off
         </span>
         <span class="ribbon-item">
-            <i class="fas fa-phone-alt icon-motion-float"></i> <span class="highlight">+27 82 455 6789</span>
+            <i class="fas fa-phone-alt"></i> <span class="highlight">+27 82 455 6789</span>
         </span>
     </div>
 
     <!-- FLEET -->
     <section class="fleet-section reveal" id="fleet">
         <div class="fleet-header">
-            <div class="overline"><i class="fas fa-car icon-motion" style="margin-right:8px;"></i> our fleet</div>
+            <div class="overline"><i class="fas fa-car" style="margin-right:8px;"></i> our fleet</div>
             <h2>Executive <span>vehicles</span></h2>
         </div>
         <div class="fleet-grid stagger-grid" id="fleetGrid">
@@ -1328,54 +1297,54 @@
             </div>
         </div>
         <div class="fleet-view-link">
-            <a href="fleet.html"><i class="fas fa-arrow-right icon-motion" style="margin-right:10px;"></i> view full fleet</a>
+            <a href="fleet.html"><i class="fas fa-arrow-right" style="margin-right:10px;"></i> view full fleet</a>
         </div>
     </section>
 
     <!-- SERVICES -->
     <section class="services-section reveal" id="services">
-        <div class="overline"><i class="fas fa-concierge-bell icon-motion" style="margin-right:8px;"></i> our services</div>
+        <div class="overline"><i class="fas fa-concierge-bell" style="margin-right:8px;"></i> our services</div>
         <div class="services-grid stagger-grid" id="servicesGrid">
             <a href="services.html" class="service-card">
-                <i class="fas fa-plane-departure icon-motion-float"></i>
+                <i class="fas fa-plane-departure"></i>
                 <h4>Airport Transfers</h4>
             </a>
             <a href="services.html" class="service-card">
-                <i class="fas fa-calendar-check icon-motion-float"></i>
+                <i class="fas fa-calendar-check"></i>
                 <h4>Event Transport</h4>
             </a>
             <a href="services.html" class="service-card">
-                <i class="fas fa-briefcase icon-motion-float"></i>
+                <i class="fas fa-briefcase"></i>
                 <h4>Corporate Travel</h4>
             </a>
             <a href="services.html" class="service-card">
-                <i class="fas fa-gem icon-motion-float"></i>
+                <i class="fas fa-gem"></i>
                 <h4>VIP Chauffeur</h4>
             </a>
             <a href="services.html" class="service-card">
-                <i class="fas fa-map-pin icon-motion-float"></i>
+                <i class="fas fa-map-pin"></i>
                 <h4>Door‑to‑Door</h4>
             </a>
             <a href="services.html" class="service-card">
-                <i class="fas fa-route icon-motion-float"></i>
+                <i class="fas fa-route"></i>
                 <h4>Custom Tours</h4>
             </a>
         </div>
         <div class="view-all-services">
-            <a href="services.html"><i class="fas fa-arrow-right icon-motion"></i> View All Services</a>
+            <a href="services.html"><i class="fas fa-arrow-right"></i> View All Services</a>
         </div>
     </section>
 
     <!-- OFFER BADGES -->
     <section class="offer-section reveal">
-        <div class="overline"><i class="fas fa-star icon-motion" style="margin-right:8px;"></i> what we offer</div>
+        <div class="overline"><i class="fas fa-star" style="margin-right:8px;"></i> what we offer</div>
         <div class="offer-badges stagger-grid" id="offerGrid">
-            <span class="offer-badge"><i class="fas fa-clock icon-motion-float"></i> punctuality</span>
-            <span class="offer-badge"><i class="fas fa-shield-alt icon-motion-float"></i> safety</span>
-            <span class="offer-badge"><i class="fas fa-user-tie icon-motion-float"></i> professionalism</span>
-            <span class="offer-badge"><i class="fas fa-wifi icon-motion-float"></i> in‑car wifi</span>
-            <span class="offer-badge"><i class="fas fa-water icon-motion-float"></i> bottled water</span>
-            <span class="offer-badge"><i class="fas fa-star icon-motion-float"></i> 5‑star service</span>
+            <span class="offer-badge"><i class="fas fa-clock"></i> punctuality</span>
+            <span class="offer-badge"><i class="fas fa-shield-alt"></i> safety</span>
+            <span class="offer-badge"><i class="fas fa-user-tie"></i> professionalism</span>
+            <span class="offer-badge"><i class="fas fa-wifi"></i> in‑car wifi</span>
+            <span class="offer-badge"><i class="fas fa-water"></i> bottled water</span>
+            <span class="offer-badge"><i class="fas fa-star"></i> 5‑star service</span>
         </div>
     </section>
 
@@ -1384,7 +1353,7 @@
         <h2>Travel in comfort. <span>Arrive with confidence.</span></h2>
         <div class="sub">Royal Meridian · since 2026</div>
         <div class="established">
-            <i class="fas fa-crown icon-motion" style="margin-right:10px; color:var(--gold);"></i> established 2026 · south africa
+            <i class="fas fa-crown" style="margin-right:10px; color:var(--gold);"></i> established 2026 · south africa
         </div>
     </section>
 
@@ -1395,9 +1364,9 @@
                 <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
                 <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram icon-motion-float"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f icon-motion-float"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp icon-motion-float"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1424,7 +1393,7 @@
 
     <!-- WHATSAPP -->
     <a href="#" class="whatsapp-float" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp icon-motion-float"></i>
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
