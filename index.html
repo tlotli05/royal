@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -20,170 +21,210 @@
         }
 
         body {
-            background: #070707;
-            color: #ece8e2;
-            font-family: 'Playfair Display', 'Georgia', serif;
-            line-height: 1.6;
+            background: #0a0a0a;
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        :root {
-            --gold: #D4AF37;
-            --gold-light: #E8C94A;
-            --gold-dark: #B8962A;
-            --white: #ffffff;
-            --border-gold: rgba(212, 175, 55, 0.06);
-            --border-gold-strong: rgba(212, 175, 55, 0.12);
+        .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
         }
 
-        /* ----- REVEAL ANIMATIONS ----- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(45px);
-            transition: opacity 1.4s cubic-bezier(0.15, 0.9, 0.25, 1),
-                        transform 1.4s cubic-bezier(0.15, 0.9, 0.25, 1);
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 48px;
         }
 
-        .stagger-grid>* {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s cubic-bezier(0.15, 0.9, 0.25, 1),
-                        transform 1s cubic-bezier(0.15, 0.9, 0.25, 1);
+        /* ----- BUTTONS ----- */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: none;
+            font-weight: 400;
+            position: relative;
+            overflow: hidden;
         }
-        .stagger-grid.visible>*:nth-child(1) { transition-delay: 0.08s; }
-        .stagger-grid.visible>*:nth-child(2) { transition-delay: 0.16s; }
-        .stagger-grid.visible>*:nth-child(3) { transition-delay: 0.24s; }
-        .stagger-grid.visible>*:nth-child(4) { transition-delay: 0.32s; }
-        .stagger-grid.visible>*:nth-child(5) { transition-delay: 0.40s; }
-        .stagger-grid.visible>*:nth-child(6) { transition-delay: 0.48s; }
-        .stagger-grid.visible>* {
-            opacity: 1;
-            transform: translateY(0);
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        .btn:hover::after {
+            transform: translateX(0);
         }
 
-        /* ----- NAVIGATION ----- */
+        .btn-primary {
+            background: #D4AF37;
+            color: #0a0a0a;
+        }
+        .btn-primary:hover {
+            background: #c49f2e;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: #D4AF37;
+            color: #D4AF37;
+            transform: translateY(-2px);
+        }
+
+        .btn-gold-outline {
+            background: transparent;
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .btn-gold-outline:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: #D4AF37;
+            transform: translateY(-2px);
+        }
+
+        /* ----- NAV ----- */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 2rem 5rem;
+            padding: 24px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            transition: all 0.5s ease;
             background: transparent;
-            transition: all 0.6s ease;
         }
         nav.scrolled {
-            background: rgba(7, 7, 7, 0.92);
-            backdrop-filter: blur(18px);
-            padding: 0.9rem 5rem;
-            border-bottom: 1px solid var(--border-gold);
+            background: rgba(10, 10, 10, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 48px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.06);
         }
 
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             text-decoration: none;
         }
         .logo-container .logo-wrapper {
             background: #000000;
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 8px;
-            border: 1px solid var(--border-gold-strong);
+            border: 1px solid rgba(212, 175, 55, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 50px;
+            height: 48px;
         }
         .logo-container img {
-            height: 38px;
+            height: 36px;
             width: auto;
             display: block;
         }
         .logo-text {
-            font-size: 1.3rem;
-            letter-spacing: 6px;
-            font-weight: 300;
-            color: var(--white);
-            border-left: 2px solid var(--gold);
-            padding-left: 18px;
             font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            color: #ffffff;
+            border-left: 2px solid #D4AF37;
+            padding-left: 16px;
         }
         .logo-text span {
-            color: var(--gold);
+            color: #D4AF37;
             font-weight: 400;
         }
 
         .nav-links {
             display: flex;
-            gap: 3.2rem;
+            gap: 36px;
             list-style: none;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
+            align-items: center;
         }
         .nav-links a {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
-            transition: color 0.4s;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            font-weight: 400;
             position: relative;
-            padding-bottom: 6px;
         }
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -4px;
             left: 0;
             width: 0;
-            height: 1.5px;
-            background: var(--gold);
-            transition: width 0.5s ease;
+            height: 1px;
+            background: #D4AF37;
+            transition: width 0.4s ease;
         }
         .nav-links a:hover {
-            color: var(--white);
+            color: #ffffff;
         }
         .nav-links a:hover::after {
             width: 100%;
         }
         .nav-links a.active {
-            color: var(--gold);
+            color: #D4AF37;
         }
         .nav-links a.active::after {
             width: 100%;
         }
+        .nav-links .nav-cta {
+            color: #0a0a0a;
+            background: #D4AF37;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+        .nav-links .nav-cta::after {
+            display: none;
+        }
+        .nav-links .nav-cta:hover {
+            background: #c49f2e;
+            color: #0a0a0a;
+        }
 
         .hamburger {
             display: none;
-            font-size: 1.4rem;
-            color: var(--white);
             background: none;
             border: none;
+            color: #ffffff;
+            font-size: 1.4rem;
             cursor: pointer;
             padding: 8px;
-            width: 44px;
-            height: 44px;
-            align-items: center;
-            justify-content: center;
             transition: color 0.3s;
         }
         .hamburger:hover {
-            color: var(--gold);
-        }
-        .hamburger i {
-            transition: transform 0.4s ease;
-        }
-        .hamburger.open i {
-            transform: rotate(90deg);
+            color: #D4AF37;
         }
 
         /* ----- HERO ----- */
@@ -191,11 +232,10 @@
             position: relative;
             width: 100%;
             height: 100vh;
-            min-height: 720px;
+            min-height: 700px;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0 5rem;
+            padding: 0 48px;
             background: url('meridian-hero.jpg') center center / cover no-repeat;
             overflow: hidden;
         }
@@ -203,16 +243,15 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 70%);
             z-index: 1;
         }
         .hero::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 70% 30%, rgba(212,175,55,0.04) 0%, transparent 70%);
+            background: radial-gradient(circle at 30% 50%, rgba(212,175,55,0.03) 0%, transparent 70%);
             z-index: 1;
-            pointer-events: none;
         }
 
         .hero-wrapper {
@@ -231,85 +270,74 @@
             padding: 2rem 0;
         }
         .hero-tag {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             letter-spacing: 10px;
-            color: var(--gold);
             text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
+            color: #D4AF37;
             font-weight: 300;
-            margin-bottom: 1.2rem;
-            border-left: 2px solid var(--gold);
-            padding-left: 20px;
-            opacity: 0.8;
+            margin-bottom: 16px;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        .hero-tag i {
-            margin-right: 10px;
+        .hero-tag::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: #D4AF37;
+            opacity: 0.3;
         }
         .hero h1 {
-            font-size: 5.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 5.2rem;
             font-weight: 300;
             line-height: 1.05;
-            color: var(--white);
-            font-family: 'Playfair Display', serif;
-            letter-spacing: -1px;
-            text-shadow: 0 4px 60px rgba(0,0,0,0.3);
+            color: #ffffff;
+            margin-bottom: 20px;
         }
         .hero h1 span {
-            color: var(--gold);
-            font-weight: 400;
+            color: #D4AF37;
             font-style: italic;
+            font-weight: 400;
         }
         .hero p {
-            font-size: 1.2rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.55);
-            max-width: 520px;
-            margin: 1rem 0 2.5rem;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.35);
+            max-width: 480px;
+            margin-bottom: 36px;
             line-height: 1.9;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 30px rgba(0,0,0,0.2);
+            font-weight: 300;
         }
         .hero-buttons {
             display: flex;
-            gap: 1.2rem;
+            gap: 16px;
             flex-wrap: wrap;
         }
-        .btn {
-            padding: 0.9rem 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            background: transparent;
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 5px;
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 0.5rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            font-weight: 400;
-            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: floatDown 3s ease-in-out infinite;
         }
-        .btn-gold {
-            background: var(--gold);
-            border-color: var(--gold);
-            color: #0a0a0a;
-            font-weight: 500;
+        .scroll-indicator i {
+            font-size: 1rem;
+            opacity: 0.3;
         }
-        .btn-gold:hover {
-            background: #c49f2e;
-            border-color: #c49f2e;
-            transform: scale(1.04);
-            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.25);
-        }
-        .btn-outline {
-            border-color: rgba(255, 255, 255, 0.06);
-        }
-        .btn-outline:hover {
-            background: rgba(212, 175, 55, 0.06);
-            border-color: var(--gold);
-            color: var(--gold);
-            transform: scale(1.04);
+        @keyframes floatDown {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
         }
 
         /* ----- BOOKING RIBBON ----- */
@@ -322,636 +350,561 @@
             align-items: center;
             gap: 5rem;
             flex-wrap: wrap;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
+            border-top: 1px solid rgba(212, 175, 55, 0.04);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.04);
         }
         .booking-ribbon .ribbon-item {
             font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.12);
             text-transform: uppercase;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         .booking-ribbon .ribbon-item i {
-            color: var(--gold);
+            color: #D4AF37;
             font-size: 0.9rem;
-            opacity: 0.5;
+            opacity: 0.4;
         }
         .booking-ribbon .ribbon-item .highlight {
-            color: var(--gold);
+            color: #D4AF37;
             font-weight: 400;
         }
 
-        /* ----- FLEET ----- */
-        .fleet-section {
-            background: #090909;
-            padding: 7rem 5rem 8rem;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
-        }
-        .fleet-header {
-            text-align: center;
-            margin-bottom: 4.5rem;
-        }
-        .fleet-header .overline {
-            font-size: 0.7rem;
-            letter-spacing: 8px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            display: inline-block;
-            padding: 0.4rem 2rem;
-            border: 1px solid var(--border-gold);
-            border-radius: 50px;
-        }
-        .fleet-header h2 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            color: var(--white);
-            margin-top: 1.2rem;
-            letter-spacing: 3px;
-            font-family: 'Playfair Display', serif;
-        }
-        .fleet-header h2 span {
-            color: var(--gold);
-            font-style: italic;
+        /* ----- SECTIONS ----- */
+        section {
+            padding: 100px 0;
         }
 
-        .fleet-grid {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .fleet-card {
-            background: rgba(20, 20, 20, 0.12);
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--border-gold);
-            border-radius: 16px;
-            padding: 2.2rem 2rem 2.5rem;
-            flex: 1 1 250px;
-            max-width: 310px;
+        .section-header {
             text-align: center;
-            transition: all 0.6s ease;
-            border-bottom: 3px solid transparent;
+            margin-bottom: 64px;
+        }
+        .section-header .overline {
+            font-size: 0.55rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: #D4AF37;
+            font-weight: 300;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        .section-header h2 span {
+            color: #D4AF37;
+            font-style: italic;
+        }
+        .section-header p {
+            color: rgba(255, 255, 255, 0.15);
+            font-size: 1rem;
+            max-width: 520px;
+            margin: 8px auto 0;
+            font-weight: 300;
+        }
+
+        /* ----- FLEET PREVIEW ----- */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .fleet-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+        .fleet-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(10,10,10,0.6) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .fleet-card:hover::before {
+            opacity: 1;
         }
         .fleet-card:hover {
-            transform: translateY(-14px);
-            border-bottom-color: var(--gold);
-            border-color: var(--border-gold-strong);
-            background: rgba(25, 25, 25, 0.3);
-            box-shadow: 0 50px 70px -25px rgba(0, 0, 0, 0.8);
+            transform: translateY(-12px);
+            border-color: rgba(212, 175, 55, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 40px 80px -24px rgba(0,0,0,0.8);
         }
-        .fleet-card .car-image {
+        .fleet-card .image {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
-            margin-bottom: 1.2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-gold);
-            background: #151515;
+            height: 220px;
+            background: #121212;
             overflow: hidden;
+            position: relative;
         }
-        /* Show cars clearly - centered with good visibility */
-        .fleet-card .car-image img {
+        .fleet-card .image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center center;
-            transition: transform 0.7s ease;
+            object-position: center 60%;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .fleet-card:hover .car-image img {
-            transform: scale(1.05);
+        .fleet-card:hover .image img {
+            transform: scale(1.06);
         }
-        .fleet-card h4 {
-            font-size: 1rem;
-            font-weight: 400;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--white);
-            font-family: 'Playfair Display', serif;
-        }
-        .fleet-card .model {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            color: var(--gold);
-            letter-spacing: 3px;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-        .fleet-card .desc {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.2);
-            margin-top: 0.6rem;
-            line-height: 1.7;
-        }
-        .fleet-view-link {
-            display: block;
-            margin-top: 4rem;
-            text-align: center;
-        }
-        .fleet-view-link a {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            color: var(--gold);
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 1px solid var(--border-gold);
-            padding: 0.6rem 3rem;
-            transition: all 0.4s;
-            display: inline-block;
+        .fleet-card .image .badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 4px 14px;
             border-radius: 50px;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #D4AF37;
+            font-weight: 400;
+            z-index: 2;
         }
-        .fleet-view-link a:hover {
-            background: rgba(212, 175, 55, 0.04);
-            border-color: var(--gold);
-            transform: scale(1.03);
+        .fleet-card .body {
+            padding: 24px 28px 28px;
+            position: relative;
+            z-index: 2;
+        }
+        .fleet-card .body .model {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+        .fleet-card .body h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 2px 0 6px;
+        }
+        .fleet-card .body .desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
+            line-height: 1.6;
+        }
+        .fleet-card .body .specs {
+            display: flex;
+            gap: 16px;
+            margin: 12px 0 16px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.15);
+        }
+        .fleet-card .body .specs span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fleet-card .body .specs i {
+            color: #D4AF37;
+            font-size: 0.6rem;
+            opacity: 0.5;
+        }
+        .fleet-card .body .btn {
+            padding: 8px 24px;
+            font-size: 0.5rem;
+            letter-spacing: 3px;
         }
 
-        /* ----- SERVICES ----- */
-        .services-section {
-            background: #080808;
-            padding: 6rem 4rem 7rem;
+        .fleet-view-link {
+            display: block;
+            margin-top: 48px;
             text-align: center;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
         }
-        .services-section .overline {
-            font-size: 0.7rem;
-            letter-spacing: 8px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            border: 1px solid var(--border-gold);
-            display: inline-block;
-            padding: 0.4rem 2rem;
-            border-radius: 50px;
-        }
+
+        /* ----- SERVICES PREVIEW ----- */
         .services-grid {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            flex-wrap: wrap;
-            max-width: 1200px;
-            margin: 2.5rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
         }
         .service-card {
-            background: rgba(20, 20, 20, 0.12);
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--border-gold);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 16px;
-            padding: 2rem 2rem;
-            flex: 1 1 160px;
-            max-width: 200px;
+            padding: 28px 16px 24px;
             text-align: center;
-            transition: all 0.5s ease;
-            border-bottom: 3px solid transparent;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-decoration: none;
-            cursor: pointer;
-            display: block;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(212,175,55,0.02) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .service-card:hover::before {
+            opacity: 1;
         }
         .service-card:hover {
-            transform: translateY(-12px);
-            border-bottom-color: var(--gold);
-            border-color: var(--border-gold-strong);
-            background: rgba(25, 25, 25, 0.3);
-            box-shadow: 0 35px 55px -18px rgba(0, 0, 0, 0.6);
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.1);
+            background: rgba(255, 255, 255, 0.04);
         }
         .service-card i {
-            font-size: 2.2rem;
-            color: var(--gold);
-            margin-bottom: 0.6rem;
-            display: inline-block;
-            opacity: 0.6;
+            font-size: 1.6rem;
+            color: #D4AF37;
+            opacity: 0.4;
+            margin-bottom: 10px;
+            display: block;
             transition: opacity 0.3s;
         }
+        .service-card:hover i {
+            opacity: 0.8;
+        }
         .service-card h4 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            font-size: 0.55rem;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.45);
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.4);
             font-weight: 400;
             transition: color 0.3s;
         }
         .service-card:hover h4 {
-            color: var(--white);
-        }
-        .service-card:hover i {
-            opacity: 1;
-        }
-        .view-all-services {
-            margin-top: 3rem;
-            display: inline-block;
-        }
-        .view-all-services a {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 5px;
-            color: var(--gold);
-            text-transform: uppercase;
-            text-decoration: none;
-            border: 1px solid var(--border-gold);
-            padding: 0.6rem 3rem;
-            transition: all 0.4s;
-            display: inline-block;
-            border-radius: 50px;
-        }
-        .view-all-services a:hover {
-            background: rgba(212, 175, 55, 0.04);
-            border-color: var(--gold);
-            transform: scale(1.03);
-        }
-        .view-all-services a i {
-            margin-right: 10px;
+            color: #ffffff;
         }
 
-        /* ----- OFFER BADGES ----- */
-        .offer-section {
-            background: #090909;
-            padding: 3.5rem 4rem 4.5rem;
+        /* ----- WHY CHOOSE ----- */
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+        .why-item {
             text-align: center;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
+            padding: 20px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            transition: all 0.4s ease;
         }
-        .offer-section .overline {
-            font-size: 0.7rem;
-            letter-spacing: 8px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            border: 1px solid var(--border-gold);
-            display: inline-block;
-            padding: 0.4rem 2rem;
-            border-radius: 50px;
-        }
-        .offer-badges {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 2.5rem;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .offer-badge {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.25);
-            border: 1px solid var(--border-gold);
-            padding: 0.5rem 1.6rem;
-            transition: all 0.4s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(20, 20, 20, 0.06);
-            border-radius: 50px;
-        }
-        .offer-badge i {
-            color: var(--gold);
-            font-size: 0.8rem;
-            opacity: 0.5;
-        }
-        .offer-badge:hover {
-            color: var(--white);
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.04);
+        .why-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(212, 175, 55, 0.08);
             transform: translateY(-4px);
+        }
+        .why-item i {
+            font-size: 1.4rem;
+            color: #D4AF37;
+            opacity: 0.4;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .why-item h4 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+        }
+        .why-item p {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.1);
+            margin-top: 4px;
         }
 
         /* ----- CTA ----- */
         .cta-section {
-            background: #0a0a0a;
-            padding: 6rem 4rem;
+            background: #0d0d0d;
+            border-top: 1px solid rgba(212, 175, 55, 0.04);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.04);
+            padding: 80px 0;
             text-align: center;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.02) 0%, transparent 70%);
         }
         .cta-section h2 {
-            font-size: 3.5rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            color: var(--white);
             font-family: 'Playfair Display', serif;
+            font-size: 3.2rem;
+            font-weight: 300;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
         }
         .cta-section h2 span {
-            color: var(--gold);
+            color: #D4AF37;
             font-style: italic;
         }
-        .cta-section .sub {
-            font-family: 'Inter', sans-serif;
-            color: rgba(255, 255, 255, 0.05);
-            font-size: 0.75rem;
-            letter-spacing: 8px;
-            margin-top: 1rem;
-            text-transform: uppercase;
-        }
-        .cta-section .established {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            color: var(--gold);
-            letter-spacing: 6px;
-            margin-top: 2rem;
-            border-top: 1px solid var(--border-gold);
-            display: inline-block;
-            padding-top: 1.5rem;
-            opacity: 0.35;
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.15);
+            margin: 12px 0 32px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
         }
 
         /* ----- FOOTER ----- */
         .footer {
-            background: #050505;
-            padding: 4rem 4rem 2.5rem;
-            border-top: 1px solid var(--border-gold);
+            background: #060606;
+            padding: 48px 48px 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
         }
         .footer-content {
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1280px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 3rem;
         }
-        .footer-brand {
-            flex: 1 1 280px;
+        .footer-brand .logo-container {
+            display: inline-flex;
+            margin-bottom: 12px;
         }
-        .footer-brand .logo-small {
-            font-size: 1.3rem;
-            letter-spacing: 6px;
-            font-weight: 300;
-            color: var(--white);
-            border-left: 2px solid var(--gold);
-            padding-left: 18px;
-            font-family: 'Playfair Display', serif;
-            display: inline-block;
-            margin-bottom: 0.8rem;
+        .footer-brand .logo-container .logo-wrapper {
+            height: 40px;
+            padding: 3px 8px;
         }
-        .footer-brand .logo-small span {
-            color: var(--gold);
-            font-weight: 400;
+        .footer-brand .logo-container img {
+            height: 30px;
+        }
+        .footer-brand .logo-container .logo-text {
+            font-size: 1.1rem;
         }
         .footer-brand p {
-            font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.1);
-            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.06);
             line-height: 2;
-        }
-        .footer-links {
-            display: flex;
-            gap: 4rem;
-            flex-wrap: wrap;
-        }
-        .footer-links-column h5 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.1);
-            margin-bottom: 0.8rem;
-        }
-        .footer-links-column a {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.08);
-            text-decoration: none;
-            transition: color 0.3s;
-            margin-bottom: 0.4rem;
-            letter-spacing: 2px;
-        }
-        .footer-links-column a:hover {
-            color: var(--gold);
+            letter-spacing: 1px;
         }
         .footer-social {
             display: flex;
-            gap: 1.5rem;
-            margin-top: 0.8rem;
+            gap: 16px;
+            margin-top: 16px;
         }
         .footer-social a {
-            color: rgba(255, 255, 255, 0.1);
-            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.06);
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             text-decoration: none;
         }
         .footer-social a:hover {
-            color: var(--gold);
+            color: #D4AF37;
             transform: translateY(-3px);
         }
+        .footer-links h5 {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: rgba(255, 255, 255, 0.06);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.04);
+            text-decoration: none;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            transition: color 0.3s;
+            letter-spacing: 1px;
+        }
+        .footer-links a:hover {
+            color: #D4AF37;
+        }
+        .footer-links a i {
+            margin-right: 6px;
+            color: #D4AF37;
+            opacity: 0.2;
+            font-size: 0.6rem;
+        }
         .footer-bottom {
-            max-width: 1200px;
-            margin: 2.5rem auto 0;
-            padding-top: 1.8rem;
+            max-width: 1280px;
+            margin: 32px auto 0;
+            padding-top: 24px;
             border-top: 1px solid rgba(255, 255, 255, 0.02);
             text-align: center;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
+            font-size: 0.45rem;
             letter-spacing: 4px;
-            color: rgba(255, 255, 255, 0.03);
-        }
-        .footer-bottom .design-credit {
-            color: rgba(255, 255, 255, 0.04);
-            letter-spacing: 3px;
-            font-size: 0.55rem;
-            margin-top: 0.8rem;
-        }
-        .footer-bottom .design-credit a {
-            color: rgba(212, 175, 55, 0.12);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .footer-bottom .design-credit a:hover {
-            color: var(--gold);
+            color: rgba(255, 255, 255, 0.02);
         }
 
         /* ----- WHATSAPP ----- */
         .whatsapp-float {
             position: fixed;
-            bottom: 2.5rem;
-            right: 2.5rem;
+            bottom: 28px;
+            right: 28px;
             background: #25D366;
-            color: white;
-            width: 56px;
-            height: 56px;
+            color: #ffffff;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.12);
+            font-size: 1.6rem;
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.08);
             z-index: 999;
             text-decoration: none;
-            transition: all 0.3s;
-            border: none;
+            transition: all 0.3s ease;
         }
         .whatsapp-float:hover {
-            transform: scale(1.08);
+            transform: scale(1.06);
             background: #1fa855;
-            box-shadow: 0 12px 50px rgba(37, 211, 102, 0.2);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.15);
         }
 
         /* ----- RESPONSIVE ----- */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 4.5rem;
-            }
-        }
-
         @media (max-width: 1024px) {
-            nav {
-                padding: 1.5rem 3rem;
+            .fleet-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            nav.scrolled {
-                padding: 0.8rem 3rem;
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
-            .hero {
-                padding: 0 2.5rem;
-                min-height: 650px;
-            }
-            .hero-wrapper {
-                justify-content: center;
-            }
-            .hero-content {
-                flex: 1 1 auto;
-                width: 100%;
-                max-width: 100%;
-                text-align: center;
-                padding: 1rem 0;
-            }
-            .hero p {
-                max-width: 100%;
-                margin-left: auto;
-                margin-right: auto;
-                font-size: 1.05rem;
-            }
-            .hero-buttons {
-                justify-content: center;
-            }
-            .hero-tag {
-                border-left: none;
-                padding-left: 0;
-                text-align: center;
+            .why-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
             .hero h1 {
-                font-size: 3.8rem;
-                text-align: center;
-            }
-            .fleet-section {
-                padding: 5rem 3rem 6rem;
-            }
-            .fleet-header h2 {
-                font-size: 2.8rem;
-            }
-            .fleet-grid {
-                gap: 2.5rem;
-            }
-            .services-section {
-                padding: 4rem 2rem 5rem;
+                font-size: 4rem;
             }
             .booking-ribbon {
                 padding: 1rem 2rem;
                 gap: 2rem;
             }
-            .offer-section {
-                padding: 2.5rem 2rem 3rem;
-            }
-            .cta-section h2 {
-                font-size: 2.6rem;
-            }
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
             nav {
-                padding: 1rem 1.8rem;
+                padding: 16px 24px;
             }
             nav.scrolled {
-                padding: 0.6rem 1.8rem;
+                padding: 12px 24px;
             }
+
             .nav-links {
                 display: none;
                 flex-direction: column;
-                background: rgba(7, 7, 7, 0.98);
+                background: rgba(10, 10, 10, 0.98);
                 backdrop-filter: blur(16px);
+                padding: 24px;
                 position: absolute;
                 top: 70px;
-                right: 0;
-                width: 260px;
-                padding: 2.5rem 2rem;
-                gap: 2rem;
-                border-left: 1px solid var(--border-gold);
-                border-bottom: 1px solid var(--border-gold);
-                border-radius: 0 0 12px 12px;
-                box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
+                right: 20px;
+                width: 200px;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                border-radius: 16px;
+                gap: 16px;
+                align-items: flex-start;
             }
             .nav-links.open {
                 display: flex;
             }
-            .nav-links a {
-                font-size: 0.9rem;
-                letter-spacing: 6px;
-                color: rgba(255, 255, 255, 0.6);
-            }
-            .nav-links a:hover {
-                color: var(--gold);
+            .nav-links .nav-cta {
+                padding: 6px 20px;
             }
             .hamburger {
-                display: flex;
+                display: block;
             }
 
             .hero {
-                padding: 0 1.2rem;
-                min-height: 560px;
+                padding: 0 24px;
+                min-height: 600px;
                 align-items: center;
-                justify-content: center;
-            }
-            .hero-wrapper {
-                align-items: center;
-                justify-content: center;
-            }
-            .hero-content {
-                text-align: left;
-                width: 100%;
-                max-width: 100%;
-                padding: 0.5rem 0;
             }
             .hero h1 {
-                font-size: 3rem;
-                text-align: left;
+                font-size: 2.8rem;
             }
             .hero p {
-                font-size: 1rem;
-                margin: 0.4rem 0 1.2rem;
-                text-align: left;
-                max-width: 100%;
+                font-size: 0.9rem;
             }
             .hero-tag {
-                border-left: 2px solid var(--gold);
-                padding-left: 12px;
-                text-align: left;
-                font-size: 0.55rem;
+                font-size: 0.5rem;
                 letter-spacing: 6px;
             }
-            .hero-buttons {
-                justify-content: flex-start;
+            .hero-tag::before {
+                width: 24px;
             }
-            .hero-buttons .btn {
-                padding: 0.5rem 1.5rem;
-                font-size: 0.55rem;
-                letter-spacing: 3px;
+
+            .fleet-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .fleet-card .image {
+                height: 180px;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .service-card {
+                padding: 20px 12px 16px;
+            }
+            .service-card i {
+                font-size: 1.2rem;
+            }
+            .service-card h4 {
+                font-size: 0.45rem;
+                letter-spacing: 2px;
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            .why-item {
+                padding: 14px 8px;
+            }
+            .why-item i {
+                font-size: 1rem;
+            }
+            .why-item h4 {
+                font-size: 0.5rem;
+            }
+            .why-item p {
+                font-size: 0.6rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            .section-header p {
+                font-size: 0.85rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .footer {
+                padding: 32px 24px 20px;
             }
 
             .booking-ribbon {
@@ -961,265 +914,55 @@
                 text-align: center;
             }
             .booking-ribbon .ribbon-item {
-                font-size: 0.6rem;
-                letter-spacing: 2px;
-                gap: 6px;
-            }
-
-            .fleet-section {
-                padding: 3rem 1.2rem 4rem;
-            }
-            .fleet-grid {
-                gap: 1.5rem;
-            }
-            .fleet-card {
-                max-width: 100%;
-                flex: 1 1 200px;
-                padding: 1.2rem 1rem 1.5rem;
-                border-radius: 12px;
-            }
-            .fleet-card .car-image {
-                height: 140px;
-                border-radius: 8px;
-            }
-            .fleet-card .car-image img {
-                object-position: center center;
-            }
-            .fleet-header h2 {
-                font-size: 2rem;
-            }
-            .fleet-header .overline {
-                font-size: 0.5rem;
-                padding: 0.3rem 1.2rem;
-            }
-            .fleet-card h4 {
-                font-size: 0.8rem;
-                letter-spacing: 3px;
-            }
-            .fleet-card .desc {
-                font-size: 0.65rem;
-            }
-            .fleet-view-link a {
-                font-size: 0.6rem;
-                padding: 0.4rem 1.8rem;
-            }
-
-            .services-section {
-                padding: 3rem 1.2rem 4rem;
-            }
-            .services-grid {
-                gap: 1rem;
-            }
-            .service-card {
-                flex: 1 1 120px;
-                max-width: 150px;
-                padding: 1rem 0.8rem;
-                border-radius: 12px;
-            }
-            .service-card i {
-                font-size: 1.6rem;
-                margin-bottom: 0.3rem;
-            }
-            .service-card h4 {
-                font-size: 0.55rem;
-                letter-spacing: 2px;
-            }
-            .services-section .overline {
-                font-size: 0.5rem;
-                padding: 0.3rem 1.2rem;
-            }
-            .view-all-services a {
-                font-size: 0.6rem;
-                padding: 0.4rem 1.8rem;
-            }
-
-            .offer-section {
-                padding: 2rem 1.2rem 2.5rem;
-            }
-            .offer-badges {
-                gap: 0.6rem;
-            }
-            .offer-badge {
-                font-size: 0.5rem;
-                padding: 0.3rem 0.8rem;
-                gap: 6px;
-                border-radius: 20px;
-            }
-            .offer-badge i {
-                font-size: 0.6rem;
-            }
-            .offer-section .overline {
-                font-size: 0.5rem;
-                padding: 0.3rem 1.2rem;
-            }
-
-            .cta-section {
-                padding: 2.5rem 1.2rem;
-            }
-            .cta-section h2 {
-                font-size: 2rem;
-                letter-spacing: 2px;
-            }
-            .cta-section .sub {
-                font-size: 0.55rem;
-                letter-spacing: 4px;
-            }
-
-            .footer {
-                padding: 1.5rem 1rem 1rem;
-            }
-            .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1.5rem;
-            }
-            .footer-links {
-                justify-content: center;
-                gap: 1.5rem;
-            }
-            .footer-social {
-                justify-content: center;
-            }
-            .logo-container .logo-wrapper {
-                height: 34px;
-                padding: 3px 8px;
-            }
-            .logo-container img {
-                height: 24px;
-            }
-            .logo-text {
-                font-size: 0.85rem;
-                letter-spacing: 3px;
-                padding-left: 10px;
-            }
-            .whatsapp-float {
-                width: 44px;
-                height: 44px;
-                font-size: 1.4rem;
-                bottom: 1.2rem;
-                right: 1.2rem;
-            }
-            .footer-brand .logo-small {
-                font-size: 1rem;
-                letter-spacing: 3px;
-                padding-left: 12px;
-            }
-            .footer-brand p {
-                font-size: 0.6rem;
-            }
-            .footer-links-column h5 {
                 font-size: 0.55rem;
             }
-            .footer-links-column a {
-                font-size: 0.6rem;
+
+            section {
+                padding: 60px 0;
+            }
+            .scroll-indicator {
+                display: none;
             }
         }
 
         @media (max-width: 480px) {
-            .hero {
-                min-height: 480px;
-                padding: 0 0.8rem;
-                align-items: center;
-            }
             .hero h1 {
                 font-size: 2.2rem;
             }
-            .hero-tag {
-                font-size: 0.45rem;
-                letter-spacing: 4px;
-                padding-left: 8px;
-                margin-bottom: 0.3rem;
-            }
-            .hero p {
-                font-size: 0.85rem;
-                margin: 0.3rem 0 0.8rem;
-            }
-            .btn {
-                padding: 0.4rem 1.2rem;
-                font-size: 0.45rem;
-                letter-spacing: 2px;
-            }
-
-            .fleet-header h2 {
-                font-size: 1.6rem;
-            }
-            .fleet-card .car-image {
-                height: 110px;
-            }
-            .fleet-card {
-                padding: 0.8rem 0.6rem 1rem;
-            }
-            .fleet-card h4 {
-                font-size: 0.65rem;
-                letter-spacing: 2px;
-            }
-            .fleet-card .model {
-                font-size: 0.6rem;
-            }
-            .fleet-card .desc {
-                font-size: 0.55rem;
-            }
-
-            .service-card {
-                flex: 1 1 90px;
-                max-width: 110px;
-                padding: 0.6rem 0.4rem;
-            }
-            .service-card i {
-                font-size: 1.2rem;
-            }
-            .service-card h4 {
-                font-size: 0.45rem;
-                letter-spacing: 1.5px;
-            }
-
-            .offer-badge {
-                font-size: 0.4rem;
-                padding: 0.2rem 0.5rem;
-                gap: 4px;
-            }
-
-            .cta-section h2 {
-                font-size: 1.6rem;
-            }
-
-            .logo-container .logo-wrapper {
-                height: 28px;
-                padding: 2px 5px;
-            }
-            .logo-container img {
-                height: 18px;
-            }
-            .logo-text {
-                font-size: 0.6rem;
-                letter-spacing: 2px;
-                padding-left: 6px;
-            }
-            .nav-links {
-                width: 160px;
-                padding: 1.2rem 1rem;
-                gap: 1rem;
-            }
-            .nav-links a {
-                font-size: 0.6rem;
+            .hero-buttons .btn {
+                padding: 10px 20px;
+                font-size: 0.5rem;
                 letter-spacing: 3px;
             }
-            .footer {
-                padding: 1rem 0.6rem 0.6rem;
+            .container {
+                padding: 0 16px;
             }
-            .footer-links {
-                gap: 1rem;
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .whatsapp-float {
-                width: 38px;
-                height: 38px;
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .fleet-card .body {
+                padding: 16px 18px 20px;
+            }
+            .fleet-card .body h4 {
                 font-size: 1rem;
-                bottom: 0.8rem;
-                right: 0.8rem;
             }
-            .booking-ribbon .ribbon-item {
-                font-size: 0.5rem;
+            .fleet-card .body .desc {
+                font-size: 0.75rem;
+            }
+            .logo-container .logo-wrapper {
+                height: 36px;
+                padding: 3px 6px;
+            }
+            .logo-container img {
+                height: 26px;
+            }
+            .logo-text {
+                font-size: 0.8rem;
+                letter-spacing: 3px;
+                padding-left: 10px;
             }
         }
     </style>
@@ -1239,6 +982,7 @@
             <li><a href="services.html">Services</a></li>
             <li><a href="fleet.html">Fleet</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="menu">
             <i class="fas fa-bars"></i>
@@ -1248,117 +992,182 @@
     <!-- HERO -->
     <section class="hero" id="home">
         <div class="hero-wrapper">
-            <div class="hero-content">
-                <div class="hero-tag">
-                    <i class="fas fa-crown"></i> Premium Executive Transport
-                </div>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-tag"><i class="fas fa-crown"></i> Premium Executive Transport</div>
                 <h1>Every Journey.<br /><span>Elevated.</span></h1>
                 <p>Executive shuttle and chauffeur services across Pretoria, Midrand, Johannesburg and surrounding areas.</p>
                 <div class="hero-buttons">
-                    <a href="fleet.html" class="btn btn-gold">View Fleet</a>
-                    <a href="contact.html" class="btn btn-outline"><i class="fas fa-file-invoice" style="margin-right:6px;"></i> Request a Quote</a>
+                    <a href="fleet.html" class="btn btn-primary">View Fleet</a>
+                    <a href="contact.html" class="btn btn-secondary"><i class="fas fa-file-invoice" style="margin-right:6px;"></i> Request a Quote</a>
                 </div>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
     <!-- BOOKING RIBBON -->
     <div class="booking-ribbon">
-        <span class="ribbon-item">
-            <i class="fas fa-calendar-check"></i> Book in <span class="highlight">60 seconds</span>
-        </span>
-        <span class="ribbon-item">
-            <i class="fas fa-gem"></i> <span class="highlight">Matric Dance</span> · 20% off
-        </span>
-        <span class="ribbon-item">
-            <i class="fas fa-phone-alt"></i> <span class="highlight">+27 82 455 6789</span>
-        </span>
+        <span class="ribbon-item"><i class="fas fa-calendar-check"></i> Book in <span class="highlight">60 seconds</span></span>
+        <span class="ribbon-item"><i class="fas fa-gem"></i> <span class="highlight">Matric Dance</span> · 20% off</span>
+        <span class="ribbon-item"><i class="fas fa-phone-alt"></i> <span class="highlight">+27 82 455 6789</span></span>
     </div>
 
-    <!-- FLEET -->
-    <section class="fleet-section reveal" id="fleet">
-        <div class="fleet-header">
-            <div class="overline"><i class="fas fa-car" style="margin-right:8px;"></i> our fleet</div>
-            <h2>Executive <span>vehicles</span></h2>
-        </div>
-        <div class="fleet-grid stagger-grid" id="fleetGrid">
-            <div class="fleet-card">
-                <div class="car-image"><img src="c-class.jpg" alt="Mercedes-Benz C-Class" /></div>
-                <h4>Mercedes‑Benz</h4>
-                <div class="model">C‑Class</div>
-                <div class="desc">Executive sedan · refined comfort for city transfers.</div>
+    <!-- FLEET PREVIEW -->
+    <section id="fleet" style="padding-top:100px;">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="overline">Our Fleet</div>
+                <h2>Executive <span>Vehicles</span></h2>
+                <p>Premium vehicles selected for comfort, style and reliability.</p>
             </div>
-            <div class="fleet-card">
-                <div class="car-image"><img src="v-class.jpg" alt="Mercedes-Benz V-Class" /></div>
-                <h4>Mercedes‑Benz</h4>
-                <div class="model">V‑Class</div>
-                <div class="desc">Luxury MPV · spacious with premium leather and privacy.</div>
+            <div class="fleet-grid">
+                <div class="fleet-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="image">
+                        <img src="c-class.jpg" alt="Mercedes-Benz C-Class" />
+                        <span class="badge">Sedan</span>
+                    </div>
+                    <div class="body">
+                        <div class="model">Mercedes‑Benz</div>
+                        <h4>C‑Class</h4>
+                        <div class="desc">Executive sedan with refined comfort for city transfers.</div>
+                        <div class="specs">
+                            <span><i class="fas fa-user"></i> 4</span>
+                            <span><i class="fas fa-suitcase"></i> 2</span>
+                        </div>
+                        <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                    </div>
+                </div>
+                <div class="fleet-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="image">
+                        <img src="v-class.jpg" alt="Mercedes-Benz V-Class" />
+                        <span class="badge">MPV</span>
+                    </div>
+                    <div class="body">
+                        <div class="model">Mercedes‑Benz</div>
+                        <h4>V‑Class</h4>
+                        <div class="desc">Luxury MPV with premium leather, privacy and spacious comfort.</div>
+                        <div class="specs">
+                            <span><i class="fas fa-user"></i> 7</span>
+                            <span><i class="fas fa-suitcase"></i> 4</span>
+                        </div>
+                        <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                    </div>
+                </div>
+                <div class="fleet-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="image">
+                        <img src="bmw-x5.jpg" alt="BMW X5" />
+                        <span class="badge">SUV</span>
+                    </div>
+                    <div class="body">
+                        <div class="model">BMW</div>
+                        <h4>X5</h4>
+                        <div class="desc">Sport activity vehicle — powerful, elegant and all-wheel drive.</div>
+                        <div class="specs">
+                            <span><i class="fas fa-user"></i> 5</span>
+                            <span><i class="fas fa-suitcase"></i> 3</span>
+                        </div>
+                        <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                    </div>
+                </div>
             </div>
-            <div class="fleet-card">
-                <div class="car-image"><img src="bmw-x5.jpg" alt="BMW X5" /></div>
-                <h4>BMW</h4>
-                <div class="model">X5</div>
-                <div class="desc">Sport activity vehicle · powerful, elegant, all‑wheel drive.</div>
+            <div class="fleet-view-link" data-aos="fade-up">
+                <a href="fleet.html" class="btn btn-secondary" style="padding:12px 48px;"><i class="fas fa-arrow-right" style="margin-right:10px;"></i> View Full Fleet</a>
             </div>
-        </div>
-        <div class="fleet-view-link">
-            <a href="fleet.html"><i class="fas fa-arrow-right" style="margin-right:10px;"></i> view full fleet</a>
         </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="services-section reveal" id="services">
-        <div class="overline"><i class="fas fa-concierge-bell" style="margin-right:8px;"></i> our services</div>
-        <div class="services-grid stagger-grid" id="servicesGrid">
-            <a href="services.html" class="service-card">
-                <i class="fas fa-plane-departure"></i>
-                <h4>Airport Transfers</h4>
-            </a>
-            <a href="services.html" class="service-card">
-                <i class="fas fa-calendar-check"></i>
-                <h4>Event Transport</h4>
-            </a>
-            <a href="services.html" class="service-card">
-                <i class="fas fa-briefcase"></i>
-                <h4>Corporate Travel</h4>
-            </a>
-            <a href="services.html" class="service-card">
-                <i class="fas fa-gem"></i>
-                <h4>VIP Chauffeur</h4>
-            </a>
-            <a href="services.html" class="service-card">
-                <i class="fas fa-map-pin"></i>
-                <h4>Door‑to‑Door</h4>
-            </a>
-            <a href="services.html" class="service-card">
-                <i class="fas fa-route"></i>
-                <h4>Custom Tours</h4>
-            </a>
-        </div>
-        <div class="view-all-services">
-            <a href="services.html"><i class="fas fa-arrow-right"></i> View All Services</a>
+    <!-- SERVICES PREVIEW -->
+    <section id="services" style="background:#0d0d0d; border-top:1px solid rgba(212,175,55,0.04); border-bottom:1px solid rgba(212,175,55,0.04);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="overline">Our Services</div>
+                <h2>Luxury <span>Transport</span></h2>
+                <p>Tailored solutions for every journey, every occasion.</p>
+            </div>
+            <div class="services-grid">
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="50">
+                    <i class="fas fa-plane-departure"></i>
+                    <h4>Airport Transfers</h4>
+                </a>
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Event Transport</h4>
+                </a>
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="150">
+                    <i class="fas fa-briefcase"></i>
+                    <h4>Corporate Travel</h4>
+                </a>
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-gem"></i>
+                    <h4>VIP Chauffeur</h4>
+                </a>
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="250">
+                    <i class="fas fa-map-pin"></i>
+                    <h4>Door‑to‑Door</h4>
+                </a>
+                <a href="services.html" class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-route"></i>
+                    <h4>Custom Tours</h4>
+                </a>
+            </div>
+            <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
+                <a href="services.html" class="btn btn-secondary" style="padding:12px 48px;"><i class="fas fa-arrow-right" style="margin-right:10px;"></i> View All Services</a>
+            </div>
         </div>
     </section>
 
-    <!-- OFFER BADGES -->
-    <section class="offer-section reveal">
-        <div class="overline"><i class="fas fa-star" style="margin-right:8px;"></i> what we offer</div>
-        <div class="offer-badges stagger-grid" id="offerGrid">
-            <span class="offer-badge"><i class="fas fa-clock"></i> punctuality</span>
-            <span class="offer-badge"><i class="fas fa-shield-alt"></i> safety</span>
-            <span class="offer-badge"><i class="fas fa-user-tie"></i> professionalism</span>
-            <span class="offer-badge"><i class="fas fa-wifi"></i> in‑car wifi</span>
-            <span class="offer-badge"><i class="fas fa-water"></i> bottled water</span>
-            <span class="offer-badge"><i class="fas fa-star"></i> 5‑star service</span>
+    <!-- WHY CHOOSE -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="overline">Why Choose Us</div>
+                <h2>Excellence in <span>Every Detail</span></h2>
+                <p>What sets Royal Meridian apart.</p>
+            </div>
+            <div class="why-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="why-item">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>Professional Drivers</h4>
+                    <p>Experienced &amp; courteous</p>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-car"></i>
+                    <h4>Luxury Vehicles</h4>
+                    <p>Premium fleet selection</p>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Safety First</h4>
+                    <p>Your safety is paramount</p>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-clock"></i>
+                    <h4>Reliable Service</h4>
+                    <p>On-time, every time</p>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h4>Nationwide Travel</h4>
+                    <p>Covering all of SA</p>
+                </div>
+                <div class="why-item">
+                    <i class="fas fa-headset"></i>
+                    <h4>24/7 Support</h4>
+                    <p>Always here to help</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- CTA -->
-    <section class="cta-section reveal">
-        <h2>Travel in comfort. <span>Arrive with confidence.</span></h2>
-        <div class="sub">Royal Meridian · since 2026</div>
-        <div class="established">
-            <i class="fas fa-crown" style="margin-right:10px; color:var(--gold);"></i> established 2026 · south africa
+    <section class="cta-section" data-aos="zoom-in">
+        <div class="container">
+            <h2>Ready To <span>Travel</span>?</h2>
+            <p>Experience the pinnacle of luxury transport with Royal Meridian Shuttles.</p>
+            <a href="contact.html" class="btn btn-primary"><i class="fas fa-paper-plane" style="margin-right:8px;"></i> Request a Quote</a>
         </div>
     </section>
 
@@ -1366,7 +1175,12 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
+                <a href="index.html" class="logo-container">
+                    <span class="logo-wrapper">
+                        <img src="logo.jpg" alt="Royal Meridian Logo" />
+                    </span>
+                    <span class="logo-text">ROYAL <span>MERIDIAN</span></span>
+                </a>
                 <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -1375,24 +1189,23 @@
                 </div>
             </div>
             <div class="footer-links">
-                <div class="footer-links-column">
-                    <h5>Quick Links</h5>
-                    <a href="index.html">Home</a>
-                    <a href="services.html">Services</a>
-                    <a href="fleet.html">Fleet</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="footer-links-column">
-                    <h5>Contact</h5>
-                    <a href="tel:+27824556789"><i class="fas fa-phone-alt" style="margin-right:6px; color:var(--gold);"></i> +27 82 455 6789</a>
-                    <a href="mailto:info@royalmeridiangroup.co.za"><i class="fas fa-envelope" style="margin-right:6px; color:var(--gold);"></i> info@royalmeridiangroup.co.za</a>
-                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right:6px; color:var(--gold);"></i> 123 Lynnwood Road, Pretoria, 0081</a>
-                </div>
+                <h5>Quick Links</h5>
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="fleet.html">Fleet</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html">Book Now</a>
+            </div>
+            <div class="footer-links">
+                <h5>Contact</h5>
+                <a href="tel:+27824556789"><i class="fas fa-phone-alt"></i> +27 82 455 6789</a>
+                <a href="mailto:info@royalmeridian.co.za"><i class="fas fa-envelope"></i> info@royalmeridian.co.za</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> 123 Lynnwood Rd, Pretoria</a>
             </div>
         </div>
         <div class="footer-bottom">
             © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
-            <div class="design-credit">Website designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank">Monarch Technologies (Pty) Ltd.</a></div>
+            <div style="margin-top:4px; font-size:0.35rem; opacity:0.3; letter-spacing:3px;">Designed with precision</div>
         </div>
     </footer>
 
@@ -1401,7 +1214,17 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({
+            once: true,
+            duration: 700,
+            easing: 'ease-out-cubic',
+            offset: 80,
+            disable: 'mobile'
+        });
+
         // Nav scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
@@ -1433,28 +1256,13 @@
             }
         });
 
-        // SCROLL REVEAL
-        const revealElements = document.querySelectorAll('.reveal');
-        const staggerGrids = document.querySelectorAll('.stagger-grid');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        revealElements.forEach(el => observer.observe(el));
-        staggerGrids.forEach(el => observer.observe(el));
-
-        window.addEventListener('load', () => {
-            const allTargets = [...revealElements, ...staggerGrids];
-            allTargets.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
-                    el.classList.add('visible');
-                }
-            });
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            const scrolled = window.pageYOffset;
+            if (scrolled < window.innerHeight) {
+                hero.style.backgroundPositionY = scrolled * 0.4 + 'px';
+            }
         });
     </script>
 </body>
