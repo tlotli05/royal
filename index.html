@@ -103,6 +103,22 @@
             transform: translateY(-2px);
         }
 
+        .btn-close-modal {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.3);
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: color 0.3s;
+            position: absolute;
+            top: 16px;
+            right: 20px;
+        }
+        .btn-close-modal:hover {
+            color: #D4AF37;
+        }
+
         /* ----- NAV ----- */
         nav {
             position: fixed;
@@ -676,7 +692,7 @@
             z-index: 1;
         }
 
-        /* ----- FOOTER (improved visibility with white text) ----- */
+        /* ----- FOOTER ----- */
         .footer {
             background: #0a0a0a;
             padding: 48px 48px 28px;
@@ -719,6 +735,7 @@
             font-size: 1.1rem;
             transition: all 0.3s ease;
             text-decoration: none;
+            cursor: pointer;
         }
         .footer-social a:hover {
             color: #D4AF37;
@@ -740,6 +757,7 @@
             margin-bottom: 4px;
             transition: color 0.3s;
             letter-spacing: 1px;
+            cursor: pointer;
         }
         .footer-links a:hover {
             color: #D4AF37;
@@ -756,16 +774,179 @@
             padding-top: 24px;
             border-top: 1px solid rgba(212, 175, 55, 0.06);
             text-align: center;
+        }
+        .footer-bottom .copyright {
             font-size: 0.45rem;
             letter-spacing: 4px;
             color: rgba(255, 255, 255, 0.15);
         }
         .footer-bottom .design-credit {
-            margin-top: 4px;
-            font-size: 0.35rem;
-            opacity: 0.4;
+            margin-top: 8px;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .footer-bottom .design-credit a {
+            color: #D4AF37;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-bottom .design-credit a:hover {
+            color: #c49f2e;
+            text-decoration: underline;
+        }
+
+        /* ----- TOAST NOTIFICATION ----- */
+        .toast-notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            padding: 16px 32px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            font-weight: 300;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        }
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast-notification i {
+            color: #D4AF37;
+            margin-right: 10px;
+            opacity: 0.5;
+        }
+
+        /* ----- MODAL OVERLAY ----- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #121212;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 24px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 48px 40px 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+        }
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .modal-content h2 span {
+            color: #D4AF37;
+            font-style: italic;
+        }
+        .modal-content .modal-sub {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.15);
             letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.04);
+            padding-bottom: 16px;
+        }
+        .modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #D4AF37;
+            margin: 20px 0 6px;
+            letter-spacing: 1px;
+        }
+        .modal-content h4 {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #ffffff;
+            margin: 16px 0 4px;
+        }
+        .modal-content p,
+        .modal-content li {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .modal-content ul li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+        }
+        .modal-content ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-size: 0.5rem;
+            opacity: 0.3;
+        }
+        .modal-content .highlight-box {
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.06);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+        .modal-content .highlight-box p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+        .modal-content .highlight-box strong {
+            color: #D4AF37;
+            font-weight: 400;
         }
 
         /* ----- WHATSAPP ----- */
@@ -945,6 +1126,21 @@
             .scroll-indicator {
                 display: none;
             }
+
+            .modal-content {
+                padding: 32px 24px 24px;
+                max-height: 85vh;
+            }
+            .modal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .toast-notification {
+                bottom: 90px;
+                padding: 14px 24px;
+                font-size: 0.75rem;
+                max-width: 95%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1003,6 +1199,18 @@
             }
             .footer-brand p {
                 font-size: 0.6rem;
+            }
+            .modal-content {
+                padding: 24px 16px 20px;
+            }
+            .modal-content h2 {
+                font-size: 1.2rem;
+            }
+            .toast-notification {
+                bottom: 80px;
+                padding: 12px 18px;
+                font-size: 0.65rem;
+                max-width: 98%;
             }
         }
     </style>
@@ -1240,9 +1448,9 @@
                 </a>
                 <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a onclick="showSocialToast('Instagram')" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a onclick="showSocialToast('Facebook')" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a onclick="showSocialToast('WhatsApp')" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-links">
@@ -1254,15 +1462,17 @@
                 <a href="contact.html">Book Now</a>
             </div>
             <div class="footer-links">
-                <h5>Contact</h5>
-                <a href="tel:+27824556789"><i class="fas fa-phone-alt"></i> +27 82 455 6789</a>
-                <a href="mailto:info@royalmeridian.co.za"><i class="fas fa-envelope"></i> info@royalmeridian.co.za</a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i> 123 Lynnwood Rd, Pretoria</a>
+                <h5>Legal</h5>
+                <a onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms &amp; Conditions</a>
+                <a onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a onclick="openModal('partner')"><i class="fas fa-handshake"></i> Partner With Us</a>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
-            <div class="design-credit">Designed with precision</div>
+            <div class="copyright">© 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT</div>
+            <div class="design-credit">
+                Designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank" rel="noopener noreferrer">Monarch Technologies (Pty) Ltd</a>
+            </div>
         </div>
     </footer>
 
@@ -1270,6 +1480,111 @@
     <a href="#" class="whatsapp-float" aria-label="WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- ===== TOAST NOTIFICATION ===== -->
+    <div class="toast-notification" id="toastNotification">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastMessage">We'll link our social media accounts soon!</span>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+
+    <!-- TERMS & CONDITIONS MODAL -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('termsModal')"><i class="fas fa-times"></i></button>
+            <h2>Terms &amp; <span>Conditions</span></h2>
+            <div class="modal-sub">Welcome to Royal Meridian Shuttles</div>
+
+            <h3>Introduction</h3>
+            <p>By using our website or booking our services, you agree to these Terms &amp; Conditions.</p>
+
+            <h3>Booking Services</h3>
+            <p>Royal Meridian Shuttles coordinates and facilitates transport bookings with trusted transport partners.</p>
+
+            <h3>Booking Confirmation</h3>
+            <p>A booking is only confirmed once it has been accepted and confirmed by Royal Meridian.</p>
+
+            <h3>Pricing</h3>
+            <p>All quotations are subject to availability and may change until confirmed.</p>
+
+            <h3>Cancellations</h3>
+            <p>Cancellation terms will be communicated at the time of booking.</p>
+
+            <h3>Passenger Responsibilities</h3>
+            <p>Passengers are expected to behave respectfully and comply with all applicable laws during their journey.</p>
+
+            <h3>Liability</h3>
+            <p>Royal Meridian Shuttles coordinates transport services through approved transport partners. Transport operators remain responsible for the operation of their vehicles, drivers, permits and applicable insurance.</p>
+        </div>
+    </div>
+
+    <!-- PRIVACY POLICY MODAL -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('privacyModal')"><i class="fas fa-times"></i></button>
+            <h2>Privacy <span>Policy</span></h2>
+            <div class="modal-sub">How we handle your information</div>
+
+            <h3>Information We Collect</h3>
+            <p>We may collect:</p>
+            <ul>
+                <li>Name</li>
+                <li>Email Address</li>
+                <li>Phone Number</li>
+                <li>Pickup and Destination Information</li>
+                <li>Booking Details</li>
+            </ul>
+
+            <h3>How We Use Your Information</h3>
+            <p>Your information is used solely to:</p>
+            <ul>
+                <li>Process bookings</li>
+                <li>Contact you regarding your booking</li>
+                <li>Improve our services</li>
+                <li>Respond to enquiries</li>
+            </ul>
+
+            <h3>Data Protection</h3>
+            <p>We take reasonable measures to protect your personal information and do not sell your data to third parties.</p>
+        </div>
+    </div>
+
+    <!-- PARTNER WITH US MODAL -->
+    <div class="modal-overlay" id="partnerModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('partnerModal')"><i class="fas fa-times"></i></button>
+            <h2>Partner <span>With Us</span></h2>
+            <div class="modal-sub">Join Our Transport Network</div>
+
+            <p>Royal Meridian Shuttles is continuously expanding its network of trusted transport partners.</p>
+            <p>We welcome professional transport companies and luxury vehicle owners who meet our quality standards.</p>
+
+            <h3>Benefits</h3>
+            <ul>
+                <li>Additional booking opportunities</li>
+                <li>Flexible partnership</li>
+                <li>Professional client base</li>
+                <li>Business growth opportunities</li>
+            </ul>
+
+            <h3>Requirements</h3>
+            <ul>
+                <li>Professional conduct</li>
+                <li>Clean and well-maintained vehicles</li>
+                <li>Valid driver's licence</li>
+                <li>Required operating documentation</li>
+                <li>Commitment to excellent customer service</li>
+            </ul>
+
+            <h3>Interested?</h3>
+            <p>Email us at:</p>
+            <div class="highlight-box">
+                <p><strong>bookings.royalmeridian@gmail.com</strong></p>
+            </div>
+            <p>or submit an enquiry through our website.</p>
+        </div>
+    </div>
 
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1321,6 +1636,76 @@
                 hero.style.backgroundPositionY = scrolled * 0.4 + 'px';
             }
         });
+
+        // ----- TOAST NOTIFICATION -----
+        let toastTimeout;
+
+        function showSocialToast(platform) {
+            const toast = document.getElementById('toastNotification');
+            const message = document.getElementById('toastMessage');
+
+            const messages = {
+                'Instagram': '📸 We\'ll link our Instagram account soon!',
+                'Facebook': '👍 We\'ll link our Facebook page soon!',
+                'WhatsApp': '💬 We\'ll link our WhatsApp account soon!'
+            };
+
+            message.textContent = messages[platform] || 'We\'ll link our social media accounts soon!';
+
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toast.classList.remove('show');
+            }
+
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 50);
+
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+
+        // ----- MODAL FUNCTIONS -----
+        function openModal(type) {
+            const modalMap = {
+                'terms': 'termsModal',
+                'privacy': 'privacyModal',
+                'partner': 'partnerModal'
+            };
+            const modalId = modalMap[type];
+            if (modalId) {
+                const modal = document.getElementById(modalId);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        console.log('Royal Meridian Shuttles · Every Journey. Elevated.');
     </script>
 </body>
 </html>
