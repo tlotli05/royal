@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <style>
         * {
             margin: 0;
@@ -15,61 +16,91 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: #0a0a0a;
-            color: #ece8e2;
-            font-family: 'Playfair Display', 'Georgia', serif;
-            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        :root {
-            --gold: #D4AF37;
-            --gold-light: #E8C94A;
-            --gold-dark: #B8962A;
-            --taupe: #A79686;
-            --white: #ffffff;
-            --charcoal: #121212;
-            --border-gold: rgba(212, 175, 55, 0.12);
-            --border-gold-strong: rgba(212, 175, 55, 0.25);
+        .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
         }
 
-        /* ----- SHINY LINE ----- */
-        .shiny-line {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            width: 80%;
+        .container {
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* ----- BUTTONS ----- */
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            border: none;
+            font-weight: 400;
             position: relative;
             overflow: hidden;
-            opacity: 0.3;
         }
-        .shiny-line::after {
+        .btn::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
-            animation: shimmer 3s infinite;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
         }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
+        .btn:hover::after {
+            transform: translateX(0);
         }
 
-        /* ----- REVEAL ----- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(35px);
-            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1),
-                transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+        .btn-primary {
+            background: #D4AF37;
+            color: #0a0a0a;
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .btn-primary:hover {
+            background: #c49f2e;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.25);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: #D4AF37;
+            color: #D4AF37;
+            transform: translateY(-2px);
+        }
+
+        .btn-gold-outline {
+            background: transparent;
+            color: #D4AF37;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .btn-gold-outline:hover {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: #D4AF37;
+            transform: translateY(-2px);
         }
 
         /* ----- NAV ----- */
@@ -78,20 +109,20 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1.2rem 5rem;
+            padding: 24px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            transition: all 0.5s ease;
             background: transparent;
-            transition: all 0.4s ease;
-            border-bottom: 1px solid transparent;
         }
         nav.scrolled {
-            background: rgba(10, 10, 10, 0.92);
-            backdrop-filter: blur(14px);
-            padding: 0.7rem 5rem;
-            border-bottom: 1px solid var(--border-gold);
+            background: rgba(10, 10, 10, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 48px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.06);
         }
 
         .logo-container {
@@ -103,12 +134,12 @@
         .logo-container .logo-wrapper {
             background: #000000;
             padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid var(--border-gold-strong);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.12);
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 46px;
+            height: 48px;
         }
         .logo-container img {
             height: 36px;
@@ -116,838 +147,919 @@
             display: block;
         }
         .logo-text {
-            font-size: 1.1rem;
-            letter-spacing: 5px;
-            font-weight: 300;
-            color: var(--white);
-            border-left: 2px solid var(--gold);
-            padding-left: 16px;
             font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            color: #ffffff;
+            border-left: 2px solid #D4AF37;
+            padding-left: 16px;
         }
         .logo-text span {
-            color: var(--gold);
+            color: #D4AF37;
             font-weight: 400;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.8rem;
+            gap: 36px;
             list-style: none;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
+            align-items: center;
         }
         .nav-links a {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.4);
             text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             transition: color 0.3s;
+            font-weight: 400;
             position: relative;
-            padding-bottom: 4px;
         }
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -4px;
             left: 0;
             width: 0;
-            height: 1.5px;
-            background: var(--gold);
+            height: 1px;
+            background: #D4AF37;
             transition: width 0.4s ease;
         }
         .nav-links a:hover {
-            color: var(--white);
+            color: #ffffff;
         }
         .nav-links a:hover::after {
             width: 100%;
         }
         .nav-links a.active {
-            color: var(--gold);
+            color: #D4AF37;
         }
         .nav-links a.active::after {
             width: 100%;
         }
+        .nav-links .nav-cta {
+            color: #0a0a0a;
+            background: #D4AF37;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+        .nav-links .nav-cta::after {
+            display: none;
+        }
+        .nav-links .nav-cta:hover {
+            background: #c49f2e;
+            color: #0a0a0a;
+        }
 
         .hamburger {
             display: none;
-            font-size: 1.4rem;
-            color: var(--white);
             background: none;
             border: none;
+            color: #ffffff;
+            font-size: 1.4rem;
             cursor: pointer;
             padding: 8px;
-            transition: color 0.3s, transform 0.3s;
-            width: 40px;
-            height: 40px;
-            position: relative;
-            align-items: center;
-            justify-content: center;
+            transition: color 0.3s;
         }
         .hamburger:hover {
-            color: var(--gold);
-        }
-        .hamburger i {
-            transition: transform 0.4s ease;
-        }
-        .hamburger.open i {
-            transform: rotate(90deg);
+            color: #D4AF37;
         }
 
-        /* ----- PAGE HERO ----- */
+        /* ----- PAGE HERO (refined, cleaner) ----- */
         .page-hero {
             position: relative;
             width: 100%;
-            height: 45vh;
-            min-height: 350px;
-            background: url('servicebg.jpg') center center / cover no-repeat;
+            height: 60vh;
+            min-height: 450px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
+            padding: 0 48px;
+            background: url('servicebg.jpg') center center / cover no-repeat;
+            overflow: hidden;
         }
         .page-hero::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: brightness(0.7) saturate(0.5);
+            background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 70%);
             z-index: 1;
         }
         .page-hero::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.3;
-            z-index: 2;
-            animation: shimmer 3s infinite;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(212,175,55,0.04) 0%, transparent 70%);
+            z-index: 1;
         }
-        .page-hero-content {
+
+        .page-hero-wrapper {
             position: relative;
             z-index: 2;
-            animation: fadeUp 1.2s ease forwards;
-        }
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(35px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .page-hero-content .tag {
-            font-size: 0.6rem;
-            letter-spacing: 8px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-        .page-hero-content .tag i {
-            margin-right: 10px;
-        }
-        .page-hero-content h1 {
-            font-size: 3.8rem;
-            font-weight: 300;
-            color: var(--white);
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-        }
-        .page-hero-content h1 span {
-            color: var(--gold);
-            font-style: italic;
-        }
-        .page-hero-content p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.6);
-            max-width: 600px;
-            margin: 0.8rem auto 0;
-            letter-spacing: 0.5px;
-        }
-
-        /* ----- SERVICES GRID ----- */
-        .services-grid-section {
-            background: #0d0d0d;
-            padding: 5rem 4rem;
-            border-bottom: 1px solid var(--border-gold);
-            position: relative;
-        }
-        .services-grid-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.2;
-            animation: shimmer 3s infinite;
-        }
-
-        .services-grid-section .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-        .services-grid-section .section-header .overline {
-            font-size: 0.55rem;
-            letter-spacing: 7px;
-            color: var(--gold);
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-            border: 1px solid var(--border-gold);
-            display: inline-block;
-            padding: 0.3rem 1.8rem;
-        }
-        .services-grid-section .section-header h2 {
-            font-size: 2.8rem;
-            font-weight: 300;
-            color: var(--white);
-            margin-top: 0.8rem;
-            letter-spacing: 2px;
-            font-family: 'Playfair Display', serif;
-        }
-        .services-grid-section .section-header h2 span {
-            color: var(--gold);
-            font-style: italic;
-        }
-
-        .services-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .service-card {
-            background: rgba(20, 20, 20, 0.5);
-            backdrop-filter: blur(4px);
-            border: 1px solid var(--border-gold);
-            padding: 2.5rem 2rem;
+        .page-hero-content {
+            flex: 1 1 60%;
+            max-width: 750px;
+            padding: 2rem 0;
+        }
+        .page-hero-tag {
+            font-size: 0.7rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: #D4AF37;
+            font-weight: 300;
+            margin-bottom: 16px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .page-hero-tag::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: #D4AF37;
+            opacity: 0.3;
+        }
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.8rem;
+            font-weight: 300;
+            line-height: 1.05;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 60px rgba(0,0,0,0.3);
+        }
+        .page-hero h1 span {
+            color: #D4AF37;
+            font-style: italic;
+            font-weight: 400;
+        }
+        .page-hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 520px;
+            line-height: 1.9;
+            font-weight: 300;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ----- SERVICES SECTION (refined) ----- */
+        .services-section {
+            padding: 100px 0 120px;
+            background: #0a0a0a;
+        }
+
+        .section-header {
             text-align: center;
-            transition: all 0.4s ease;
-            border-bottom: 3px solid transparent;
+            margin-bottom: 72px;
+        }
+        .section-header .overline {
+            font-size: 0.55rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: #D4AF37;
+            font-weight: 300;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+        .section-header h2 span {
+            color: #D4AF37;
+            font-style: italic;
+        }
+        .section-header p {
+            color: rgba(255, 255, 255, 0.12);
+            font-size: 1rem;
+            max-width: 520px;
+            margin: 8px auto 0;
+            font-weight: 300;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 40px 32px 36px;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
+            overflow: hidden;
         }
         .service-card::before {
             content: '';
             position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(10,10,10,0.6) 100%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
             top: -1px;
-            left: 20%;
-            right: 20%;
+            left: 30%;
+            right: 30%;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
         .service-card:hover::before {
-            opacity: 0.4;
+            opacity: 1;
+        }
+        .service-card:hover::after {
+            opacity: 0.3;
         }
         .service-card:hover {
-            transform: translateY(-8px);
-            border-bottom-color: var(--gold);
-            border-color: var(--border-gold-strong);
-            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8);
-            background: rgba(25, 25, 25, 0.7);
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.12);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 40px 80px -24px rgba(0,0,0,0.8);
         }
-
         .service-card .icon {
-            font-size: 2.8rem;
-            color: var(--gold);
-            margin-bottom: 1.2rem;
-            opacity: 0.8;
+            font-size: 2.6rem;
+            color: #D4AF37;
+            opacity: 0.5;
+            margin-bottom: 14px;
+            display: block;
+            transition: all 0.4s ease;
+        }
+        .service-card:hover .icon {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        .service-card .icon-wrapper {
             display: inline-block;
+            padding: 16px;
+            border-radius: 16px;
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.04);
+            margin-bottom: 16px;
+            transition: all 0.4s ease;
+        }
+        .service-card:hover .icon-wrapper {
+            background: rgba(212, 175, 55, 0.06);
+            border-color: rgba(212, 175, 55, 0.08);
         }
         .service-card h3 {
-            font-size: 1.1rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: var(--white);
-            margin-bottom: 0.5rem;
             font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
         }
         .service-card p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
             line-height: 1.8;
-            letter-spacing: 0.3px;
         }
         .service-card .price-hint {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            color: var(--gold);
-            margin-top: 1rem;
+            font-size: 0.65rem;
+            color: #D4AF37;
+            margin: 14px 0 18px;
             letter-spacing: 2px;
-            opacity: 0.6;
+            opacity: 0.4;
+            font-weight: 400;
         }
-        .service-card .btn-service {
-            display: inline-block;
-            margin-top: 1.2rem;
-            padding: 0.5rem 2rem;
-            border: 1px solid var(--border-gold);
-            color: var(--gold);
-            font-family: 'Inter', sans-serif;
+        .service-card .btn {
+            padding: 8px 28px;
             font-size: 0.5rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .service-card .btn-service:hover {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: var(--gold);
-            transform: scale(1.02);
+            letter-spacing: 3px;
         }
 
-        /* ----- WHAT WE OFFER (badges) ----- */
-        .offer-section {
-            background: #0a0a0a;
-            padding: 4rem 3rem;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
+        /* ----- FEATURES SECTION (refined) ----- */
+        .features-section {
+            background: #0d0d0d;
+            padding: 80px 0 100px;
+            border-top: 1px solid rgba(212, 175, 55, 0.04);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.04);
             text-align: center;
-            position: relative;
         }
-        .offer-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.15;
-            animation: shimmer 3s infinite;
-        }
-        .offer-section .overline {
+        .features-section .overline {
             font-size: 0.55rem;
-            letter-spacing: 7px;
-            color: var(--gold);
+            letter-spacing: 10px;
             text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
+            color: #D4AF37;
             font-weight: 300;
-            border: 1px solid var(--border-gold);
-            display: inline-block;
-            padding: 0.3rem 1.8rem;
+            opacity: 0.4;
+            margin-bottom: 8px;
         }
-        .offer-section h2 {
-            font-size: 2.2rem;
-            font-weight: 300;
-            color: var(--white);
-            margin-top: 0.8rem;
-            letter-spacing: 2px;
+        .features-section h2 {
             font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
         }
-        .offer-section h2 span {
-            color: var(--gold);
+        .features-section h2 span {
+            color: #D4AF37;
             font-style: italic;
         }
 
-        .offer-badges {
+        .features-grid {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 14px;
             flex-wrap: wrap;
-            margin-top: 2rem;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 1100px;
+            margin: 0 auto;
         }
-        .offer-badge {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            letter-spacing: 2px;
+        .feature-tag {
+            font-size: 0.55rem;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.5);
-            border: 1px solid var(--border-gold);
-            padding: 0.6rem 1.6rem;
-            transition: all 0.3s;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 10px 26px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(20, 20, 20, 0.3);
+            background: rgba(255, 255, 255, 0.02);
         }
-        .offer-badge i {
-            color: var(--gold);
-            font-size: 0.75rem;
-            opacity: 0.7;
+        .feature-tag i {
+            color: #D4AF37;
+            font-size: 0.7rem;
+            opacity: 0.4;
         }
-        .offer-badge:hover {
-            color: var(--white);
-            border-color: var(--gold);
-            background: rgba(212, 175, 55, 0.05);
-            transform: translateY(-2px);
+        .feature-tag:hover {
+            border-color: rgba(212, 175, 55, 0.12);
+            color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.04);
         }
 
-        /* ----- CTA SECTION ----- */
+        /* ----- CTA SECTION (refined) ----- */
         .cta-section {
-            background: #0e0e0e;
-            padding: 4.5rem 3rem;
+            background: #0d0d0d;
+            padding: 100px 0;
             text-align: center;
-            border-top: 1px solid var(--border-gold);
-            border-bottom: 1px solid var(--border-gold);
             position: relative;
+            overflow: hidden;
         }
         .cta-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.2;
-            animation: shimmer 3s infinite;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.02) 0%, transparent 70%);
         }
         .cta-section h2 {
-            font-size: 2.8rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            color: var(--white);
             font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-weight: 300;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
         }
         .cta-section h2 span {
-            color: var(--gold);
+            color: #D4AF37;
             font-style: italic;
         }
-        .cta-section .sub {
-            font-family: 'Inter', sans-serif;
-            color: rgba(255, 255, 255, 0.15);
-            font-size: 0.6rem;
-            letter-spacing: 6px;
-            margin-top: 0.8rem;
-            text-transform: uppercase;
-        }
-        .cta-section .btn-cta {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.9rem 3.5rem;
-            background: linear-gradient(135deg, #D4AF37, #B8962A);
-            border: none;
-            color: #0a0a0a;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 700;
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.12);
+            margin: 12px 0 32px;
+            font-size: 1rem;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-            border-radius: 2px;
-        }
-        .cta-section .btn-cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-        .cta-section .btn-cta:hover::before {
-            left: 100%;
-        }
-        .cta-section .btn-cta:hover {
-            background: linear-gradient(135deg, #c49f2e, #a07d25);
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), 0 10px 40px rgba(212, 175, 55, 0.2);
-        }
-        .cta-section .btn-cta:active {
-            transform: scale(0.97);
-        }
-        .cta-section .btn-cta i {
-            margin-right: 12px;
-            font-size: 0.7rem;
-        }
-
-        /* ----- BOOKING RIBBON ----- */
-        .booking-ribbon {
-            background: linear-gradient(135deg, #1a1410, #0a0a0a);
-            border-top: 2px solid var(--border-gold-strong);
-            border-bottom: 2px solid var(--border-gold-strong);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            position: relative;
-        }
-        .booking-ribbon::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.05), transparent);
-            pointer-events: none;
-        }
-        .booking-ribbon .booking-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-        }
-        .booking-ribbon .booking-text i {
-            color: var(--gold);
-            margin-right: 10px;
-        }
-        .booking-ribbon .booking-text .highlight {
-            color: var(--gold);
-            font-weight: 400;
-        }
-        .booking-ribbon .booking-text .phone-number {
-            color: #4FC3F7;
-            font-weight: 500;
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-            text-decoration: none;
-        }
-        .booking-ribbon .booking-text .phone-number:hover {
-            color: #81D4FA;
-        }
-        .btn-book {
-            padding: 0.9rem 3.5rem;
-            background: linear-gradient(135deg, #D4AF37, #B8962A);
-            border: none;
-            color: #0a0a0a;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-weight: 700;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
-            border-radius: 2px;
-        }
-        .btn-book::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-        .btn-book:hover::before {
-            left: 100%;
-        }
-        .btn-book:hover {
-            background: linear-gradient(135deg, #c49f2e, #a07d25);
-            transform: scale(1.05);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.35), 0 10px 40px rgba(212, 175, 55, 0.2);
-        }
-        .btn-book:active {
-            transform: scale(0.97);
-        }
-        .btn-book i {
-            margin-right: 12px;
-            font-size: 0.7rem;
+            z-index: 1;
         }
 
         /* ----- FOOTER ----- */
         .footer {
-            background: #060606;
-            padding: 3rem 3rem 2rem;
-            border-top: 1px solid var(--border-gold);
-            position: relative;
+            background: #0a0a0a;
+            padding: 48px 48px 28px;
+            border-top: 1px solid rgba(212, 175, 55, 0.08);
         }
-        .footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0.15;
-            animation: shimmer 3s infinite;
-        }
-
         .footer-content {
-            max-width: 1100px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1280px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 2.5rem;
         }
-
-        .footer-brand {
-            flex: 1 1 250px;
+        .footer-brand .logo-container {
+            display: inline-flex;
+            margin-bottom: 12px;
         }
-        .footer-brand .logo-small {
+        .footer-brand .logo-container .logo-wrapper {
+            height: 40px;
+            padding: 3px 8px;
+        }
+        .footer-brand .logo-container img {
+            height: 30px;
+        }
+        .footer-brand .logo-container .logo-text {
             font-size: 1.1rem;
-            letter-spacing: 5px;
-            font-weight: 300;
-            color: var(--white);
-            border-left: 2px solid var(--gold);
-            padding-left: 16px;
-            font-family: 'Playfair Display', serif;
-            display: inline-block;
-            margin-bottom: 0.8rem;
-        }
-        .footer-brand .logo-small span {
-            color: var(--gold);
-            font-weight: 400;
         }
         .footer-brand p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.2);
-            letter-spacing: 1px;
-            line-height: 1.8;
-            margin-top: 0.3rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 3rem;
-            flex-wrap: wrap;
-        }
-        .footer-links-column h5 {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.55rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.2);
-            margin-bottom: 0.8rem;
-        }
-        .footer-links-column a {
-            display: block;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.15);
-            text-decoration: none;
-            transition: color 0.3s;
-            margin-bottom: 0.4rem;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 2;
             letter-spacing: 1px;
         }
-        .footer-links-column a:hover {
-            color: var(--gold);
-        }
-
         .footer-social {
             display: flex;
-            gap: 1.2rem;
-            margin-top: 0.5rem;
+            gap: 16px;
+            margin-top: 16px;
         }
         .footer-social a {
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.25);
             font-size: 1.1rem;
             transition: all 0.3s ease;
             text-decoration: none;
+            cursor: pointer;
         }
         .footer-social a:hover {
-            color: var(--gold);
-            transform: translateY(-2px);
+            color: #D4AF37;
+            transform: translateY(-3px);
         }
-
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 2rem auto 0;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
-            text-align: center;
-            font-family: 'Inter', sans-serif;
+        .footer-links h5 {
             font-size: 0.5rem;
-            letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.06);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 12px;
+            font-weight: 400;
         }
-
-        .footer-bottom .design-credit {
-            color: rgba(255, 255, 255, 0.08);
-            letter-spacing: 2px;
+        .footer-links a {
+            display: block;
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            transition: color 0.3s;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .footer-links a:hover {
+            color: #D4AF37;
+        }
+        .footer-links a i {
+            margin-right: 6px;
+            color: #D4AF37;
+            opacity: 0.3;
+            font-size: 0.6rem;
+        }
+        .footer-bottom {
+            max-width: 1280px;
+            margin: 32px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid rgba(212, 175, 55, 0.06);
+            text-align: center;
+        }
+        .footer-bottom .copyright {
             font-size: 0.45rem;
-            margin-top: 0.8rem;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.15);
+        }
+        .footer-bottom .design-credit {
+            margin-top: 8px;
+            font-size: 0.5rem;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.25);
         }
         .footer-bottom .design-credit a {
-            color: rgba(212, 175, 55, 0.3);
+            color: #D4AF37;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
         .footer-bottom .design-credit a:hover {
-            color: var(--gold);
+            color: #c49f2e;
+            text-decoration: underline;
+        }
+
+        /* ----- TOAST ----- */
+        .toast-notification {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 16px;
+            padding: 16px 32px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            font-weight: 300;
+            z-index: 3000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+            font-family: 'Inter', sans-serif;
+        }
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .toast-notification i {
+            color: #D4AF37;
+            margin-right: 10px;
+            opacity: 0.5;
+        }
+
+        /* ----- MODAL ----- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #121212;
+            border: 1px solid rgba(212, 175, 55, 0.08);
+            border-radius: 24px;
+            max-width: 720px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 48px 40px 40px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 4px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+        }
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+        .modal-content h2 span {
+            color: #D4AF37;
+            font-style: italic;
+        }
+        .modal-content .modal-sub {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.04);
+            padding-bottom: 16px;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #D4AF37;
+            margin: 20px 0 6px;
+            letter-spacing: 1px;
+        }
+        .modal-content p,
+        .modal-content li {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.8;
+            font-weight: 300;
+            font-family: 'Inter', sans-serif;
+        }
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .modal-content ul li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+        }
+        .modal-content ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-size: 0.5rem;
+            opacity: 0.3;
+        }
+        .modal-content .highlight-box {
+            background: rgba(212, 175, 55, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.06);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+        .modal-content .highlight-box p {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+        .modal-content .highlight-box strong {
+            color: #D4AF37;
+            font-weight: 400;
+        }
+        .btn-close-modal {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.3);
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: color 0.3s;
+            position: absolute;
+            top: 16px;
+            right: 20px;
+        }
+        .btn-close-modal:hover {
+            color: #D4AF37;
         }
 
         /* ----- WHATSAPP ----- */
         .whatsapp-float {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
+            bottom: 28px;
+            right: 28px;
             background: #25D366;
-            color: white;
-            width: 50px;
-            height: 50px;
+            color: #ffffff;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.25);
+            font-size: 1.6rem;
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.08);
             z-index: 999;
             text-decoration: none;
-            transition: 0.25s;
-            border: none;
+            transition: all 0.3s ease;
         }
         .whatsapp-float:hover {
-            transform: scale(1.08);
+            transform: scale(1.06);
             background: #1fa855;
-            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.15);
         }
 
         /* ----- RESPONSIVE ----- */
         @media (max-width: 1024px) {
-            nav { padding: 1.2rem 3rem; }
-            .page-hero { min-height: 300px; }
-            .page-hero-content h1 { font-size: 3rem; }
-            .services-grid-section { padding: 4rem 2rem; }
-            .services-container { gap: 2rem; }
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+            .page-hero h1 {
+                font-size: 3.8rem;
+            }
+            .page-hero {
+                padding: 0 32px;
+                min-height: 400px;
+            }
         }
 
         @media (max-width: 768px) {
-            nav { padding: 1rem 1.8rem; }
-            nav.scrolled { padding: 0.7rem 1.8rem; }
+            .container {
+                padding: 0 24px;
+            }
+            nav {
+                padding: 16px 24px;
+            }
+            nav.scrolled {
+                padding: 12px 24px;
+            }
+
             .nav-links {
                 display: none;
                 flex-direction: column;
                 background: rgba(10, 10, 10, 0.98);
                 backdrop-filter: blur(16px);
+                padding: 24px;
                 position: absolute;
-                top: 68px;
-                right: 0;
-                width: 240px;
-                padding: 2.5rem 2rem;
-                gap: 2rem;
-                border-left: 1px solid var(--border-gold);
-                border-bottom: 1px solid var(--border-gold);
-                border-radius: 0 0 4px 4px;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+                top: 70px;
+                right: 20px;
+                width: 200px;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                border-radius: 16px;
+                gap: 16px;
+                align-items: flex-start;
             }
-            .nav-links.open { display: flex; }
-            .nav-links a {
-                font-size: 0.85rem;
-                letter-spacing: 5px;
-                color: rgba(255, 255, 255, 0.6);
-                padding: 6px 0;
+            .nav-links.open {
+                display: flex;
             }
-            .nav-links a:hover { color: var(--gold); }
-            .hamburger { display: flex; }
-
-            .page-hero { min-height: 280px; }
-            .page-hero-content h1 { font-size: 2.4rem; }
-            .page-hero-content p { font-size: 0.8rem; }
-
-            .services-grid-section { padding: 3rem 1.5rem; }
-            .services-grid-section .section-header h2 { font-size: 2.2rem; }
-            .services-container { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-            .service-card { padding: 1.8rem 1.2rem; }
-            .service-card .icon { font-size: 2.2rem; }
-            .service-card h3 { font-size: 0.95rem; }
-
-            .offer-section { padding: 3rem 1.5rem; }
-            .offer-section h2 { font-size: 1.8rem; }
-            .offer-badges { gap: 0.8rem; }
-            .offer-badge { font-size: 0.55rem; padding: 0.4rem 1rem; }
-
-            .cta-section h2 { font-size: 2rem; }
-            .cta-section .btn-cta {
-                padding: 0.8rem 2.5rem;
-                font-size: 0.7rem;
-                letter-spacing: 4px;
-                width: 100%;
-                max-width: 280px;
+            .nav-links .nav-cta {
+                padding: 6px 20px;
+            }
+            .hamburger {
+                display: block;
             }
 
-            .booking-ribbon {
-                padding: 1rem 1.5rem;
-                gap: 1.5rem;
-                flex-direction: column;
-                text-align: center;
+            .page-hero {
+                padding: 0 24px;
+                min-height: 350px;
+                height: 45vh;
+                align-items: center;
             }
-            .booking-ribbon .booking-text { font-size: 0.65rem; }
-            .btn-book {
-                padding: 0.8rem 2.5rem;
-                font-size: 0.7rem;
-                letter-spacing: 4px;
-                width: 100%;
-                max-width: 280px;
+            .page-hero h1 {
+                font-size: 2.8rem;
+            }
+            .page-hero p {
+                font-size: 0.95rem;
+            }
+            .page-hero-tag {
+                font-size: 0.5rem;
+                letter-spacing: 6px;
+            }
+            .page-hero-tag::before {
+                width: 24px;
+            }
+
+            .services-section {
+                padding: 60px 0 80px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .service-card {
+                padding: 28px 20px 24px;
+                border-radius: 20px;
+            }
+            .service-card .icon {
+                font-size: 2rem;
+            }
+            .service-card .icon-wrapper {
+                padding: 12px;
+            }
+            .service-card h3 {
+                font-size: 1.05rem;
+            }
+            .service-card p {
+                font-size: 0.75rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+            .section-header {
+                margin-bottom: 48px;
+            }
+
+            .features-section {
+                padding: 50px 0 60px;
+            }
+            .features-section h2 {
+                font-size: 2.2rem;
+            }
+            .feature-tag {
+                font-size: 0.5rem;
+                padding: 8px 18px;
+                letter-spacing: 3px;
+            }
+
+            .cta-section {
+                padding: 60px 0;
+            }
+            .cta-section h2 {
+                font-size: 2.4rem;
             }
 
             .footer-content {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 2rem;
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
-            .footer-links { justify-content: center; gap: 2rem; }
-            .footer-social { justify-content: center; }
-            .whatsapp-float {
-                width: 46px;
-                height: 46px;
-                font-size: 1.6rem;
-                bottom: 1.5rem;
-                right: 1.5rem;
+            .footer {
+                padding: 32px 24px 20px;
             }
-            .logo-container .logo-wrapper { height: 38px; padding: 3px 8px; }
-            .logo-container img { height: 30px; }
-            .logo-text { font-size: 0.9rem; letter-spacing: 4px; padding-left: 12px; }
+
+            .toast-notification {
+                bottom: 80px;
+                padding: 14px 24px;
+                font-size: 0.75rem;
+                max-width: 95%;
+            }
         }
 
         @media (max-width: 480px) {
-            .page-hero-content h1 { font-size: 1.8rem; }
-            .page-hero-content .tag { font-size: 0.5rem; letter-spacing: 5px; }
-            .services-grid-section .section-header h2 { font-size: 1.8rem; }
-            .services-container { grid-template-columns: 1fr; gap: 1rem; }
-            .service-card { padding: 1.5rem 1rem; }
-            .service-card .icon { font-size: 2rem; }
-            .service-card h3 { font-size: 0.85rem; }
-            .service-card p { font-size: 0.6rem; }
-            .offer-section h2 { font-size: 1.4rem; }
-            .cta-section h2 { font-size: 1.6rem; }
-            .cta-section .btn-cta {
-                padding: 0.7rem 2rem;
-                font-size: 0.6rem;
-                letter-spacing: 3px;
+            .page-hero h1 {
+                font-size: 2.2rem;
             }
-            .logo-container .logo-wrapper { height: 34px; padding: 2px 6px; }
-            .logo-container img { height: 26px; }
-            .logo-text { font-size: 0.75rem; letter-spacing: 3px; padding-left: 10px; }
-            .footer { padding: 2rem 1.2rem; }
-            .footer-links { flex-direction: column; gap: 1.2rem; }
-            .nav-links { width: 200px; padding: 2rem 1.5rem; gap: 1.5rem; }
-            .nav-links a { font-size: 0.75rem; }
-            .booking-ribbon .booking-text { font-size: 0.55rem; }
-            .btn-book {
-                padding: 0.7rem 2rem;
-                font-size: 0.6rem;
-                letter-spacing: 3px;
+            .page-hero p {
+                font-size: 0.85rem;
             }
-            .offer-badge { font-size: 0.5rem; padding: 0.3rem 0.8rem; }
+            .page-hero {
+                min-height: 300px;
+                height: 40vh;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+            }
+            .service-card {
+                padding: 24px 18px 20px;
+            }
+            .service-card .icon {
+                font-size: 1.8rem;
+            }
+            .service-card h3 {
+                font-size: 0.95rem;
+            }
+            .service-card p {
+                font-size: 0.7rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            .features-section h2 {
+                font-size: 1.8rem;
+            }
+            .feature-tag {
+                font-size: 0.4rem;
+                padding: 6px 14px;
+                letter-spacing: 2px;
+                gap: 6px;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+            .cta-section .btn {
+                padding: 12px 28px;
+                font-size: 0.55rem;
+            }
+
+            .logo-container .logo-wrapper {
+                height: 36px;
+                padding: 3px 6px;
+            }
+            .logo-container img {
+                height: 26px;
+            }
+            .logo-text {
+                font-size: 0.8rem;
+                letter-spacing: 3px;
+                padding-left: 10px;
+            }
+
+            .modal-content {
+                padding: 24px 16px 20px;
+            }
+            .modal-content h2 {
+                font-size: 1.2rem;
+            }
+            .toast-notification {
+                bottom: 70px;
+                padding: 12px 18px;
+                font-size: 0.65rem;
+                max-width: 98%;
+            }
+            .footer-bottom .copyright {
+                font-size: 0.4rem;
+            }
+            .footer-bottom .design-credit {
+                font-size: 0.4rem;
+            }
         }
     </style>
 </head>
@@ -966,6 +1078,7 @@
             <li><a href="services.html" class="active">Services</a></li>
             <li><a href="fleet.html">Fleet</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html" class="nav-cta"><i class="fas fa-calendar-check"></i> Book Now</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="menu">
             <i class="fas fa-bars"></i>
@@ -974,159 +1087,163 @@
 
     <!-- PAGE HERO -->
     <section class="page-hero">
-        <div class="page-hero-content">
-            <div class="tag"><i class="fas fa-concierge-bell"></i> premium services</div>
-            <h1>Executive <span>Transport</span></h1>
-            <p>Tailored chauffeur services for every occasion. Experience luxury, reliability, and discretion.</p>
+        <div class="page-hero-wrapper">
+            <div class="page-hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="page-hero-tag"><i class="fas fa-concierge-bell"></i> Premium Services</div>
+                <h1>Executive <span>Transport</span></h1>
+                <p>Tailored chauffeur services for every occasion. Experience luxury, reliability, and discretion.</p>
+            </div>
         </div>
     </section>
-
-    <!-- BOOKING RIBBON -->
-    <div class="booking-ribbon">
-        <span class="booking-text"><i class="fas fa-calendar-check"></i> Book your ride in <span class="highlight">60 seconds</span></span>
-        <a href="contact.html" class="btn-book"><i class="fas fa-arrow-right"></i> Book Now</a>
-        <span class="booking-text"><i class="fas fa-phone-alt"></i> Call us: <a href="tel:+27824556789" class="phone-number">+27 82 455 6789</a></span>
-    </div>
 
     <!-- SERVICES GRID -->
-    <section class="services-grid-section reveal">
-        <div class="section-header">
-            <div class="overline"><i class="fas fa-star" style="margin-right: 8px;"></i> what we offer</div>
-            <h2>Our <span>Services</span></h2>
-        </div>
-        <div class="services-container">
-
-            <!-- Airport Transfers -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-plane-departure"></i></div>
-                <h3>Airport Transfers</h3>
-                <p>Seamless pickup and drop-off at all major South African airports. Flight tracking &amp; meet-and-greet included.</p>
-                <div class="price-hint">From R850</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="overline">What We Offer</div>
+                <h2>Our <span>Services</span></h2>
+                <p>Premium transport solutions for every journey.</p>
             </div>
+            <div class="services-grid">
+                <!-- Airport Transfers -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-plane-departure"></i></span></span>
+                    <h3>Airport Transfers</h3>
+                    <p>Seamless pickup and drop-off at all major South African airports. Flight tracking &amp; meet-and-greet included.</p>
+                    <div class="price-hint">From R850</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
 
-            <!-- Event Transport -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-calendar-check"></i></div>
-                <h3>Event Transport</h3>
-                <p>Weddings, galas, concerts, and private events. Arrive in style with our premium fleet and professional chauffeurs.</p>
-                <div class="price-hint">From R1,200</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
+                <!-- Event Transport -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="150">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-calendar-check"></i></span></span>
+                    <h3>Event Transport</h3>
+                    <p>Weddings, galas, concerts, and private events. Arrive in style with our premium fleet and professional chauffeurs.</p>
+                    <div class="price-hint">From R1,200</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- Corporate Travel -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-briefcase"></i></span></span>
+                    <h3>Corporate Travel</h3>
+                    <p>Executive transport for business meetings, conferences, and VIP clients. Discretion and punctuality guaranteed.</p>
+                    <div class="price-hint">From R950</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- VIP Chauffeur -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="250">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-gem"></i></span></span>
+                    <h3>VIP Chauffeur</h3>
+                    <p>Personalised luxury service with dedicated chauffeurs. Privacy, premium vehicles, and white‑glove treatment.</p>
+                    <div class="price-hint">From R1,500</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- Door-to-Door -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-map-pin"></i></span></span>
+                    <h3>Door‑to‑Door</h3>
+                    <p>Point‑to‑point service across the city. We pick you up from your doorstep and deliver you safely to your destination.</p>
+                    <div class="price-hint">From R650</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- Custom Tours -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="350">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-route"></i></span></span>
+                    <h3>Custom Tours</h3>
+                    <p>Tailored sightseeing and wine tours. Explore Cape Town, Pretoria, Johannesburg, and beyond in luxury and comfort.</p>
+                    <div class="price-hint">From R2,500</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- Matric Dance -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-music"></i></span></span>
+                    <h3>Matric Dance</h3>
+                    <p>Arrive in style for your matric dance. Premium vehicles, professional chauffeurs, and a <strong style="color: #D4AF37;">20% discount</strong> when booked before September 1.</p>
+                    <div class="price-hint">From R1,800</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
+
+                <!-- Group Transport -->
+                <div class="service-card" data-aos="fade-up" data-aos-delay="450">
+                    <span class="icon-wrapper"><span class="icon"><i class="fas fa-users"></i></span></span>
+                    <h3>Group Transport</h3>
+                    <p>Spacious vehicles for groups of up to 8 passengers. Perfect for family outings, team events, and group tours.</p>
+                    <div class="price-hint">From R1,200</div>
+                    <a href="contact.html" class="btn btn-gold-outline">Book Now</a>
+                </div>
             </div>
-
-            <!-- Corporate Travel -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-briefcase"></i></div>
-                <h3>Corporate Travel</h3>
-                <p>Executive transport for business meetings, conferences, and VIP clients. Discretion and punctuality guaranteed.</p>
-                <div class="price-hint">From R950</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-            <!-- VIP Chauffeur -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-gem"></i></div>
-                <h3>VIP Chauffeur</h3>
-                <p>Personalised luxury service with dedicated chauffeurs. Privacy, premium vehicles, and white‑glove treatment.</p>
-                <div class="price-hint">From R1,500</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-            <!-- Door-to-Door -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-map-pin"></i></div>
-                <h3>Door‑to‑Door</h3>
-                <p>Point‑to‑point service across the city. We pick you up from your doorstep and deliver you safely to your destination.</p>
-                <div class="price-hint">From R650</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-            <!-- Custom Tours -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-route"></i></div>
-                <h3>Custom Tours</h3>
-                <p>Tailored sightseeing and wine tours. Explore Cape Town, Pretoria, Johannesburg, and beyond in luxury and comfort.</p>
-                <div class="price-hint">From R2,500</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-            <!-- Matric Dance Transport -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-music"></i></div>
-                <h3>Matric Dance</h3>
-                <p>Arrive in style for your matric dance. Premium vehicles, professional chauffeurs, and a <strong style="color: var(--gold);">20% discount</strong> when booked before September 1.</p>
-                <div class="price-hint">From R1,800</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-            <!-- Group Transport -->
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-users"></i></div>
-                <h3>Group Transport</h3>
-                <p>Spacious vehicles for groups of up to 8 passengers. Perfect for family outings, team events, and group tours.</p>
-                <div class="price-hint">From R1,200</div>
-                <a href="contact.html" class="btn-service">Book Now</a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- WHAT WE OFFER (badges) -->
-    <section class="offer-section reveal">
-        <div class="overline"><i class="fas fa-star" style="margin-right: 8px;"></i> premium standards</div>
-        <h2>What We <span>Offer</span></h2>
-        <div class="offer-badges">
-            <span class="offer-badge"><i class="fas fa-clock"></i> punctuality</span>
-            <span class="offer-badge"><i class="fas fa-shield-alt"></i> safety</span>
-            <span class="offer-badge"><i class="fas fa-user-tie"></i> professionalism</span>
-            <span class="offer-badge"><i class="fas fa-wifi"></i> in‑car wifi</span>
-            <span class="offer-badge"><i class="fas fa-water"></i> bottled water</span>
-            <span class="offer-badge"><i class="fas fa-star"></i> 5‑star service</span>
-            <span class="offer-badge"><i class="fas fa-headphones"></i> concierge support</span>
-            <span class="offer-badge"><i class="fas fa-credit-card"></i> easy booking</span>
-            <span class="offer-badge"><i class="fas fa-phone-alt"></i> 24/7 availability</span>
-            <span class="offer-badge"><i class="fas fa-car"></i> premium fleet</span>
         </div>
     </section>
 
-    <!-- CTA SECTION -->
-    <section class="cta-section reveal">
-        <h2>Travel in comfort. <span>Arrive with confidence.</span></h2>
-        <div class="sub">Royal Meridian · since 2026</div>
-        <a href="contact.html" class="btn-cta"><i class="fas fa-arrow-right"></i> Book Your Ride</a>
+    <!-- FEATURES -->
+    <section class="features-section" data-aos="fade-up">
+        <div class="container">
+            <div class="overline">Premium Standards</div>
+            <h2>What We <span>Offer</span></h2>
+            <div class="features-grid">
+                <span class="feature-tag"><i class="fas fa-clock"></i> Punctuality</span>
+                <span class="feature-tag"><i class="fas fa-shield-alt"></i> Safety</span>
+                <span class="feature-tag"><i class="fas fa-user-tie"></i> Professionalism</span>
+                <span class="feature-tag"><i class="fas fa-wifi"></i> In-Car WiFi</span>
+                <span class="feature-tag"><i class="fas fa-water"></i> Bottled Water</span>
+                <span class="feature-tag"><i class="fas fa-star"></i> 5-Star Service</span>
+                <span class="feature-tag"><i class="fas fa-headphones"></i> Concierge Support</span>
+                <span class="feature-tag"><i class="fas fa-credit-card"></i> Easy Booking</span>
+                <span class="feature-tag"><i class="fas fa-phone-alt"></i> 24/7 Availability</span>
+                <span class="feature-tag"><i class="fas fa-car"></i> Premium Fleet</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" data-aos="zoom-in">
+        <div class="container">
+            <h2>Travel in Comfort.<br /><span>Arrive with Confidence.</span></h2>
+            <p>Experience the difference of premium executive transport.</p>
+            <a href="contact.html" class="btn btn-primary"><i class="fas fa-paper-plane" style="margin-right:8px;"></i> Get a Quote</a>
+        </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="logo-small">ROYAL <span>MERIDIAN</span></div>
+                <a href="index.html" class="logo-container">
+                    <span class="logo-wrapper">
+                        <img src="logo.jpg" alt="Royal Meridian Logo" />
+                    </span>
+                    <span class="logo-text">ROYAL <span>MERIDIAN</span></span>
+                </a>
                 <p>Executive shuttle &amp; chauffeur services<br />Pretoria · Midrand · Johannesburg</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a onclick="showSocialToast('Instagram')" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a onclick="showSocialToast('Facebook')" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a onclick="showSocialToast('WhatsApp')" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-links">
-                <div class="footer-links-column">
-                    <h5>Quick Links</h5>
-                    <a href="index.html">Home</a>
-                    <a href="services.html">Services</a>
-                    <a href="fleet.html">Fleet</a>
-                    <a href="contact.html">Contact</a>
-                </div>
-                <div class="footer-links-column">
-                    <h5>Contact</h5>
-                    <a href="tel:+27824556789"><i class="fas fa-phone-alt" style="margin-right: 6px; color: var(--gold);"></i> +27 82 455 6789</a>
-                    <a href="mailto:info@royalmeridiangroup.co.za"><i class="fas fa-envelope" style="margin-right: 6px; color: var(--gold);"></i> info@royalmeridiangroup.co.za</a>
-                    <a href="#"><i class="fas fa-map-marker-alt" style="margin-right: 6px; color: var(--gold);"></i> 123 Lynnwood Road, Pretoria, 0081</a>
-                </div>
+                <h5>Quick Links</h5>
+                <a href="index.html">Home</a>
+                <a href="services.html">Services</a>
+                <a href="fleet.html">Fleet</a>
+                <a href="contact.html">Contact</a>
+                <a href="contact.html">Book Now</a>
+            </div>
+            <div class="footer-links">
+                <h5>Legal</h5>
+                <a onclick="openModal('terms')"><i class="fas fa-file-contract"></i> Terms &amp; Conditions</a>
+                <a onclick="openModal('privacy')"><i class="fas fa-shield-alt"></i> Privacy Policy</a>
+                <a onclick="openModal('partner')"><i class="fas fa-handshake"></i> Partner With Us</a>
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT
-            <div class="design-credit">Website designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank">Monarch Technologies (Pty) Ltd.</a></div>
+            <div class="copyright">© 2026 ROYAL MERIDIAN SHUTTLES — PRIVATE EXECUTIVE TRANSPORT</div>
+            <div class="design-credit">Designed by <a href="https://www.monarchtechnologies.co.za/" target="_blank">Monarch Technologies (Pty) Ltd</a></div>
         </div>
     </footer>
 
@@ -1135,25 +1252,120 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- TOAST -->
+    <div class="toast-notification" id="toastNotification">
+        <i class="fas fa-info-circle"></i>
+        <span id="toastMessage">We'll link our social media accounts soon!</span>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('termsModal')"><i class="fas fa-times"></i></button>
+            <h2>Terms &amp; <span>Conditions</span></h2>
+            <div class="modal-sub">Welcome to Royal Meridian Shuttles</div>
+            <h3>Introduction</h3>
+            <p>By using our website or booking our services, you agree to these Terms &amp; Conditions.</p>
+            <h3>Booking Services</h3>
+            <p>Royal Meridian Shuttles coordinates and facilitates transport bookings with trusted transport partners.</p>
+            <h3>Booking Confirmation</h3>
+            <p>A booking is only confirmed once it has been accepted and confirmed by Royal Meridian.</p>
+            <h3>Pricing</h3>
+            <p>All quotations are subject to availability and may change until confirmed.</p>
+            <h3>Cancellations</h3>
+            <p>Cancellation terms will be communicated at the time of booking.</p>
+            <h3>Passenger Responsibilities</h3>
+            <p>Passengers are expected to behave respectfully and comply with all applicable laws during their journey.</p>
+            <h3>Liability</h3>
+            <p>Royal Meridian Shuttles coordinates transport services through approved transport partners. Transport operators remain responsible for the operation of their vehicles, drivers, permits and applicable insurance.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('privacyModal')"><i class="fas fa-times"></i></button>
+            <h2>Privacy <span>Policy</span></h2>
+            <div class="modal-sub">How we handle your information</div>
+            <h3>Information We Collect</h3>
+            <p>We may collect:</p>
+            <ul>
+                <li>Name</li>
+                <li>Email Address</li>
+                <li>Phone Number</li>
+                <li>Pickup and Destination Information</li>
+                <li>Booking Details</li>
+            </ul>
+            <h3>How We Use Your Information</h3>
+            <p>Your information is used solely to:</p>
+            <ul>
+                <li>Process bookings</li>
+                <li>Contact you regarding your booking</li>
+                <li>Improve our services</li>
+                <li>Respond to enquiries</li>
+            </ul>
+            <h3>Data Protection</h3>
+            <p>We take reasonable measures to protect your personal information and do not sell your data to third parties.</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="partnerModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" onclick="closeModal('partnerModal')"><i class="fas fa-times"></i></button>
+            <h2>Partner <span>With Us</span></h2>
+            <div class="modal-sub">Join Our Transport Network</div>
+            <p>Royal Meridian Shuttles is continuously expanding its network of trusted transport partners.</p>
+            <p>We welcome professional transport companies and luxury vehicle owners who meet our quality standards.</p>
+            <h3>Benefits</h3>
+            <ul>
+                <li>Additional booking opportunities</li>
+                <li>Flexible partnership</li>
+                <li>Professional client base</li>
+                <li>Business growth opportunities</li>
+            </ul>
+            <h3>Requirements</h3>
+            <ul>
+                <li>Professional conduct</li>
+                <li>Clean and well-maintained vehicles</li>
+                <li>Valid driver's licence</li>
+                <li>Required operating documentation</li>
+                <li>Commitment to excellent customer service</li>
+            </ul>
+            <h3>Interested?</h3>
+            <p>Email us at:</p>
+            <div class="highlight-box">
+                <p><strong>bookings.royalmeridian@gmail.com</strong></p>
+            </div>
+            <p>or submit an enquiry through our website.</p>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({
+            once: true,
+            duration: 700,
+            easing: 'ease-out-cubic',
+            offset: 80,
+            disable: 'mobile'
+        });
+
         // Nav scroll
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 30);
         });
 
-        // Hamburger menu
+        // Hamburger
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
         const icon = hamburger.querySelector('i');
-
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
             navLinks.classList.toggle('open');
             hamburger.classList.toggle('open');
             icon.className = navLinks.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
         });
-
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('open');
@@ -1161,7 +1373,6 @@
                 icon.className = 'fas fa-bars';
             });
         });
-
         document.addEventListener('click', (e) => {
             if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 navLinks.classList.remove('open');
@@ -1170,23 +1381,60 @@
             }
         });
 
-        // Scroll reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.12, rootMargin: '0px 0px -20px 0px' });
-        reveals.forEach(el => observer.observe(el));
+        // Toast
+        let toastTimeout;
 
-        window.addEventListener('load', () => {
-            reveals.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight * 0.85) {
-                    el.classList.add('visible');
+        function showSocialToast(platform) {
+            const toast = document.getElementById('toastNotification');
+            const message = document.getElementById('toastMessage');
+            const messages = {
+                'Instagram': '📸 We\'ll link our Instagram account soon!',
+                'Facebook': '👍 We\'ll link our Facebook page soon!',
+                'WhatsApp': '💬 We\'ll link our WhatsApp account soon!'
+            };
+            message.textContent = messages[platform] || 'We\'ll link our social media accounts soon!';
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+                toast.classList.remove('show');
+            }
+            setTimeout(() => { toast.classList.add('show'); }, 50);
+            toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3500);
+        }
+
+        // Modal functions
+        function openModal(type) {
+            const modalMap = { 'terms': 'termsModal', 'privacy': 'privacyModal', 'partner': 'partnerModal' };
+            const modalId = modalMap[type];
+            if (modalId) {
+                document.getElementById(modalId).classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
         });
-    </script>
 
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+        });
+
+        console.log('Royal Meridian Shuttles · Every Journey. Elevated.');
+    </script>
 </body>
 </html>
